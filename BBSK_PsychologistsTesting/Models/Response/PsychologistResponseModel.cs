@@ -63,21 +63,37 @@ namespace BBSK_PsychologistsTesting.Models.Response
 
         public override bool Equals(object? obj)
         {
-            return obj is PsychologistResponseModel model &&
-                   Id == model.Id &&
-                   Name == model.Name &&
-                   LastName == model.LastName &&
-                   Patronymic == model.Patronymic &&
-                   Gender == model.Gender &&
-                   BirthDate == model.BirthDate &&
-                   Phone == model.Phone &&
-                   Password == model.Password &&
-                   Email == model.Email &&
-                   WorkExperience == model.WorkExperience &&
-                   PasportData == model.PasportData &&
-                   IsDeleted == model.IsDeleted;
-
-
+            bool flag = true;
+            if (obj == null || !(obj is PsychologistResponseModel))
+            {
+                flag = false;
+            }
+            else
+            {
+                PsychologistResponseModel model = (PsychologistResponseModel)obj;
+                if (model.Id != this.Id ||
+                    model.Name != this.Name ||
+                    model.LastName != this.LastName ||
+                    model.Patronymic != this.Patronymic ||
+                    model.Gender != this.Gender ||
+                    model.BirthDate != this.BirthDate ||
+                    model.Phone != this.Phone ||
+                    model.Password != this.Password ||
+                    model.Email != this.Email ||
+                    model.WorkExperience != this.WorkExperience ||
+                    model.PasportData != this.PasportData ||
+                    model.Education != this.Education ||
+                    model.CheckStatus != this.CheckStatus ||
+                    model.TherapyMethods != this.TherapyMethods ||
+                    model.Problems != this.Problems ||
+                    model.Price != this.Price ||
+                    model.IsDeleted != this.IsDeleted
+                    )
+                {
+                    flag = false;
+                }
+            }
+            return flag;
         }
     }
 }
