@@ -117,5 +117,33 @@ namespace BBSK_PsychologistsTesting.Tests
 
         }
         
+        [Test]
+        public void PsychologistCreation_WhenPasswordIsLessThan8Symbols_ShouldThrowCode422()
+        {
+            PsychologistRequestModel psychologistModel = new PsychologistRequestModel()
+            {
+                Name = "Валерий",
+                LastName = "Александрович",
+                Patronymic = "Нежный",
+                Gender = 1,
+                BirthDate = new DateTime(2022, 05, 01),
+                Phone = "89992314543",
+                Password = "123",
+                Email = "valera@mail.ru",
+                WorkExperience = 5,
+                PasportData = "4015 2453443 ГУ МВД ПО СПБ",
+                Education = new List<string> { "Мгу" },
+                CheckStatus = 1,
+                TherapyMethods = new List<string> { "когнитивная терапия" },
+                Problems = new List<string> { "тревога" },
+                Price = 1000
+            };
+            HttpStatusCode expectedRegistrationCode = HttpStatusCode.UnprocessableEntity;
+            //When
+            HttpResponseMessage response = _psychologistsPsychologist.RegisterPsychologist(psychologistModel);
+            HttpStatusCode actualRegistrationCode = response.StatusCode;
+            //Then
+            Assert.AreEqual(expectedRegistrationCode, actualRegistrationCode);
+        }
     }
 }
