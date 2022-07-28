@@ -6,5 +6,6 @@ namespace BBSK_PsychologistsTesting
 
         public const string Psychologists = $"{Host}/Psychologists";
         public const string Auth = $"{Host}/Auth";
+        public const string PsychologistsId = $"{Host}/Psychologists/id";
     }
 }
