@@ -31,5 +31,17 @@ namespace BBSK_PsychologistsTesting.Steps
             return (int)actualId;
 
         }
+
+        public void AuthPsychologist(AuthRequestModel authModel)
+        {
+            HttpStatusCode expectedAuthCode = HttpStatusCode.Created;
+            //When
+            HttpResponseMessage authResponse = _authPsychologist.Authorize(authModel);
+            HttpStatusCode actualAuthCode = authResponse.StatusCode;
+            string actualToken = authResponse.Content.ReadAsStringAsync().Result;
+            //Then
+            Assert.AreEqual(expectedAuthCode, actualAuthCode);
+            Assert.NotNull(actualToken);
+        }
     }
 }

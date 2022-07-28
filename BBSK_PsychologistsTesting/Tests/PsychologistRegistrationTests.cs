@@ -23,10 +23,8 @@ namespace BBSK_PsychologistsTesting.Tests
 
         [Test]
         public void PsychologistCreation_WhenPsychologistModelIsCorrect_ShouldCreatePsychologist()
-        {
-
+        { 
             //Регистрация
-            //Given
             PsychologistRequestModel psychologistModel = new PsychologistRequestModel()
             {
                 Name = "Валерий",
@@ -55,16 +53,8 @@ namespace BBSK_PsychologistsTesting.Tests
                 Email = "valera@mail.ru",
                 Password = "Azino777",
             };
-            HttpStatusCode expectedAuthCode = HttpStatusCode.Created;
-            //When
-            HttpResponseMessage authResponse = _authPsychologist.Authorize(authModel);
-            HttpStatusCode actualAuthCode = authResponse.StatusCode;
-            string actualToken = authResponse.Content.ReadAsStringAsync().Result;
-            //Then
-            Assert.AreEqual(expectedAuthCode, actualAuthCode);
-            Assert.NotNull(actualToken);
-
-            string token = actualToken;
+            
+            _psychoSteps.AuthPsychologist(authModel);
 
             PsychologistResponseModel expectedPsychologist = new PsychologistResponseModel()
             {
