@@ -19,7 +19,7 @@ namespace BBSK_PsychologistsTesting.Tests
     {
         private PsychologistsPsychologist _psychologistsPsychologist = new PsychologistsPsychologist();
         private AuthPsychologist _authPsychologist = new AuthPsychologist();
-
+        private PsychologistsSteps _psychoSteps = new PsychologistsSteps();
 
         [Test]
         public void PsychologistCreation_WhenPsychologistModelIsCorrect_ShouldCreatePsychologist()
@@ -46,7 +46,7 @@ namespace BBSK_PsychologistsTesting.Tests
                 Price = 1000
             };
 
-            int psychologistId = 
+            int psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);
 
             //Авторизация
             //Given
