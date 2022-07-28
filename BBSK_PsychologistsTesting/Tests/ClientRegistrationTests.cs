@@ -3,13 +3,15 @@ using NUnit.Framework;
 using System;
 using BBSK_PsychologistsTesting.Clients;
 using BBSK_PsychologistsTesting.Steps;
+using BBSK_PsychologistsTesting.Psychologist;
+using System.Net;
+using System.Net.Http;
 
 namespace BBSK_PsychologistsTesting.Tests
 {
     public class ClientRegistrationTests
-    {
-        private ClientsClient _clientsClient = new ClientsClient(); // я создал клиента
-        private AuthClient _authClient = new AuthClient(); // я создал клиента
+    {       
+        
         public AuthSteps authsteps = new AuthSteps();
 
         [Test]
@@ -18,53 +20,23 @@ namespace BBSK_PsychologistsTesting.Tests
             ClientRequestModel clientModel = new ClientRequestModel()
             {
                 Name = "Кукумбер",
-                LastName = "Покусанный",
+                LastName = "Cанный",
                 Password= "12345678",
-                Email= "955555@ooaaoksdf.ru",
-                PhoneNumber = "8988051617",
-                BirthDate= new DateTime(1991, 05, 01)
+                Email= "122555@ooaaoksdf.ru",
+                PhoneNumber = "8788044617",
+                BirthDate= new DateTime(1991, 06, 01)
             };// я создал модельку
 
-            int aaa=authsteps.RegistrateClient(clientModel);
-             
+            int client=authsteps.RegistrateClient(clientModel);
+           
+            AuthRequestModel authModel = new AuthRequestModel()
+            {
+                Email = "122555@ooaaoksdf.ru",
+                Password = "12345678",
+            };// я создал модельку 
 
-            //HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created; // говорю код такой
-
-
-
-            //HttpResponseMessage respons = _clientsClient.RegistrationClient(clientModel);// какое действие я сделал
-
-            //HttpStatusCode actualRegistrationCode = respons.StatusCode; // реальный вот такой
-            //string id = respons.Content.ReadAsStringAsync().Result;
-            //int? actualId = Convert.ToInt32(respons.Content.ReadAsStringAsync().Result);//я прочитал ответ и сконвертил его
-
-            //Assert.AreEqual(expectedRegistrationCode, actualRegistrationCode);// проверОчка
-            //Assert.NotNull(actualId);
-            //Assert.IsTrue(actualId>0);
-
-
-            //int clientID = (int)actualId;
-
-
-
-            //AuthRequestModel authModel = new AuthRequestModel()
-            //{
-            //    Email = "QQQ@eeee.ru",
-            //    Password = "123456789",               
-            //};// я создал модельку 
-            //HttpStatusCode expectedAuthCode = HttpStatusCode.Created; // говорю код такой
-
-            //HttpResponseMessage authrespons = _authClient.AutorializeClient(authModel);// какое действие я сделал
-
-            //HttpStatusCode actualAuthCode = authrespons.StatusCode; // реальный вот такой
-            //string actualToken = authrespons.Content.ReadAsStringAsync().Result;//я прочитал ответ и сконвертил его
-            
-
-            //Assert.AreEqual(expectedAuthCode, actualAuthCode);// проверОчка
-            //Assert.NotNull(actualToken);
-
-            //string token=actualToken;
-
+            string avtorizeclient = authsteps.AuthtorizeClientSystem(authModel);
+          
             //ClientResponsModel expectedClient = new ClientResponsModel()
             //{
             //    Id = clientID,
