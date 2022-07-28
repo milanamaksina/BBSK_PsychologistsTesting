@@ -11,6 +11,7 @@ using System.Text.Json;
 using BBSK_PsychologistsTesting.Models.Request;
 using System.Net.Http.Headers;
 using BBSK_PsychologistsTesting.Models.Response;
+using BBSK_PsychologistsTesting.Steps;
 
 namespace BBSK_PsychologistsTesting.Tests
 {
@@ -44,17 +45,8 @@ namespace BBSK_PsychologistsTesting.Tests
                 Problems = new List<string> { "тревога" },
                 Price = 1000
             };
-            HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
-            //When
-            HttpResponseMessage response = _psychologistsPsychologist.RegisterPsychologist(psychologistModel);
-            HttpStatusCode actualRegistrationCode = response.StatusCode;
-            int? actualId = Convert.ToInt32(response.Content.ReadAsStringAsync().Result);
-            //Then
-            Assert.AreEqual(expectedRegistrationCode, actualRegistrationCode);
-            Assert.NotNull(actualId);
-            Assert.IsTrue(actualId > 0);
 
-            int psychologistId = (int)actualId;
+            int psychologistId = 
 
             //Авторизация
             //Given
