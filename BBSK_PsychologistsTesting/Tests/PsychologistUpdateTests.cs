@@ -19,6 +19,7 @@ namespace BBSK_PsychologistsTesting.Tests
         private PsychologistsPsychologist _psychologistsPsychologist = new PsychologistsPsychologist();
         private AuthPsychologist _authPsychologist = new AuthPsychologist();
 
+        [Test]
         public void PsychologistUpdate_WhenPsychologistModelIsCorrect_ShouldUpdatePsychologist()
         {
             //Регистрация - баг 2.7
