@@ -23,7 +23,7 @@ namespace BBSK_PsychologistsTesting.Tests
 
         [Test]
         public void PsychologistCreation_WhenPsychologistModelIsCorrect_ShouldCreatePsychologist()
-        { 
+        {
             //Регистрация
             PsychologistRequestModel psychologistModel = new PsychologistRequestModel()
             {
@@ -54,7 +54,7 @@ namespace BBSK_PsychologistsTesting.Tests
                 Password = "Azino777",
             };
             
-            _psychoSteps.AuthPsychologist(authModel);
+            string token = _psychoSteps.AuthPsychologist(authModel);
 
             PsychologistResponseModel expectedPsychologist = new PsychologistResponseModel()
             {
@@ -76,13 +76,11 @@ namespace BBSK_PsychologistsTesting.Tests
                 Price = psychologistModel.Price,
                 
             };
-            HttpContent content = _psychologistsPsychologist.GetPsychologistById(psychologistId, token, HttpStatusCode.OK);
-            PsychologistResponseModel actualPsychologist = JsonSerializer.Deserialize<PsychologistResponseModel>(content.ReadAsStringAsync().Result);
-            Assert.AreEqual(expectedPsychologist, actualPsychologist);
 
+            _psychoSteps.GetPsychologistById(psychologistId, token, expectedPsychologist);
 
         }
-        
+
         [Test]
         public void PsychologistCreation_WhenPasswordIsLessThan8Symbols_ShouldThrowCode422()
         {

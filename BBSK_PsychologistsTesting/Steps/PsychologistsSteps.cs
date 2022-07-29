@@ -1,4 +1,5 @@
 ﻿using BBSK_PsychologistsTesting.Models.Request;
+using BBSK_PsychologistsTesting.Models.Response;
 using BBSK_PsychologistsTesting.Psychologist;
 using NUnit.Framework;
 using System;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace BBSK_PsychologistsTesting.Steps
@@ -32,7 +34,7 @@ namespace BBSK_PsychologistsTesting.Steps
 
         }
 
-        public void AuthPsychologist(AuthRequestModel authModel)
+        public string AuthPsychologist(AuthRequestModel authModel)
         {
             HttpStatusCode expectedAuthCode = HttpStatusCode.Created;
             //When
@@ -42,6 +44,17 @@ namespace BBSK_PsychologistsTesting.Steps
             //Then
             Assert.AreEqual(expectedAuthCode, actualAuthCode);
             Assert.NotNull(actualToken);
+
+            return actualToken;
+        }
+
+        public PsychologistResponseModel GetPsychologistById(int id, string token, PsychologistResponseModel expectedPsychologist)
+        {
+            HttpContent content = _psychologistsPsychologist.GetPsychologistById(id, token, HttpStatusCode.OK);
+            PsychologistResponseModel actualPsychologist = JsonSerializer.Deserialize<PsychologistResponseModel>(content.ReadAsStringAsync().Result);
+            Assert.AreEqual(expectedPsychologist, actualPsychologist);
+
+            return actualPsychologist;
         }
     }
 }
