@@ -39,8 +39,7 @@ namespace BBSK_PsychologistsTesting.Clients
             Assert.AreEqual(expectedCode, actualCode);// статусная проверка тут
 
             return httpResponsec.Content;
-        }
-
+        }     
     }
 
 }
