@@ -7,8 +7,6 @@ namespace BBSK_PsychologistsTesting
 
         public const string Psychologists = $"{Host}/Psychologists";
         public const string Clients= $"{Host}/Clients";
-       
-        
         public const string Auth = $"{Host}/Auth";
 
 
