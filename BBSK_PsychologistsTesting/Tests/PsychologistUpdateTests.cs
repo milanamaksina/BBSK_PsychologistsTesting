@@ -44,7 +44,6 @@ namespace BBSK_PsychologistsTesting.Tests
                 Problems = new List<string> { "тревога" },
                 Price = 1000
             };
-
             int psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);
 
             AuthRequestModel authModel = new AuthRequestModel()
@@ -52,7 +51,6 @@ namespace BBSK_PsychologistsTesting.Tests
                 Email = "valera@mail.ru",
                 Password = "Azino777",
             };
-
             string token = _psychoSteps.AuthPsychologist(authModel);
 
 
@@ -75,42 +73,33 @@ namespace BBSK_PsychologistsTesting.Tests
                 Problems = new List<string> { "тревога" },
                 Price = 1000
             };
-
             _psychoSteps.UpdatePsychologistById(psychologistId, psychologistNewModel, token);
+
+            //Гет по айди
+            PsychologistResponseModel expectedPsychologist = new PsychologistResponseModel()
+            {
+                Id = psychologistId,
+                Name = psychologistNewModel.Name,
+                LastName = psychologistNewModel.LastName,
+                Patronymic = psychologistNewModel.Patronymic,
+                Gender = psychologistNewModel.Gender,
+                BirthDate = psychologistNewModel.BirthDate,
+                Phone = psychologistNewModel.Phone,
+                Password = psychologistNewModel.Password,
+                Email = psychologistNewModel.Password,
+                WorkExperience = psychologistNewModel.WorkExperience,
+                PasportData = psychologistNewModel.PasportData,
+                Education = psychologistNewModel.Education,
+                CheckStatus = psychologistNewModel.CheckStatus,
+                TherapyMethods = psychologistNewModel.TherapyMethods,
+                Problems = psychologistNewModel.Problems,
+                Price = psychologistNewModel.Price,
+
+            };
+            _psychoSteps.GetPsychologistById(psychologistId, token, expectedPsychologist);
         }
 
-        [Test]
-        public void Test()
-        {
-            AuthRequestModel authModel = new AuthRequestModel()
-            {
-                Email = "manager@p.ru",
-                Password = "Manager777",
-            };
-
-            string token = _psychoSteps.AuthPsychologist(authModel);
-
-            PsychologistRequestModel psychologistNewModel = new PsychologistRequestModel()
-            {
-                Name = "Валерий",
-                LastName = "Александрович",
-                Patronymic = "Нежный",
-                Gender = 1,
-                BirthDate = new DateTime(2022, 05, 01),
-                Phone = "89992314543",
-                Password = "Azino777",
-                Email = "valera@mail.ru",
-                WorkExperience = 5,
-                PasportData = "4015 2453443 ГУ МВД ПО СПБ",
-                Education = new List<string> { "Мгу" },
-                CheckStatus = 1,
-                TherapyMethods = new List<string> { "когнитивная терапия" },
-                Problems = new List<string> { "тревога" },
-                Price = 1000
-            };
-
-            _psychoSteps.UpdatePsychologistById(39, psychologistNewModel, token);
-        }
+        
 
 
 
