@@ -11,7 +11,6 @@ using System.Text.Json;
 using BBSK_PsychologistsTesting.Models.Request;
 using System.Net.Http.Headers;
 using BBSK_PsychologistsTesting.Models.Response;
-using BBSK_PsychologistsTesting.Steps;
 
 namespace BBSK_PsychologistsTesting.Tests
 {
@@ -19,12 +18,30 @@ namespace BBSK_PsychologistsTesting.Tests
     {
         private PsychologistsPsychologist _psychologistsPsychologist = new PsychologistsPsychologist();
         private AuthPsychologist _authPsychologist = new AuthPsychologist();
-        private PsychologistsSteps _psychoSteps = new PsychologistsSteps();
+
 
         [Test]
         public void PsychologistCreation_WhenPsychologistModelIsCorrect_ShouldCreatePsychologist()
         {
+            //Given
+            //AuthRequestModel authModel = new AuthRequestModel()
+            //{
+            //    Email = "manager@p.ru",
+            //    Password = "Manager777",
+            //};
+            //HttpStatusCode expectedAuthCode = HttpStatusCode.OK;
+            //HttpClient psycho = new HttpClient();
+            ////When
+            //HttpResponseMessage authResponse = _authPsychologist.Authorize(authModel);
+            //HttpStatusCode actualAuthCode = authResponse.StatusCode;
+            //string actualToken = authResponse.Content.ReadAsStringAsync().Result;
+            //psycho.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", actualToken);
+            ////Then
+            //Assert.AreEqual(expectedAuthCode, actualAuthCode);
+            //Assert.NotNull(actualToken);
+
             //Регистрация
+            //Given
             PsychologistRequestModel psychologistModel = new PsychologistRequestModel()
             {
                 Name = "Валерий",
@@ -43,19 +60,36 @@ namespace BBSK_PsychologistsTesting.Tests
                 Problems = new List<string> { "тревога" },
                 Price = 1000
             };
+            HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
+            //When
+            HttpResponseMessage response = _psychologistsPsychologist.RegisterPsychologist(psychologistModel);
+            HttpStatusCode actualRegistrationCode = response.StatusCode;
+            int? actualId = Convert.ToInt32(response.Content.ReadAsStringAsync().Result);
+            //Then
+            Assert.AreEqual(expectedRegistrationCode, actualRegistrationCode);
+            Assert.NotNull(actualId);
+            Assert.IsTrue(actualId > 0);
 
-            int psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);
+            int psychologistId = (int)actualId;
 
             //Авторизация
+            //Given
             AuthRequestModel authModel = new AuthRequestModel()
             {
                 Email = "valera@mail.ru",
                 Password = "Azino777",
             };
-            
-            string token = _psychoSteps.AuthPsychologist(authModel);
+            HttpStatusCode expectedAuthCode = HttpStatusCode.Created;
+            //When
+            HttpResponseMessage authResponse = _authPsychologist.Authorize(authModel);
+            HttpStatusCode actualAuthCode = authResponse.StatusCode;
+            string actualToken = authResponse.Content.ReadAsStringAsync().Result;
+            //Then
+            Assert.AreEqual(expectedAuthCode, actualAuthCode);
+            Assert.NotNull(actualToken);
 
-            //Гет по айди
+            string token = actualToken;
+
             PsychologistResponseModel expectedPsychologist = new PsychologistResponseModel()
             {
                 Id = psychologistId,
@@ -76,11 +110,13 @@ namespace BBSK_PsychologistsTesting.Tests
                 Price = psychologistModel.Price,
                 
             };
+            HttpContent content = _psychologistsPsychologist.GetPsychologistById(psychologistId, token, HttpStatusCode.OK);
+            PsychologistResponseModel actualPsychologist = JsonSerializer.Deserialize<PsychologistResponseModel>(content.ReadAsStringAsync().Result);
+            Assert.AreEqual(expectedPsychologist, actualPsychologist);
 
-            _psychoSteps.GetPsychologistById(psychologistId, token, expectedPsychologist);
 
         }
-
+        
         [Test]
         public void PsychologistCreation_WhenPasswordIsLessThan8Symbols_ShouldThrowCode422()
         {
@@ -102,11 +138,12 @@ namespace BBSK_PsychologistsTesting.Tests
                 Problems = new List<string> { "тревога" },
                 Price = 1000
             };
-
-            int psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);
-
-
-            
+            HttpStatusCode expectedRegistrationCode = HttpStatusCode.UnprocessableEntity;
+            //When
+            HttpResponseMessage response = _psychologistsPsychologist.RegisterPsychologist(psychologistModel);
+            HttpStatusCode actualRegistrationCode = response.StatusCode;
+            //Then
+            Assert.AreEqual(expectedRegistrationCode, actualRegistrationCode);
         }
     }
 }
