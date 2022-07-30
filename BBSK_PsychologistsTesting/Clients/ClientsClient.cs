@@ -41,6 +41,22 @@ namespace BBSK_PsychologistsTesting.Clients
             return httpResponsec.Content;
         }
 
+        public HttpContent GetAllClientById(int id, string token, HttpStatusCode expectedCode)
+        {
+            HttpClient client = new HttpClient();
+            HttpRequestMessage message = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new System.Uri($"{Urls.Clients}/{id}"),
+            };
+
+            HttpResponseMessage httpResponsec = client.Send(message);
+            HttpStatusCode actualCode = httpResponsec.StatusCode;
+
+            Assert.AreEqual(expectedCode, actualCode);// статусная проверка тут
+
+            return httpResponsec.Content;
+        }
     }
 
 }
