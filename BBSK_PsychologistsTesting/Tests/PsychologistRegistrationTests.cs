@@ -47,7 +47,6 @@ namespace BBSK_PsychologistsTesting.Tests
             int psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);
 
             //Авторизация
-            //Given
             AuthRequestModel authModel = new AuthRequestModel()
             {
                 Email = "valera@mail.ru",
@@ -56,6 +55,7 @@ namespace BBSK_PsychologistsTesting.Tests
             
             string token = _psychoSteps.AuthPsychologist(authModel);
 
+            //Гет по айди
             PsychologistResponseModel expectedPsychologist = new PsychologistResponseModel()
             {
                 Id = psychologistId,
@@ -102,12 +102,8 @@ namespace BBSK_PsychologistsTesting.Tests
                 Problems = new List<string> { "тревога" },
                 Price = 1000
             };
-            HttpStatusCode expectedRegistrationCode = HttpStatusCode.UnprocessableEntity;
-            //When
-            HttpResponseMessage response = _psychologistsPsychologist.RegisterPsychologist(psychologistModel);
-            HttpStatusCode actualRegistrationCode = response.StatusCode;
-            //Then
-            Assert.AreEqual(expectedRegistrationCode, actualRegistrationCode);
+
+            int psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);
         }
     }
 }

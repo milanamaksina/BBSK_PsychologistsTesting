@@ -36,7 +36,7 @@ namespace BBSK_PsychologistsTesting.Steps
 
         public string AuthPsychologist(AuthRequestModel authModel)
         {
-            HttpStatusCode expectedAuthCode = HttpStatusCode.Created;
+            HttpStatusCode expectedAuthCode = HttpStatusCode.OK;
             //When
             HttpResponseMessage authResponse = _authPsychologist.Authorize(authModel);
             HttpStatusCode actualAuthCode = authResponse.StatusCode;
@@ -50,11 +50,27 @@ namespace BBSK_PsychologistsTesting.Steps
 
         public PsychologistResponseModel GetPsychologistById(int id, string token, PsychologistResponseModel expectedPsychologist)
         {
-            HttpContent content = _psychologistsPsychologist.GetPsychologistById(id, token, HttpStatusCode.OK);
-            PsychologistResponseModel actualPsychologist = JsonSerializer.Deserialize<PsychologistResponseModel>(content.ReadAsStringAsync().Result);
+            HttpStatusCode expectedCode = HttpStatusCode.OK;
+            HttpContent httpContent = _psychologistsPsychologist.GetPsychologistById(id, token, HttpStatusCode.OK);
+
+            string content = httpContent.ReadAsStringAsync().Result;
+            PsychologistResponseModel actualPsychologist = JsonSerializer.Deserialize<PsychologistResponseModel>(content);
+
             Assert.AreEqual(expectedPsychologist, actualPsychologist);
 
             return actualPsychologist;
+        }
+
+        public void UpdatePsychologistById(int id, PsychologistRequestModel newPsychologistData, string token)
+        {
+            HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
+            //When
+            HttpResponseMessage updateResponse = _psychologistsPsychologist.UpdatePsychologistById(newPsychologistData, id, token, expectedUpdateCode);
+            HttpStatusCode actualUpdateCode = updateResponse.StatusCode;
+            string actualUpdateToken = updateResponse.Content.ReadAsStringAsync().Result;
+            //Then
+            Assert.AreEqual(expectedUpdateCode, actualUpdateCode);
+            Assert.NotNull(actualUpdateToken);
         }
     }
 }

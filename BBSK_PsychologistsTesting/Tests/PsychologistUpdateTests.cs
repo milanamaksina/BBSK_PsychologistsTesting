@@ -11,6 +11,7 @@ using System.Text.Json;
 using BBSK_PsychologistsTesting.Models.Request;
 using System.Net.Http.Headers;
 using BBSK_PsychologistsTesting.Models.Response;
+using BBSK_PsychologistsTesting.Steps;
 
 namespace BBSK_PsychologistsTesting.Tests
 {
@@ -18,6 +19,7 @@ namespace BBSK_PsychologistsTesting.Tests
     {
         private PsychologistsPsychologist _psychologistsPsychologist = new PsychologistsPsychologist();
         private AuthPsychologist _authPsychologist = new AuthPsychologist();
+        private PsychologistsSteps _psychoSteps = new PsychologistsSteps();
 
         [Test]
         public void PsychologistUpdate_WhenPsychologistModelIsCorrect_ShouldUpdatePsychologist()
@@ -42,37 +44,17 @@ namespace BBSK_PsychologistsTesting.Tests
                 Problems = new List<string> { "тревога" },
                 Price = 1000
             };
-            HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
-            //When
-            HttpResponseMessage response = _psychologistsPsychologist.RegisterPsychologist(psychologistModel);
-            HttpStatusCode actualRegistrationCode = response.StatusCode;
-            int? actualId = Convert.ToInt32(response.Content.ReadAsStringAsync().Result);
-            //Then
-            Assert.AreEqual(expectedRegistrationCode, actualRegistrationCode);
-            Assert.NotNull(actualId);
-            Assert.IsTrue(actualId > 0);
 
-            int psychologistId = 39 /*(int)actualId*/;
+            int psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);
 
-            //Авторизация - баг 2.15
-            //Given
             AuthRequestModel authModel = new AuthRequestModel()
             {
-                //Email = "valera@mail.ru",
-                //Password = "Azino777",
                 Email = "valera@mail.ru",
                 Password = "Azino777",
             };
-            HttpStatusCode expectedAuthCode = HttpStatusCode.Created;
-            //When
-            HttpResponseMessage authResponse = _authPsychologist.Authorize(authModel);
-            HttpStatusCode actualAuthCode = authResponse.StatusCode;
-            string actualToken = authResponse.Content.ReadAsStringAsync().Result;
-            //Then
-            Assert.AreEqual(expectedAuthCode, actualAuthCode);
-            Assert.NotNull(actualToken);
 
-            string token = actualToken;
+            string token = _psychoSteps.AuthPsychologist(authModel);
+
 
             //редактирование - баг 2.16
             PsychologistRequestModel psychologistNewModel = new PsychologistRequestModel()
@@ -93,16 +75,42 @@ namespace BBSK_PsychologistsTesting.Tests
                 Problems = new List<string> { "тревога" },
                 Price = 1000
             };
-            HttpStatusCode expectedUpdateCode = HttpStatusCode.OK;
-            //When
-            HttpResponseMessage updateResponse = _psychologistsPsychologist.UpdatePsychologistById(psychologistNewModel, psychologistId, token, expectedUpdateCode);
-            HttpStatusCode actualUpdateCode = updateResponse.StatusCode;
-            string actualUpdateToken = updateResponse.Content.ReadAsStringAsync().Result;
-            //Then
-            Assert.AreEqual(expectedUpdateCode, actualUpdateCode);
-            Assert.NotNull(actualToken);
+
+            _psychoSteps.UpdatePsychologistById(psychologistId, psychologistNewModel, token);
         }
 
+        [Test]
+        public void Test()
+        {
+            AuthRequestModel authModel = new AuthRequestModel()
+            {
+                Email = "manager@p.ru",
+                Password = "Manager777",
+            };
+
+            string token = _psychoSteps.AuthPsychologist(authModel);
+
+            PsychologistRequestModel psychologistNewModel = new PsychologistRequestModel()
+            {
+                Name = "Валерий",
+                LastName = "Александрович",
+                Patronymic = "Нежный",
+                Gender = 1,
+                BirthDate = new DateTime(2022, 05, 01),
+                Phone = "89992314543",
+                Password = "Azino777",
+                Email = "valera@mail.ru",
+                WorkExperience = 5,
+                PasportData = "4015 2453443 ГУ МВД ПО СПБ",
+                Education = new List<string> { "Мгу" },
+                CheckStatus = 1,
+                TherapyMethods = new List<string> { "когнитивная терапия" },
+                Problems = new List<string> { "тревога" },
+                Price = 1000
+            };
+
+            _psychoSteps.UpdatePsychologistById(39, psychologistNewModel, token);
+        }
 
 
 
