@@ -104,6 +104,9 @@ namespace BBSK_PsychologistsTesting.Tests
             };
 
             int psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);
+
+
+            
         }
     }
 }
