@@ -31,13 +31,17 @@ namespace BBSK_PsychologistsTesting.Psychologist
 
         public HttpContent GetPsychologistById(int id, string token, HttpStatusCode expectedCode)
         {
+            PsychologistRequestModel model = new PsychologistRequestModel();
+            string json = JsonSerializer.Serialize(model);
             HttpClient client = new HttpClient();
+
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Get,
-                RequestUri = new System.Uri($"{Urls.Psychologists}/{id}")
+                RequestUri = new System.Uri($"{Urls.Psychologists}/{id}"),
+                Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
             HttpResponseMessage httpResponse = client.Send(message);
             HttpStatusCode actualCode = httpResponse.StatusCode;
@@ -65,6 +69,26 @@ namespace BBSK_PsychologistsTesting.Psychologist
             Assert.AreEqual(expectedCode, actualCode);
 
             return psychologist.Send(message);
+        }
+
+        public HttpContent GetAllPsychologists(string token, HttpStatusCode expectedCode)
+        {
+            PsychologistRequestModel model = new PsychologistRequestModel();
+            string json = JsonSerializer.Serialize(model);
+            HttpClient client = new HttpClient();
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpRequestMessage message = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri(Urls.Psychologists),
+                Content = new StringContent(json, Encoding.UTF8, "application/json")
+            };
+            HttpResponseMessage response = client.Send(message);
+            HttpStatusCode actualCode = response.StatusCode;
+            Assert.AreEqual(expectedCode, actualCode);
+
+            return response.Content;
         }
     }
 }

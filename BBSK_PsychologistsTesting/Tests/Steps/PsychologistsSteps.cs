@@ -34,19 +34,19 @@ namespace BBSK_PsychologistsTesting.Steps
             return actual;
         }
 
-        public List<ClientGetIdResponsModel> GetAllClientById(int id, string token, List<ClientGetIdResponsModel> expected)
-        {
-            HttpStatusCode expectedCode = HttpStatusCode.OK;
+        //public List<ClientGetIdResponsModel> GetAllClientById(int id, string token, List<ClientGetIdResponsModel> expected)
+        //{
+        //    HttpStatusCode expectedCode = HttpStatusCode.OK;
 
-            HttpContent httpContent = _psychologistsObjectClient.//модель будет!!! (id, token, expectedCode);
+        //    HttpContent httpContent = _psychologistsObjectClient.//модель будет!!! (id, token, expectedCode);
 
-            string content = httpContent.ReadAsStringAsync().Result;
-            List <ClientGetIdResponsModel> actual = JsonSerializer.Deserialize< List<ClientGetIdResponsModel>>(content);
+        //    string content = httpContent.ReadAsStringAsync().Result;
+        //    List <ClientGetIdResponsModel> actual = JsonSerializer.Deserialize< List<ClientGetIdResponsModel>>(content);
 
-            CollectionAssert.AreEquivalent(expected, actual);
+        //    CollectionAssert.AreEquivalent(expected, actual);
 
-            return actual;
-        }
+        //    return actual;
+        //}
 
         //public string UpdateClient(int id, ClientsUpdateRequestModel clientsupdatemodel, HttpStatusCode expectedCode)
         //{

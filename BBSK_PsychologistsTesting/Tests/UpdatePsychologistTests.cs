@@ -94,5 +94,8 @@ namespace BBSK_PsychologistsTesting.Tests
             };
             _psychoSteps.GetPsychologistById(psychologistId, token, expectedPsychologist);
         }
+
+        
+       
     }
 }
