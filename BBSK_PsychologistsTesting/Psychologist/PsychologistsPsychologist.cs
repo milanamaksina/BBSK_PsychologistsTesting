@@ -46,5 +46,25 @@ namespace BBSK_PsychologistsTesting.Psychologist
 
             return httpResponse.Content;
         }
+
+        public HttpResponseMessage UpdatePsychologistById(PsychologistRequestModel model, int id, string token, HttpStatusCode expectedCode)
+        {
+            string json = JsonSerializer.Serialize(model);
+
+            HttpClient psychologist = new HttpClient();
+            psychologist.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpRequestMessage message = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Put,
+                RequestUri = new System.Uri($"{Urls.Psychologists}/{id}"),
+                Content = new StringContent(json, Encoding.UTF8, "application/json")
+            };
+            HttpResponseMessage response = psychologist.Send(message);
+            HttpStatusCode actualCode = response.StatusCode;
+
+            Assert.AreEqual(expectedCode, actualCode);
+
+            return psychologist.Send(message);
+        }
     }
 }
