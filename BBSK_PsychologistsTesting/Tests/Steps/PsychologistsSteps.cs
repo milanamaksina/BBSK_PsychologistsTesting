@@ -98,6 +98,19 @@ namespace BBSK_PsychologistsTesting.Steps
             Assert.AreEqual(expectedUpdateCode, actualUpdateCode);
             Assert.NotNull(actualUpdateToken);
         }
+
+        public List<PsychologistResponseModel> GetAllPsychologists(string token, List<PsychologistResponseModel> expected)
+        {
+            HttpStatusCode expectedCode = HttpStatusCode.OK;
+            HttpContent httpContent = _psychologistsPsychologist.GetAllPsychologists(token, expectedCode);
+
+            string content = httpContent.ReadAsStringAsync().Result;
+            List<PsychologistResponseModel> actual = JsonSerializer.Deserialize<List<PsychologistResponseModel>>(content);
+
+            CollectionAssert.AreEquivalent(expected, actual);
+
+            return actual;
+        }
     }
 }
 
