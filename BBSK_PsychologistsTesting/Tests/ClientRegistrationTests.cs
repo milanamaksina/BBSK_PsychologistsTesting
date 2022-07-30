@@ -37,19 +37,7 @@ namespace BBSK_PsychologistsTesting.Tests
 
             string avtorizeclient = authsteps.AuthtorizeClientSystem(authModel);
           
-            //ClientResponsModel expectedClient = new ClientResponsModel()
-            //{
-            //    Id = clientID,
-            //    Name = clientModel.Name,
-            //    LastName = clientModel.LastName,
-            //    Email = clientModel.Email,
-            //    PhoneNumber = clientModel.PhoneNumber,
-            //    BirthDate = new DateTime(1990, 05, 01)
-            //};// я создал модельку
-
-            //HttpContent content = _clientsClient.GetClientById(clientID,token,HttpStatusCode.OK);// какое действие я сделал
-            //ClientResponsModel actualClient = JsonSerializer.Deserialize< ClientResponsModel>( content.ReadAsStringAsync().Result);
-            //Assert.AreEqual(expectedClient, actualClient);
+            
         }
     }
 }
