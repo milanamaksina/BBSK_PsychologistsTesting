@@ -1,4 +1,5 @@
 ﻿using BBSK_PsychologistsTesting.Models.Request;
+using BBSK_PsychologistsTesting.Models.Response;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,26 @@ namespace BBSK_PsychologistsTesting.Psychologist
             Assert.AreEqual(expectedCode, actualCode);
 
             return httpResponse.Content;
+        }
+
+        public HttpResponseMessage UpdatePsychologistById(PsychologistRequestModel model, int id, string token, HttpStatusCode expectedCode)
+        {
+            string json = JsonSerializer.Serialize(model);
+
+            HttpClient psychologist = new HttpClient();
+            psychologist.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpRequestMessage message = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Put,
+                RequestUri = new System.Uri($"{Urls.PsychologistsId}"),
+                Content = new StringContent(json, Encoding.UTF8, "application/json")
+            };
+            HttpResponseMessage response = psychologist.Send(message);
+            HttpStatusCode actualCode = response.StatusCode;
+
+            Assert.AreEqual(expectedCode, actualCode);
+
+            return psychologist.Send(message);
         }
     }
 }
