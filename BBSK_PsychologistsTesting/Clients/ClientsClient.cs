@@ -76,7 +76,7 @@ namespace BBSK_PsychologistsTesting.Clients
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Put,
-                RequestUri = new System.Uri($"{Urls.Psychologists}/{id}"),
+                RequestUri = new System.Uri($"{Urls.Clients}/{id}"),
                 Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
             HttpResponseMessage response = client.Send(message);
@@ -86,6 +86,22 @@ namespace BBSK_PsychologistsTesting.Clients
 
             return client.Send(message);
 
+        }
+        public HttpContent DeleteClientById(int id, string token, HttpStatusCode expectedCode)
+        {
+            HttpClient client = new HttpClient();
+            HttpRequestMessage message = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Delete,
+                RequestUri = new System.Uri($"{Urls.Clients}/{id}"),
+            };
+
+            HttpResponseMessage httpResponsec = client.Send(message);
+            HttpStatusCode actualCode = httpResponsec.StatusCode;
+
+            Assert.AreEqual(expectedCode, actualCode);// статусная проверка тут
+
+            return httpResponsec.Content;
         }
     }
 

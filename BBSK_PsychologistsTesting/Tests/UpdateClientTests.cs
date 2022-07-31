@@ -1,8 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
 using BBSK_PsychologistsTesting.Models.Request;
-using NUnit.Framework;
-using BBSK_PsychologistsTesting.Clients;
 using BBSK_PsychologistsTesting.Steps;
 using BBSK_PsychologistsTesting.Psychologist;
 
@@ -10,8 +8,8 @@ namespace BBSK_PsychologistsTesting.Tests
 {
     public class UpdateClientTests
     {
-        private PsychologistsSteps _psychoSteps = new PsychologistsSteps();
-        public AuthSteps authsteps = new AuthSteps();
+        private ClientSteps _clientSteps = new ClientSteps();
+        public ClientSteps _authsteps = new ClientSteps();
 
         [Test]
         public void DataСhanged_WhenClientLogged_ShouldThrowCode422()
@@ -20,21 +18,21 @@ namespace BBSK_PsychologistsTesting.Tests
             {
                 Name = "Чудо",
                 LastName = "Юдо",
-                Password = "111111111",
-                Email = "рпно@oksdf.ru",
-                PhoneNumber = "8917051116",
-                BirthDate = new DateTime(1991, 01, 01)
+                Password = "0000000000",
+                Email = "новая почта@oksf.ru",
+                PhoneNumber = "812345678",
+                BirthDate = new DateTime(1980, 01, 01)
             };// я создал модельку
 
-            int client = authsteps.RegistrateClient(clientModel);
+            int client = _authsteps.RegistrateClient(clientModel);
 
             AuthRequestModel authModel = new AuthRequestModel()
             {
-                Email = "рпно@oksdf.ru",
+                Email = "рп@oksf.ru",
                 Password = "111111111",
             };// я создал модельку 
 
-            string avtorizeclient = authsteps.AuthtorizeClientSystem(authModel);
+            string avtorizeСlient = _authsteps.AuthtorizeClientSystem(authModel);
 
             ClientUpdateRequestModel clientUpdateModel = new ClientUpdateRequestModel()
             {
@@ -43,7 +41,21 @@ namespace BBSK_PsychologistsTesting.Tests
                 BirthDate = new DateTime(1991, 06, 01)
             };
 
-            _psychoSteps.UpdateClient(client, clientUpdateModel, avtorizeclient);
+            _clientSteps.UpdateClient(client, clientUpdateModel, avtorizeСlient);
+
+            ClientGetIdResponsModel expectedClient = new ClientGetIdResponsModel()
+            {
+                Id = client,
+                Name = clientUpdateModel.Name,
+                LastName = clientUpdateModel.LastName,
+                PhoneNumber = clientModel.PhoneNumber,              
+                Email = clientModel.Email,
+                BirthDate= clientUpdateModel.BirthDate,
+                //RegistrationDate= ,
+
+
+            };
+            _clientSteps.GetClientById(client, avtorizeСlient, expectedClient);
         }
     }
 }

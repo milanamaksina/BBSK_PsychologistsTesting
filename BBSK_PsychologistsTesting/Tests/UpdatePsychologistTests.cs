@@ -14,8 +14,8 @@ namespace BBSK_PsychologistsTesting.Tests
     public class UpdatePsychologistTests
     {
         private PsychologistsPsychologist _psychologistsPsychologist = new PsychologistsPsychologist();
-        private AuthSteps _authPsychologist = new AuthSteps();
-        private PsychologistsSteps _psychoSteps = new PsychologistsSteps();
+        private ClientSteps _authPsychologist = new ClientSteps();
+        private PsychologistSteps _psychoSteps = new PsychologistSteps();
 
         [Test]
         public void PsychologistUpdate_WhenPsychologistModelIsCorrect_ShouldUpdatePsychologist()
