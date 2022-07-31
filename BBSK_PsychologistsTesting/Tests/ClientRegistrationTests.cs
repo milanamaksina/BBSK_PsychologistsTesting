@@ -12,32 +12,32 @@ namespace BBSK_PsychologistsTesting.Tests
     public class ClientRegistrationTests
     {       
         
-        public AuthSteps authsteps = new AuthSteps();
+        public ClientSteps _authsteps = new ClientSteps();
 
         [Test]
          public void ClientCreation_WhenPasswordIsLessThan8Symbols_ShouldThrowCode422()
          {
             ClientRequestModel clientModel = new ClientRequestModel()
             {
-                Name = "Кукумбер",
-                LastName = "Cанный",
+                Name = "Ляшка",
+                LastName = "Какашка",
                 Password= "12345678",
-                Email= "122555@ooaaoksdf.ru",
-                PhoneNumber = "8788044617",
+                Email= "жела@ooaaoks.ru",
+                PhoneNumber = "8888044617",
                 BirthDate= new DateTime(1991, 06, 01)
             };// я создал модельку
 
-            int client=authsteps.RegistrateClient(clientModel);
+            int client=_authsteps.RegistrateClient(clientModel);
            
             AuthRequestModel authModel = new AuthRequestModel()
             {
-                Email = "122555@ooaaoksdf.ru",
+                Email = "жела@ooaaoks.ru",
                 Password = "12345678",
             };// я создал модельку 
 
-            string avtorizeclient = authsteps.AuthtorizeClientSystem(authModel);
+            string avtorizeclient = _authsteps.AuthtorizeClientSystem(authModel);
           
             
-        }
+         }
     }
 }
