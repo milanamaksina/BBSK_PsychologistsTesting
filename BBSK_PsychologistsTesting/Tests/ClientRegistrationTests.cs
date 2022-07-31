@@ -38,6 +38,6 @@ namespace BBSK_PsychologistsTesting.Tests
             string avtorizeclient = authsteps.AuthtorizeClientSystem(authModel);
           
             
-        }
+         }
     }
 }

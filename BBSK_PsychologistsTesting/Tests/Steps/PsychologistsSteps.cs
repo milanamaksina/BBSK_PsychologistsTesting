@@ -48,15 +48,19 @@ namespace BBSK_PsychologistsTesting.Steps
             return actual;
         }
 
-        //public string UpdateClient(int id, ClientsUpdateRequestModel clientsupdatemodel, HttpStatusCode expectedCode)
-        //{
-        //    HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
+        public void UpdateClient(int id, ClientUpdateRequestModel newClientUpdateModel, string token)
+        {
+            HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
+
+            HttpResponseMessage updateResponse = _psychologistsClient.UpdateClientById(id, newClientUpdateModel, token, expectedUpdateCode);
+            HttpStatusCode actualUpdateCode = updateResponse.StatusCode;
+            string actualUpdateToken = updateResponse.Content.ReadAsStringAsync().Result;
+
+            Assert.AreEqual(expectedUpdateCode, actualUpdateCode);
+            Assert.NotNull(actualUpdateToken);
 
 
-        //    HttpResponseMessage respons = _psychologistsobjectclient.UpdatingClient(id, clientsupdatemodel,expectedCode);
-
-
-        //}
+        }
 
         public int RegisterPsychologist(PsychologistRequestModel psychologistModel)
         {

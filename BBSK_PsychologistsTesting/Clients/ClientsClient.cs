@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using BBSK_PsychologistsTesting.Models.Request;
@@ -56,6 +57,27 @@ namespace BBSK_PsychologistsTesting.Clients
             Assert.AreEqual(expectedCode, actualCode);// статусная проверка тут
 
             return httpResponsec.Content;
+        }
+
+        public HttpResponseMessage UpdateClientById(int id, ClientUpdateRequestModel clientsUpdateModel, string token, HttpStatusCode expectedCode)
+        {
+            string json = JsonSerializer.Serialize(clientsUpdateModel);
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpRequestMessage message = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Put,
+                RequestUri = new System.Uri($"{Urls.Psychologists}/{id}"),
+                Content = new StringContent(json, Encoding.UTF8, "application/json")
+            };
+            HttpResponseMessage response = client.Send(message);
+            HttpStatusCode actualCode = response.StatusCode;
+
+            Assert.AreEqual(expectedCode, actualCode);
+
+            return client.Send(message);
+
         }
     }
 

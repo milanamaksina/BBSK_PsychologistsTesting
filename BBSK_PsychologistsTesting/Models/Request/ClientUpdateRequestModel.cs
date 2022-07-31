@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BBSK_PsychologistsTesting.Models.Request
 {
-    public class ClientsUpdateRequestModel
+    public class ClientUpdateRequestModel
     {
         [JsonPropertyName("name")]
         public string Name { get; set; }

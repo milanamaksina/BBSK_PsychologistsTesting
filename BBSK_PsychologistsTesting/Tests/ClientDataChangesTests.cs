@@ -13,7 +13,7 @@ namespace BBSK_PsychologistsTesting.Tests
         [Test]
         public void DataСhanged_WhenClientLogged_ShouldThrowCode422()
         {
-            ClientsUpdateRequestModel clientupdateModel = new ClientsUpdateRequestModel()
+            ClientUpdateRequestModel clientupdateModel = new ClientUpdateRequestModel()
             {
                 Name = "Кукумбер",
                 LastName = "CанБаян",
