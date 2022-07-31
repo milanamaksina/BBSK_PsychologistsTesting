@@ -16,29 +16,29 @@ namespace BBSK_PsychologistsTesting.Steps
 {
     public class PsychologistsSteps
     {
-        private ClientsClient _psychologistsObjectClient = new ClientsClient();
+        private ClientsClient _psychologistsClient = new ClientsClient();
         private PsychologistsPsychologist _psychologistsPsychologist = new PsychologistsPsychologist();
  
        
-        public ClientGetIdResponsModel GetClientObjectById (int id, string token, ClientGetIdResponsModel expected )
+        public ClientGetIdResponsModel GetClientById (int id, string token, ClientGetIdResponsModel expectedClient)
         {
             HttpStatusCode expectedCode = HttpStatusCode.OK;
 
-            HttpContent httpContent = _psychologistsObjectClient.GetClientById(id, token, expectedCode);
+            HttpContent httpContent = _psychologistsClient.GetClientById(id, token, expectedCode);
 
             string content = httpContent.ReadAsStringAsync().Result;
-            ClientGetIdResponsModel actual = JsonSerializer.Deserialize<ClientGetIdResponsModel>(content);
+            ClientGetIdResponsModel actualClient = JsonSerializer.Deserialize<ClientGetIdResponsModel>(content);
 
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(expectedClient, actualClient);
 
-            return actual;
+            return actualClient;
         }
 
         public List<ClientGetIdResponsModel> GetAllClientById(int id, string token, List<ClientGetIdResponsModel> expected)
         {
             HttpStatusCode expectedCode = HttpStatusCode.OK;
 
-            HttpContent httpContent = _psychologistsObjectClient.//модель будет!!! (id, token, expectedCode);
+            HttpContent httpContent = _psychologistsClient.GetAllClientById(id, token, expectedCode);
 
             string content = httpContent.ReadAsStringAsync().Result;
             List <ClientGetIdResponsModel> actual = JsonSerializer.Deserialize< List<ClientGetIdResponsModel>>(content);
