@@ -4,8 +4,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
-using BBSK_PsychologistsTesting.Models.Request;
 using BBSK_PsychologistsTesting.Psychologist;
 
 namespace BBSK_PsychologistsTesting.Clients

@@ -27,7 +27,7 @@ namespace BBSK_PsychologistsTesting.Tests
                 BirthDate= new DateTime(1991, 06, 01)
             };// я создал модельку
 
-            int client=_authsteps.RegistrateClient(clientModel);
+            int actualId=_authsteps.RegistrateClient(clientModel);
            
             AuthRequestModel authModel = new AuthRequestModel()
             {
@@ -35,7 +35,7 @@ namespace BBSK_PsychologistsTesting.Tests
                 Password = "12345678",
             };// я создал модельку 
 
-            string avtorizeclient = _authsteps.AuthtorizeClientSystem(authModel);
+            string token = _authsteps.AuthtorizeClientSystem(authModel);
           
             
          }

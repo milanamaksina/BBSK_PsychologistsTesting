@@ -38,7 +38,7 @@ namespace BBSK_PsychologistsTesting.Clients
             HttpResponseMessage httpResponsec=client.Send(message);
             HttpStatusCode actualCode=httpResponsec.StatusCode;
 
-            Assert.AreEqual(expectedCode, actualCode);// статусная проверка тут
+            Assert.AreEqual(expectedCode, actualCode);
 
             return httpResponsec.Content;
         }
@@ -87,9 +87,10 @@ namespace BBSK_PsychologistsTesting.Clients
             return client.Send(message);
 
         }
-        public HttpContent DeleteClientById(int id, string token, HttpStatusCode expectedCode)
+        public void DeleteClientById(int id, string token, HttpStatusCode expectedCode)
         {
             HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Delete,
@@ -99,9 +100,7 @@ namespace BBSK_PsychologistsTesting.Clients
             HttpResponseMessage httpResponsec = client.Send(message);
             HttpStatusCode actualCode = httpResponsec.StatusCode;
 
-            Assert.AreEqual(expectedCode, actualCode);// статусная проверка тут
-
-            return httpResponsec.Content;
+            Assert.AreEqual(expectedCode, actualCode);           
         }
     }
 
