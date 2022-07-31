@@ -9,7 +9,7 @@ namespace BBSK_PsychologistsTesting.Tests
     public class UpdateClientTests
     {
         private ClientSteps _clientSteps = new ClientSteps();
-        public ClientSteps _authsteps = new ClientSteps();
+        
 
         [Test]
         public void DataСhanged_WhenClientLogged_ShouldThrowCode422()
@@ -22,17 +22,17 @@ namespace BBSK_PsychologistsTesting.Tests
                 Email = "новая почта@oksf.ru",
                 PhoneNumber = "812345678",
                 BirthDate = new DateTime(1980, 01, 01)
-            };// я создал модельку
+            };
 
-            int client = _authsteps.RegistrateClient(clientModel);
+            int actualId = _clientSteps.RegistrateClient(clientModel);
 
             AuthRequestModel authModel = new AuthRequestModel()
             {
                 Email = "рп@oksf.ru",
                 Password = "111111111",
-            };// я создал модельку 
+            }; 
 
-            string avtorizeСlient = _authsteps.AuthtorizeClientSystem(authModel);
+            string token = _clientSteps.AuthtorizeClientSystem(authModel);
 
             ClientUpdateRequestModel clientUpdateModel = new ClientUpdateRequestModel()
             {
@@ -41,11 +41,11 @@ namespace BBSK_PsychologistsTesting.Tests
                 BirthDate = new DateTime(1991, 06, 01)
             };
 
-            _clientSteps.UpdateClient(client, clientUpdateModel, avtorizeСlient);
+            _clientSteps.UpdateClient(actualId, clientUpdateModel, token);
 
             ClientGetIdResponsModel expectedClient = new ClientGetIdResponsModel()
             {
-                Id = client,
+                Id = actualId,
                 Name = clientUpdateModel.Name,
                 LastName = clientUpdateModel.LastName,
                 PhoneNumber = clientModel.PhoneNumber,              
@@ -55,7 +55,7 @@ namespace BBSK_PsychologistsTesting.Tests
 
 
             };
-            _clientSteps.GetClientById(client, avtorizeСlient, expectedClient);
+            _clientSteps.GetClientById(actualId, token, expectedClient);
         }
     }
 }

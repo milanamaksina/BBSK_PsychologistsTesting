@@ -14,23 +14,21 @@ namespace BBSK_PsychologistsTesting.Steps
     public class ClientSteps
 
     {
-        private ClientsClient _clientsClient = new ClientsClient(); // я создал клиента
-        private AuthClient _authClient = new AuthClient(); // я создал клиента
+        private ClientsClient _clientsClient = new ClientsClient(); 
+        private AuthClient _authClient = new AuthClient(); 
         
 
         public int RegistrateClient (ClientRequestModel clientModel)
         {
+            HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created; 
 
-            HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created; // говорю код такой
+            HttpResponseMessage respons = _clientsClient.RegistrationClient(clientModel);
 
-
-            HttpResponseMessage respons = _clientsClient.RegistrationClient(clientModel);// какое действие я сделал
-
-            HttpStatusCode actualRegistrationCode = respons.StatusCode; // реальный вот такой
+            HttpStatusCode actualRegistrationCode = respons.StatusCode; 
             string id = respons.Content.ReadAsStringAsync().Result;
-            int? actualId = Convert.ToInt32(respons.Content.ReadAsStringAsync().Result);//я прочитал ответ и сконвертил его
+            int? actualId = Convert.ToInt32(respons.Content.ReadAsStringAsync().Result);
 
-            Assert.AreEqual(expectedRegistrationCode, actualRegistrationCode);// проверОчка
+            Assert.AreEqual(expectedRegistrationCode, actualRegistrationCode);
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);
 
@@ -39,15 +37,15 @@ namespace BBSK_PsychologistsTesting.Steps
 
         public string AuthtorizeClientSystem(AuthRequestModel authModel)
         {
-            HttpStatusCode expectedAuthCode = HttpStatusCode.OK; // говорю код такой
+            HttpStatusCode expectedAuthCode = HttpStatusCode.OK; 
 
-            HttpResponseMessage authrespons = _authClient.AutorializeClient(authModel);// какое действие я сделал
+            HttpResponseMessage authrespons = _authClient.AutorializeClient(authModel);
 
-            HttpStatusCode actualAuthCode = authrespons.StatusCode; // реальный вот такой
-            string actualToken = authrespons.Content.ReadAsStringAsync().Result;//я прочитал ответ и сконвертил его
+            HttpStatusCode actualAuthCode = authrespons.StatusCode; 
+            string actualToken = authrespons.Content.ReadAsStringAsync().Result;
 
 
-            Assert.AreEqual(expectedAuthCode, actualAuthCode);// проверОчка
+            Assert.AreEqual(expectedAuthCode, actualAuthCode);
             Assert.NotNull(actualToken);
 
             return actualToken;
@@ -92,8 +90,13 @@ namespace BBSK_PsychologistsTesting.Steps
 
             Assert.AreEqual(expectedUpdateCode, actualUpdateCode);
             Assert.NotNull(actualUpdateToken);
+        }
 
+        public void DeleteClientById (int id, string token)
+        {
+            HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
 
+            _clientsClient.DeleteClientById(id,token, expectedDeleteCode);           
         }
     }
 }
