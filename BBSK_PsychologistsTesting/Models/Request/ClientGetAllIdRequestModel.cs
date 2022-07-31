@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace BBSK_PsychologistsTesting.Models.Request
 {
-    public class ClientGetAllIdResponsModel
+    public class ClientGetAllIdRequestModel
     {             
             [JsonPropertyName("id")]
             public int Id { get; set; }
 
             public override bool Equals(object? obj)
             {
-                return obj is ClientGetAllIdResponsModel model &&
+                return obj is ClientGetAllIdRequestModel model &&
                        Id == model.Id;
             }
         

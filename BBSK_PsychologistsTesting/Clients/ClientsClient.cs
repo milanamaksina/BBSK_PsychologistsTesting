@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -44,19 +45,26 @@ namespace BBSK_PsychologistsTesting.Clients
 
         public HttpContent GetAllClientById(int id, string token, HttpStatusCode expectedCode)
         {
+             ClientGetAllIdRequestModel model = new ClientGetAllIdRequestModel()
+            {
+                Id = id
+            };
+            string json = JsonSerializer.Serialize(model);
+
             HttpClient client = new HttpClient();
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage message = new HttpRequestMessage()
             {
-                Method = HttpMethod.Post,
-                RequestUri = new System.Uri($"{Urls.Clients}/{id}"),
+                Method = HttpMethod.Get,
+                RequestUri = new Uri(Urls.Clients),
+                Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
+            HttpResponseMessage response = client.Send(message);
+            HttpStatusCode actualCode = response.StatusCode;
+            Assert.AreEqual(expectedCode, actualCode);
 
-            HttpResponseMessage httpResponsec = client.Send(message);
-            HttpStatusCode actualCode = httpResponsec.StatusCode;
-
-            Assert.AreEqual(expectedCode, actualCode);// статусная проверка тут
-
-            return httpResponsec.Content;
+            return response.Content;
         }
 
         public HttpResponseMessage UpdateClientById(int id, ClientUpdateRequestModel clientsUpdateModel, string token, HttpStatusCode expectedCode)
