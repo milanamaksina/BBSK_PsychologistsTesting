@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using BBSK_PsychologistsTesting.Clients;
 using BBSK_PsychologistsTesting.Models.Request;
 using BBSK_PsychologistsTesting.Models.Response;
@@ -14,12 +10,13 @@ using NUnit.Framework;
 
 namespace BBSK_PsychologistsTesting.Steps
 {
-    public class PsychologistsSteps
+    public class PsychologistSteps
     {
-        private ClientsClient _psychologistsObjectClient = new ClientsClient();
+        private ClientsClient _psychologistsClient = new ClientsClient();
         private PsychologistsPsychologist _psychologistsPsychologist = new PsychologistsPsychologist();
  
        
+<<<<<<< HEAD:BBSK_PsychologistsTesting/Tests/Steps/PsychologistsSteps.cs
         public ClientGetIdResponsModel GetClientObjectById (int id, string token, ClientGetIdResponsModel expected )
         {
             HttpStatusCode expectedCode = HttpStatusCode.OK;
@@ -57,6 +54,8 @@ namespace BBSK_PsychologistsTesting.Steps
 
 
         //}
+=======
+>>>>>>> main:BBSK_PsychologistsTesting/Tests/Steps/PsychologistSteps.cs
 
         public int RegisterPsychologist(PsychologistRequestModel psychologistModel)
         {
@@ -73,6 +72,7 @@ namespace BBSK_PsychologistsTesting.Steps
             return (int)actualId;
 
         }
+        
 
         public PsychologistResponseModel GetPsychologistById(int id, string token, PsychologistResponseModel expectedPsychologist)
         {
@@ -87,6 +87,7 @@ namespace BBSK_PsychologistsTesting.Steps
             return actualPsychologist;
         }
 
+        
         public void UpdatePsychologistById(int id, PsychologistRequestModel newPsychologistData, string token)
         {
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;

@@ -8,11 +8,11 @@ using BBSK_PsychologistsTesting.Steps;
 
 namespace BBSK_PsychologistsTesting.Tests
 {
-    public class PsychologistRegistrationTests
+    public class RegistrationAllRolesTests
     {
-        private PsychologistsPsychologist _psychologistsPsychologist = new PsychologistsPsychologist();
-        private AuthSteps _authPsychologist = new AuthSteps();
-        private PsychologistsSteps _psychoSteps = new PsychologistsSteps();
+        private ClientSteps _clientSteps= new ClientSteps();
+        private PsychologistSteps _psychoSteps = new PsychologistSteps();
+        
 
         [Test]
         public void PsychologistCreation_WhenPsychologistModelIsCorrect_ShouldCreatePsychologist()
@@ -44,7 +44,7 @@ namespace BBSK_PsychologistsTesting.Tests
                 Email = "valera@mail.ru",
                 Password = "Azino777",
             };
-            string token = _authPsychologist.AuthtorizeClientSystem(authModel);
+            string token = _clientSteps.AuthtorizeClientSystem(authModel);
 
             //Гет по айди 
             PsychologistResponseModel expectedPsychologist = new PsychologistResponseModel()
@@ -95,6 +95,35 @@ namespace BBSK_PsychologistsTesting.Tests
             };
 
             int psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);
-        }   
+        }
+
+        [Test]
+        public void ClientCreation_WhenPasswordIsLessThan8Symbols_ShouldThrowCode422()
+        {
+            ClientRequestModel clientModel = new ClientRequestModel()
+            {
+                Name = "Ляшка",
+                LastName = "Какашка",
+                Password = "12345678",
+                Email = "жела@ooaaoks.ru",
+                PhoneNumber = "8888044617",
+                BirthDate = new DateTime(1991, 06, 01)
+            };// я создал модельку
+
+            int actualId = _clientSteps.RegistrateClient(clientModel);
+
+            AuthRequestModel authModel = new AuthRequestModel()
+            {
+                Email = "жела@ooaaoks.ru",
+                Password = "12345678",
+            };// я создал модельку 
+
+            string token = _clientSteps.AuthtorizeClientSystem(authModel);
+
+
+        }
+
+
     }
+    
 }
