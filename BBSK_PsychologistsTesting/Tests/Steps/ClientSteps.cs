@@ -98,5 +98,12 @@ namespace BBSK_PsychologistsTesting.Steps
 
             _clientsClient.DeleteClientById(id,token, expectedDeleteCode);           
         }
+
+        //public void GetClientCommentsById(int id, string token)
+        //{
+        //    HttpStatusCode expectedCommentsCode = HttpStatusCode.OK;
+
+        //    _clientsClient.GetClientCommentsById(id, token, expectedCommentsCode);
+        //}
     }
 }

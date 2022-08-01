@@ -6,7 +6,7 @@ using System;
 
 namespace BBSK_PsychologistsTesting.Tests
 {
-    public class DeleteClientById
+    public class DeleteAllRoleById
     {    
         private ClientSteps _clientSteps = new ClientSteps();
 

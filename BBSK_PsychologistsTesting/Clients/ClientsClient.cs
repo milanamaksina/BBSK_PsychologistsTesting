@@ -25,24 +25,6 @@ namespace BBSK_PsychologistsTesting.Clients
 
             return client.Send(message);
         }
-
-        public HttpContent GetClientById(int id, string token, HttpStatusCode expectedCode)
-        {
-            HttpClient client = new HttpClient();
-            HttpRequestMessage message = new HttpRequestMessage()
-            {
-                Method = HttpMethod.Post,
-                RequestUri = new System.Uri($"{Urls.Clients}/{id}"),
-            };
-
-            HttpResponseMessage httpResponsec=client.Send(message);
-            HttpStatusCode actualCode=httpResponsec.StatusCode;
-
-            Assert.AreEqual(expectedCode, actualCode);
-
-            return httpResponsec.Content;
-        }
-
         public HttpContent GetAllClientById(int id, string token, HttpStatusCode expectedCode)
         {
              ClientGetAllIdRequestModel model = new ClientGetAllIdRequestModel()
@@ -66,6 +48,24 @@ namespace BBSK_PsychologistsTesting.Clients
 
             return response.Content;
         }
+
+        public HttpContent GetClientById(int id, string token, HttpStatusCode expectedCode)
+        {
+            HttpClient client = new HttpClient();
+            HttpRequestMessage message = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new System.Uri($"{Urls.Clients}/{id}"),
+            };
+
+            HttpResponseMessage httpResponsec=client.Send(message);
+            HttpStatusCode actualCode=httpResponsec.StatusCode;
+
+            Assert.AreEqual(expectedCode, actualCode);
+
+            return httpResponsec.Content;
+        }
+
 
         public HttpResponseMessage UpdateClientById(int id, ClientUpdateRequestModel clientsUpdateModel, string token, HttpStatusCode expectedCode)
         {
@@ -101,6 +101,24 @@ namespace BBSK_PsychologistsTesting.Clients
             HttpStatusCode actualCode = httpResponsec.StatusCode;
 
             Assert.AreEqual(expectedCode, actualCode);           
+        }
+
+        public HttpContent GetClientCommentsById(int id, string token, HttpStatusCode expectedCode)
+        {          
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpRequestMessage message = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new System.Uri($"{Urls.Clients}/{id}/comments"),              
+            };
+            HttpResponseMessage response = client.Send(message);
+            HttpStatusCode actualCode = response.StatusCode;
+
+            Assert.AreEqual(expectedCode, actualCode);
+
+            return response.Content;
         }
     }
 
