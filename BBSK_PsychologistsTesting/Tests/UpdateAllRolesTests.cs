@@ -1,5 +1,6 @@
 ﻿using BBSK_PsychologistsTesting.Models.Request;
 using BBSK_PsychologistsTesting.Models.Response;
+using BBSK_PsychologistsTesting.Options;
 using BBSK_PsychologistsTesting.Psychologist;
 using BBSK_PsychologistsTesting.Steps;
 using NUnit.Framework;
@@ -13,7 +14,41 @@ namespace BBSK_PsychologistsTesting.Tests
     {      
         private ClientSteps _clientSteps = new ClientSteps();
         private PsychologistSteps _psychoSteps = new PsychologistSteps();
-        
+        private DataCleaning _dataCleaning = new DataCleaning();
+        private ClientRequestModel clientModel = new ClientRequestModel();
+        int psychologistId;
+        int actualId;
+        string token;
+
+        [SetUp]
+        public void SetUp()
+        {
+            ClientRequestModel clientModel = new ClientRequestModel()
+            {
+                Name = "Чудо",
+                LastName = "Юдо",
+                Password = "0000000000",
+                Email = "новаяппочта@oksf.ru",
+                PhoneNumber = "88121691813",
+                BirthDate = new DateTime(1980, 01, 01)
+            };
+
+            int actualId = _clientSteps.RegistrateClient(clientModel);
+
+            AuthRequestModel authModel = new AuthRequestModel()
+            {
+                Email = "новаяппочта@oksf.ru",
+                Password = "0000000000",
+            };
+
+            string token = _clientSteps.AuthtorizeClientSystem(authModel);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _dataCleaning.Clean();
+        }
 
         [Test]
         public void PsychologistUpdate_WhenPsychologistModelIsCorrect_ShouldUpdatePsychologist()
@@ -92,29 +127,11 @@ namespace BBSK_PsychologistsTesting.Tests
             };
             _psychoSteps.GetPsychologistById(psychologistId, token, expectedPsychologist);
         }
-
+        
         [Test]
         public void DataСhanged_WhenClientLogged_ShouldThrowCode422()
         {
-            ClientRequestModel clientModel = new ClientRequestModel()
-            {
-                Name = "Чудо",
-                LastName = "Юдо",
-                Password = "0000000000",
-                Email = "новаяппочта@oksf.ru",
-                PhoneNumber = "88121691813",
-                BirthDate = new DateTime(1980, 01, 01)
-            };
-
-            int actualId = _clientSteps.RegistrateClient(clientModel);
-
-            AuthRequestModel authModel = new AuthRequestModel()
-            {
-                Email = "новаяппочта@oksf.ru",
-                Password = "0000000000",
-            };
-
-            string token = _clientSteps.AuthtorizeClientSystem(authModel);
+            
 
             ClientUpdateRequestModel clientUpdateModel = new ClientUpdateRequestModel()
             {
