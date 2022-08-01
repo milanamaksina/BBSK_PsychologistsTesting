@@ -16,6 +16,46 @@ namespace BBSK_PsychologistsTesting.Steps
         private PsychologistsPsychologist _psychologistsPsychologist = new PsychologistsPsychologist();
  
        
+<<<<<<< HEAD:BBSK_PsychologistsTesting/Tests/Steps/PsychologistsSteps.cs
+        public ClientGetIdResponsModel GetClientObjectById (int id, string token, ClientGetIdResponsModel expected )
+        {
+            HttpStatusCode expectedCode = HttpStatusCode.OK;
+
+            HttpContent httpContent = _psychologistsObjectClient.GetClientById(id, token, expectedCode);
+
+            string content = httpContent.ReadAsStringAsync().Result;
+            ClientGetIdResponsModel actual = JsonSerializer.Deserialize<ClientGetIdResponsModel>(content);
+
+            Assert.AreEqual(expected, actual);
+
+            return actual;
+        }
+
+        //public List<ClientGetIdResponsModel> GetAllClientById(int id, string token, List<ClientGetIdResponsModel> expected)
+        //{
+        //    HttpStatusCode expectedCode = HttpStatusCode.OK;
+
+        //    HttpContent httpContent = _psychologistsObjectClient.//модель будет!!! (id, token, expectedCode);
+
+        //    string content = httpContent.ReadAsStringAsync().Result;
+        //    List <ClientGetIdResponsModel> actual = JsonSerializer.Deserialize< List<ClientGetIdResponsModel>>(content);
+
+        //    CollectionAssert.AreEquivalent(expected, actual);
+
+        //    return actual;
+        //}
+
+        //public string UpdateClient(int id, ClientsUpdateRequestModel clientsupdatemodel, HttpStatusCode expectedCode)
+        //{
+        //    HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
+
+
+        //    HttpResponseMessage respons = _psychologistsobjectclient.UpdatingClient(id, clientsupdatemodel,expectedCode);
+
+
+        //}
+=======
+>>>>>>> main:BBSK_PsychologistsTesting/Tests/Steps/PsychologistSteps.cs
 
         public int RegisterPsychologist(PsychologistRequestModel psychologistModel)
         {
@@ -58,6 +98,26 @@ namespace BBSK_PsychologistsTesting.Steps
            
             Assert.AreEqual(expectedUpdateCode, actualUpdateCode);
             Assert.NotNull(actualUpdateToken);
+        }
+
+        public List<PsychologistResponseModel> GetAllPsychologists(string token, List<PsychologistResponseModel> expected)
+        {
+            HttpStatusCode expectedCode = HttpStatusCode.OK;
+            HttpContent httpContent = _psychologistsPsychologist.GetAllPsychologists(token, expectedCode);
+
+            string content = httpContent.ReadAsStringAsync().Result;
+            List<PsychologistResponseModel> actual = JsonSerializer.Deserialize<List<PsychologistResponseModel>>(content);
+
+            CollectionAssert.AreEquivalent(expected, actual);
+
+            return actual;
+        }
+
+        public void DeletePsychologistById(int id, string token)
+        {
+            HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
+
+            _psychologistsPsychologist.DeletePsychologistById(id, token, expectedDeleteCode);
         }
     }
 }
