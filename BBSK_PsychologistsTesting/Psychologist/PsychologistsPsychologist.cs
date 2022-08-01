@@ -91,7 +91,24 @@ namespace BBSK_PsychologistsTesting.Psychologist
             return response.Content;
         }
 
-      
+        public HttpResponseMessage DeletePsychologistById(int id, string token, HttpStatusCode expectedCode)
+        {
+            HttpClient psycho = new HttpClient();
+            psycho.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpRequestMessage message = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Delete,
+                RequestUri = new System.Uri($"{Urls.Psychologists}/{id}"),
+            };
+
+            HttpResponseMessage httpResponse = psycho.Send(message);
+            HttpStatusCode actualCode = httpResponse.StatusCode;
+
+            Assert.AreEqual(expectedCode, actualCode);
+
+            return psycho.Send(message);
+        }
+
 
     }
 }

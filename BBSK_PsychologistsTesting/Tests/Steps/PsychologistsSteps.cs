@@ -111,6 +111,13 @@ namespace BBSK_PsychologistsTesting.Steps
 
             return actual;
         }
+
+        public void DeletePsychologistById(int id, string token)
+        {
+            HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
+
+            _psychologistsPsychologist.DeletePsychologistById(id, token, expectedDeleteCode);
+        }
     }
 }
 
