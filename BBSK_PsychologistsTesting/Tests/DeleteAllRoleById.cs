@@ -14,8 +14,6 @@ namespace BBSK_PsychologistsTesting.Tests
         private ClientSteps _clientSteps = new ClientSteps();
         private PsychologistSteps _psychoSteps = new PsychologistSteps();
         private DataCleaning _dataCleaning = new DataCleaning();
-        private ClientRequestModel clientModel = new ClientRequestModel();
-        private PsychoMapper _psychoMapper = new PsychoMapper();
         int psychologistId;
         int actualId;
         string token;
@@ -58,7 +56,11 @@ namespace BBSK_PsychologistsTesting.Tests
             _dataCleaning.Clean();
         }
 
+        public void PsychologistDelete_WhenPsychologistModelIsCorrect_ShouldDeletePsychologist(PsychologistRequestModel psychologistNewModel)
+        {
+            _psychoSteps.DeletePsychologistById(psychologistId, token);
 
+        }
 
         [Test]
         public void DeleteClient_WhenClientRegistrateAthtorize_ShouldThrowCode204()
