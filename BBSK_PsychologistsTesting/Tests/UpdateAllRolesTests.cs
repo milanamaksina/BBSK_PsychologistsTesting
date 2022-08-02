@@ -21,6 +21,7 @@ namespace BBSK_PsychologistsTesting.Tests
         int psychologistId;
         int actualId;
         string token;
+        string psychoToken;
 
         [SetUp]
         public void SetUp()
@@ -67,10 +68,10 @@ namespace BBSK_PsychologistsTesting.Tests
 
             AuthRequestModel authPsychoModel = new AuthRequestModel()
             {
-                Email = "valera@mail.ru",
-                Password = "Azino777",
+                Email = "manager@p.ru",
+                Password = "Manager777",
             };
-            token = _clientSteps.AuthtorizeClientSystem(authPsychoModel);
+            psychoToken = _clientSteps.AuthtorizeClientSystem(authPsychoModel);
         }
 
         [TearDown]

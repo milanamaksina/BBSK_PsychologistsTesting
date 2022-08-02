@@ -1,4 +1,5 @@
 ﻿using BBSK_PsychologistsTesting.Models.Request;
+using BBSK_PsychologistsTesting.Models.Response;
 using BBSK_PsychologistsTesting.Options;
 using BBSK_PsychologistsTesting.Psychologist;
 using BBSK_PsychologistsTesting.Steps;
@@ -6,6 +7,7 @@ using BBSK_PsychologistsTesting.Support.Mappers;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using static BBSK_PsychologistsTesting.Tests.TestSources.DeletePsychologistByIdTestSources;
 
 namespace BBSK_PsychologistsTesting.Tests
 {
@@ -14,9 +16,11 @@ namespace BBSK_PsychologistsTesting.Tests
         private ClientSteps _clientSteps = new ClientSteps();
         private PsychologistSteps _psychoSteps = new PsychologistSteps();
         private DataCleaning _dataCleaning = new DataCleaning();
+        private PsychoMapper _psychoMapper = new PsychoMapper();
         int psychologistId;
-        int actualId;
+        int actualpsychoId;
         string token;
+        string psychoToken;
 
         [SetUp]
         public void SetUp()
@@ -44,10 +48,10 @@ namespace BBSK_PsychologistsTesting.Tests
 
             AuthRequestModel authPsychoModel = new AuthRequestModel()
             {
-                Email = "valera@mail.ru",
-                Password = "Azino777",
+                Email = "manager@p.ru",
+                Password = "Manager777",
             };
-            token = _clientSteps.AuthtorizeClientSystem(authPsychoModel);
+            psychoToken = _clientSteps.AuthtorizeClientSystem(authPsychoModel);
         }
 
         [TearDown]
@@ -56,9 +60,16 @@ namespace BBSK_PsychologistsTesting.Tests
             _dataCleaning.Clean();
         }
 
-        public void PsychologistDelete_WhenPsychologistModelIsCorrect_ShouldDeletePsychologist(PsychologistRequestModel psychologistNewModel)
+        [TestCaseSource(typeof(PsychologistDelete_WhenPsychologistModelIsDeleted_TestSource))]
+        public void PsychologistDelete_WhenPsychologistModelIsCorrect_ShouldDeletePsychologist(int psychologistId, PsychologistRequestModel psychologistIsDeletedModel)
         {
-            _psychoSteps.DeletePsychologistById(psychologistId, token);
+            _psychoSteps.DeletePsychologistById(psychologistId, psychoToken);
+
+            _psychoSteps.UpdatePsychologistById(psychologistId, psychologistIsDeletedModel, psychoToken);
+            //GetById
+            PsychologistResponseModel expectedPsychologist = _psychoMapper.MappPsychologistRequestModelToPsychologistResponseModel(psychologistIsDeletedModel, psychologistId);
+            _psychoSteps.GetPsychologistById(psychologistId, psychoToken, expectedPsychologist);
+
 
         }
 

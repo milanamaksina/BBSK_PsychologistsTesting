@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
@@ -14,22 +15,22 @@ namespace BBSK_PsychologistsTesting.Steps
     {
         private ClientsClient _psychologistsClient = new ClientsClient();
         private PsychologistsPsychologist _psychologistsPsychologist = new PsychologistsPsychologist();
- 
        
-<<<<<<< HEAD:BBSK_PsychologistsTesting/Tests/Steps/PsychologistsSteps.cs
-        public ClientGetIdResponsModel GetClientObjectById (int id, string token, ClientGetIdResponsModel expected )
-        {
-            HttpStatusCode expectedCode = HttpStatusCode.OK;
+       
 
-            HttpContent httpContent = _psychologistsObjectClient.GetClientById(id, token, expectedCode);
+        //public ClientGetIdResponsModel GetClientObjectById (int id, string token, ClientGetIdResponsModel expected )
+        //{
+        //    HttpStatusCode expectedCode = HttpStatusCode.OK;
 
-            string content = httpContent.ReadAsStringAsync().Result;
-            ClientGetIdResponsModel actual = JsonSerializer.Deserialize<ClientGetIdResponsModel>(content);
+        //    HttpContent httpContent = _psychologistsObjectClient.GetClientById(id, token, expectedCode);
 
-            Assert.AreEqual(expected, actual);
+        //    string content = httpContent.ReadAsStringAsync().Result;
+        //    ClientGetIdResponsModel actual = JsonSerializer.Deserialize<ClientGetIdResponsModel>(content);
 
-            return actual;
-        }
+        //    Assert.AreEqual(expected, actual);
+
+        //    return actual;
+        //}
 
         //public List<ClientGetIdResponsModel> GetAllClientById(int id, string token, List<ClientGetIdResponsModel> expected)
         //{
@@ -54,8 +55,7 @@ namespace BBSK_PsychologistsTesting.Steps
 
 
         //}
-=======
->>>>>>> main:BBSK_PsychologistsTesting/Tests/Steps/PsychologistSteps.cs
+
 
         public int RegisterPsychologist(PsychologistRequestModel psychologistModel)
         {
@@ -118,6 +118,19 @@ namespace BBSK_PsychologistsTesting.Steps
             HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
 
             _psychologistsPsychologist.DeletePsychologistById(id, token, expectedDeleteCode);
+        }
+
+        public PsychologistResponseModel GetDeletedPsychologistById(int id, string token)
+        {
+            HttpStatusCode expectedCode = HttpStatusCode.OK;
+            HttpContent httpContent = _psychologistsPsychologist.GetPsychologistById(id, token, HttpStatusCode.OK);
+
+            string content = httpContent.ReadAsStringAsync().Result;
+            PsychologistResponseModel actualPsychologist = JsonSerializer.Deserialize<PsychologistResponseModel>(content);
+
+            Assert.AreEqual(1, actualPsychologist.IsDeleted);
+
+            return actualPsychologist;
         }
     }
 }
