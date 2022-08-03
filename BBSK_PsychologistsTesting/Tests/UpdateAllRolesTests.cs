@@ -42,6 +42,8 @@ namespace BBSK_PsychologistsTesting.Tests
             };
 
             string token = _clientSteps.AuthtorizeClientSystem(authModel);
+
+
         }
 
         [TearDown]
