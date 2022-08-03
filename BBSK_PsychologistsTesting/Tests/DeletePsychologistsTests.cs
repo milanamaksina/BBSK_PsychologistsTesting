@@ -1,4 +1,5 @@
-﻿using BBSK_PsychologistsTesting.Models.Request;
+﻿using BBSK_PsychologistsTesting.Clients;
+using BBSK_PsychologistsTesting.Models.Request;
 using BBSK_PsychologistsTesting.Psychologist;
 using BBSK_PsychologistsTesting.Steps;
 using System;
@@ -12,8 +13,8 @@ namespace BBSK_PsychologistsTesting.Tests
     public class DeletePsychologistsTests
     {
         private PsychologistsPsychologist _psychologistsPsychologist = new PsychologistsPsychologist();
-        private AuthSteps _authPsychologist = new AuthSteps();
-        private PsychologistsSteps _psychoSteps = new PsychologistsSteps();
+        private ClientSteps _clientSteps = new ClientSteps();
+        private PsychologistSteps _psychoSteps = new PsychologistSteps();
 
         public void PsychologistDelete_WhenPsychologistModelIsCorrect_ShouldDeletePsychologist()
         {
@@ -44,7 +45,7 @@ namespace BBSK_PsychologistsTesting.Tests
                 Email = "valera@mail.ru",
                 Password = "Azino777",
             };
-            string token = _authPsychologist.AuthtorizeClientSystem(authModel);
+            string token = _clientSteps.AuthtorizeClientSystem(authModel);
 
             _psychoSteps.DeletePsychologistById(psychologistId, token);
 

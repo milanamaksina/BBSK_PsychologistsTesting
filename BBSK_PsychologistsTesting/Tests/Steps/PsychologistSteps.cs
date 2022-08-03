@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
@@ -12,50 +13,9 @@ namespace BBSK_PsychologistsTesting.Steps
 {
     public class PsychologistSteps
     {
-        private ClientsClient _psychologistsClient = new ClientsClient();
+
         private PsychologistsPsychologist _psychologistsPsychologist = new PsychologistsPsychologist();
- 
-       
-<<<<<<< HEAD:BBSK_PsychologistsTesting/Tests/Steps/PsychologistsSteps.cs
-        public ClientGetIdResponsModel GetClientObjectById (int id, string token, ClientGetIdResponsModel expected )
-        {
-            HttpStatusCode expectedCode = HttpStatusCode.OK;
-
-            HttpContent httpContent = _psychologistsObjectClient.GetClientById(id, token, expectedCode);
-
-            string content = httpContent.ReadAsStringAsync().Result;
-            ClientGetIdResponsModel actual = JsonSerializer.Deserialize<ClientGetIdResponsModel>(content);
-
-            Assert.AreEqual(expected, actual);
-
-            return actual;
-        }
-
-        //public List<ClientGetIdResponsModel> GetAllClientById(int id, string token, List<ClientGetIdResponsModel> expected)
-        //{
-        //    HttpStatusCode expectedCode = HttpStatusCode.OK;
-
-        //    HttpContent httpContent = _psychologistsObjectClient.//модель будет!!! (id, token, expectedCode);
-
-        //    string content = httpContent.ReadAsStringAsync().Result;
-        //    List <ClientGetIdResponsModel> actual = JsonSerializer.Deserialize< List<ClientGetIdResponsModel>>(content);
-
-        //    CollectionAssert.AreEquivalent(expected, actual);
-
-        //    return actual;
-        //}
-
-        //public string UpdateClient(int id, ClientsUpdateRequestModel clientsupdatemodel, HttpStatusCode expectedCode)
-        //{
-        //    HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
-
-
-        //    HttpResponseMessage respons = _psychologistsobjectclient.UpdatingClient(id, clientsupdatemodel,expectedCode);
-
-
-        //}
-=======
->>>>>>> main:BBSK_PsychologistsTesting/Tests/Steps/PsychologistSteps.cs
+     
 
         public int RegisterPsychologist(PsychologistRequestModel psychologistModel)
         {

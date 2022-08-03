@@ -3,10 +3,11 @@ using BBSK_PsychologistsTesting.Models.Response;
 using BBSK_PsychologistsTesting.Options;
 using BBSK_PsychologistsTesting.Psychologist;
 using BBSK_PsychologistsTesting.Steps;
+using BBSK_PsychologistsTesting.Support.Mappers;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-
+using static BBSK_PsychologistsTesting.Tests.TestSources.UpdatePsychologistTestSources;
 
 namespace BBSK_PsychologistsTesting.Tests
 {
@@ -16,6 +17,7 @@ namespace BBSK_PsychologistsTesting.Tests
         private PsychologistSteps _psychoSteps = new PsychologistSteps();
         private DataCleaning _dataCleaning = new DataCleaning();
         private ClientRequestModel clientModel = new ClientRequestModel();
+        private PsychoMapper _psychoMapper = new PsychoMapper();
         int psychologistId;
         int actualId;
         string token;
@@ -43,20 +45,6 @@ namespace BBSK_PsychologistsTesting.Tests
 
             string token = _clientSteps.AuthtorizeClientSystem(authModel);
 
-
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _dataCleaning.Clean();
-        }
-
-        [Test]
-        public void PsychologistUpdate_WhenPsychologistModelIsCorrect_ShouldUpdatePsychologist()
-        {
-            //Регистрация - баг 2.7 
-            //Given 
             PsychologistRequestModel psychologistModel = new PsychologistRequestModel()
             {
                 Name = "Валерий",
@@ -75,58 +63,34 @@ namespace BBSK_PsychologistsTesting.Tests
                 Problems = new List<string> { "тревога" },
                 Price = 1000
             };
-            int psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);
+            psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);
 
-            AuthRequestModel authModel = new AuthRequestModel()
+            AuthRequestModel authPsychoModel = new AuthRequestModel()
             {
                 Email = "valera@mail.ru",
                 Password = "Azino777",
             };
-            string token = _clientSteps.AuthtorizeClientSystem(authModel);
+            token = _clientSteps.AuthtorizeClientSystem(authPsychoModel);
+        }
 
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
 
-            //редактирование - баг 2.16 
-            PsychologistRequestModel psychologistNewModel = new PsychologistRequestModel()
-            {
-                Name = "Валерий",
-                LastName = "Александрович",
-                Patronymic = "Нежный",
-                Gender = 1,
-                BirthDate = new DateTime(2022, 05, 01),
-                Phone = "89992314543",
-                Password = "Azino777",
-                Email = "valera@mail.ru",
-                WorkExperience = 5,
-                PasportData = "4015 2453443 ГУ МВД ПО СПБ",
-                Education = new List<string> { "Мгу" },
-                CheckStatus = 1,
-                TherapyMethods = new List<string> { "когнитивная терапия" },
-                Problems = new List<string> { "тревога" },
-                Price = 1000
-            };
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _dataCleaning.Clean();
+        }
+
+        [TestCaseSource(typeof(PsychologistUpdate_WhenPsychologistModelIsCorrect_TestSource))]
+        public void PsychologistUpdate_WhenPsychologistModelIsCorrect_ShouldUpdatePsychologist(PsychologistRequestModel psychologistNewModel)
+        {
             _psychoSteps.UpdatePsychologistById(psychologistId, psychologistNewModel, token);
-
-            //Гет по айди 
-            PsychologistResponseModel expectedPsychologist = new PsychologistResponseModel()
-            {
-                Id = psychologistId,
-                Name = psychologistNewModel.Name,
-                LastName = psychologistNewModel.LastName,
-                Patronymic = psychologistNewModel.Patronymic,
-                Gender = psychologistNewModel.Gender,
-                BirthDate = psychologistNewModel.BirthDate,
-                Phone = psychologistNewModel.Phone,
-                Password = psychologistNewModel.Password,
-                Email = psychologistNewModel.Password,
-                WorkExperience = psychologistNewModel.WorkExperience,
-                PasportData = psychologistNewModel.PasportData,
-                Education = psychologistNewModel.Education,
-                CheckStatus = psychologistNewModel.CheckStatus,
-                TherapyMethods = psychologistNewModel.TherapyMethods,
-                Problems = psychologistNewModel.Problems,
-                Price = psychologistNewModel.Price,
-
-            };
+            //GetById
+            PsychologistResponseModel expectedPsychologist = _psychoMapper.MappPsychologistRequestModelToPsychologistResponseModel(psychologistNewModel, psychologistId);
             _psychoSteps.GetPsychologistById(psychologistId, token, expectedPsychologist);
         }
         
