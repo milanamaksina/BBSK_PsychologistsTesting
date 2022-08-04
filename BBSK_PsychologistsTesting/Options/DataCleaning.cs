@@ -21,6 +21,10 @@ namespace BBSK_PsychologistsTesting.Options
                 command.Connection = connection;
                 command.ExecuteNonQuery();
                 
+                command.CommandText = "delete from dbo.[ApplicationForPsychologistSearch]";
+                /*command.Connection = connection*/;
+                command.ExecuteNonQuery();
+
                 connection.Close();
 
             }

@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace BBSK_PsychologistsTesting.Models.Request
 {
-    public class ClientGetIdResponsModel
+    public class ClientGetIdResponseModel
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }

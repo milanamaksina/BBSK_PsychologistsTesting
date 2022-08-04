@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace BBSK_PsychologistsTesting.Models.Response
 {
-    public class ClientResponsModel
+    public class ClientResponseModel
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }
@@ -28,7 +28,7 @@ namespace BBSK_PsychologistsTesting.Models.Response
 
         public override bool Equals(object? obj)
         {
-            return obj is ClientResponsModel model &&
+            return obj is ClientResponseModel model &&
                    Id == model.Id &&
                    Name == model.Name &&
                    LastName == model.LastName &&

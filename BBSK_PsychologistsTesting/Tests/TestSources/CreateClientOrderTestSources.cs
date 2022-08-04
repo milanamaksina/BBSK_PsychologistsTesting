@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BBSK_PsychologistsTesting.Tests.TestSources
 {
-    public class AddSessionRequestTestSources
+    public class CreateClientOrderTestSources
     {
         public class OrderAdd_WhenOrderModelIsCorrect_TestSource : IEnumerable
         {

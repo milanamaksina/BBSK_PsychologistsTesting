@@ -108,7 +108,7 @@ namespace BBSK_PsychologistsTesting.Tests
 
             _clientSteps.UpdateClient(actualId, clientUpdateModel, token);
 
-            ClientGetIdResponsModel expectedClient = new ClientGetIdResponsModel()
+            ClientGetIdResponseModel expectedClient = new ClientGetIdResponseModel()
             {
                 Id = actualId,
                 Name = clientUpdateModel.Name,

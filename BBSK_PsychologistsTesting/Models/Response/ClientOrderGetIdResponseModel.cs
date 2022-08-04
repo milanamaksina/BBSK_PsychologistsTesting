@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BBSK_PsychologistsTesting.Models.Response
 {
-    public class ClientOrderGetIdResponsModel
+    public class ClientOrderGetIdResponseModel
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }
