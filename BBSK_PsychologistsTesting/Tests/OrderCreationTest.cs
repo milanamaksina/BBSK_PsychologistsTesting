@@ -33,7 +33,7 @@ namespace BBSK_PsychologistsTesting.Tests
                 Name = "Чудо",
                 LastName = "Юдо",
                 Password = "123456789",
-                Email = "vanva@111",
+                Email = "van@vyanya",
                 PhoneNumber = "88121691833",
                 BirthDate = new DateTime(1980, 01, 01)
             };
@@ -42,11 +42,11 @@ namespace BBSK_PsychologistsTesting.Tests
 
             AuthRequestModel authModel = new AuthRequestModel()
             {
-                Email = "vanva@111",
+                Email = "van@vyanya",
                 Password = "123456789",
             };
 
-           token = _clientSteps.AuthtorizeClientSystem(authModel);
+            token = _clientSteps.AuthtorizeClientSystem(authModel);
         }
 
         [OneTimeTearDown]
@@ -65,11 +65,11 @@ namespace BBSK_PsychologistsTesting.Tests
         [TestCaseSource(typeof(OrderAdd_WhenOrderModelIsCorrect_TestSource))]
         public void OrderClientCreate_WhenOrderModelIsCorrect_ShouldCreateOrder(ClientOrdersRequestModel clientOrdersRequestModel)
         {
-
             _orderSteps.CreateClientOrder(token, clientOrdersRequestModel);
 
-            ClientOrderGetIdResponseModel expectedOrderClient = _clientMapper.MappClientOrdersRequestModelToClientOrderResponsModel(clientOrdersRequestModel,orderId);
+            ClientOrderResponseModel expectedOrderClient = _clientMapper.MappClientOrdersRequestModelToClientOrderResponsModel(clientOrdersRequestModel, orderId);
             _orderSteps.GetClientClientById(orderId, token, expectedOrderClient);
+
         }
     }
 }

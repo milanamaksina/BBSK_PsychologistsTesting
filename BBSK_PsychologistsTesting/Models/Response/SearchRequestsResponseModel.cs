@@ -35,5 +35,19 @@ namespace BBSK_PsychologistsTesting.Models.Response
 
         [JsonPropertyName("time")]
         public int Time { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is SearchRequestsResponseModel model &&
+                   Id == model.Id &&
+                   Name == model.Name &&
+                   PhoneNumber == model.PhoneNumber &&
+                   Description == model.Description &&
+                   PsychologistGender == model.PsychologistGender &&
+                   CostMin == model.CostMin &&
+                   CostMax == model.CostMax &&
+                   Date == model.Date &&
+                   Time == model.Time;
+        }
     }
 }

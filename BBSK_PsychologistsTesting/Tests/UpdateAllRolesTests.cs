@@ -12,7 +12,7 @@ using static BBSK_PsychologistsTesting.Tests.TestSources.UpdatePsychologistTestS
 namespace BBSK_PsychologistsTesting.Tests
 {
     public class UpdateAllRolesTests
-    {      
+    {
         private ClientSteps _clientSteps = new ClientSteps();
         private PsychologistSteps _psychoSteps = new PsychologistSteps();
         private DataCleaning _dataCleaning = new DataCleaning();
@@ -93,11 +93,11 @@ namespace BBSK_PsychologistsTesting.Tests
             PsychologistResponseModel expectedPsychologist = _psychoMapper.MappPsychologistRequestModelToPsychologistResponseModel(psychologistNewModel, psychologistId);
             _psychoSteps.GetPsychologistById(psychologistId, token, expectedPsychologist);
         }
-        
+
         [Test]
         public void DataСhanged_WhenClientLogged_ShouldThrowCode422()
         {
-            
+
 
             ClientUpdateRequestModel clientUpdateModel = new ClientUpdateRequestModel()
             {
