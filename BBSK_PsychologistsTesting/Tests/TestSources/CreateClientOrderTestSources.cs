@@ -21,9 +21,9 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
                     Cost=1000,
                     Duration=0,
                     Message="не убил бы и хорошо",
-                    SessionDate= new DateTime(1990, 06, 01),
-                    OrderDate= new DateTime(1990, 06, 01),
-                    PayDate= new DateTime(1990, 06, 01),
+                    SessionDate= new DateTime(2022, 08, 05),
+                    OrderDate= new DateTime(2022, 08, 05),
+                    PayDate= new DateTime(2022, 08, 05),
                     OrderStatus= 0,
                     OrderPaymentStatus=0
 

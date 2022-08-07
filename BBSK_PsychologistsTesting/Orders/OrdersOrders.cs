@@ -11,7 +11,7 @@ namespace BBSK_PsychologistsTesting.Orders
 {
     public class OrdersOrders
     {
-        public HttpContent GetAllOrdersById(HttpStatusCode expectedCode)
+        public HttpContent GetAllOrders(HttpStatusCode expectedCode)
         {          
 
           HttpClient client = new HttpClient();
@@ -30,12 +30,12 @@ namespace BBSK_PsychologistsTesting.Orders
             return response.Content;
         }
 
-        public HttpContent AddOrder(/*string token, */ClientOrdersRequestModel clientOrdersRequestModel, HttpStatusCode expectedCode)
+        public HttpContent AddOrder(string token, ClientOrdersRequestModel clientOrdersRequestModel, HttpStatusCode expectedCode)
         {
 
             HttpClient client = new HttpClient();
 
-            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             string json = JsonSerializer.Serialize(clientOrdersRequestModel);
             HttpRequestMessage message = new HttpRequestMessage()

@@ -21,7 +21,7 @@ namespace BBSK_PsychologistsTesting.Tests
         private ClientSteps _clientSteps = new ClientSteps();
 
         int orderId;
-        int actulId;
+        int actualId;
         int clientId;
         string token;
 
@@ -33,20 +33,20 @@ namespace BBSK_PsychologistsTesting.Tests
                 Name = "Чудо",
                 LastName = "Юдо",
                 Password = "123456789",
-                Email = "van@vyanya",
+                Email = "vanva@111",
                 PhoneNumber = "88121691833",
                 BirthDate = new DateTime(1980, 01, 01)
             };
 
-            int actualId = _clientSteps.RegistrateClient(clientModel);
+            actualId = _clientSteps.RegistrateClient(clientModel);
 
             AuthRequestModel authModel = new AuthRequestModel()
             {
-                Email = "van@vyanya",
+                Email = "vanva@111",
                 Password = "123456789",
             };
 
-            string token = _clientSteps.AuthtorizeClientSystem(authModel);
+           token = _clientSteps.AuthtorizeClientSystem(authModel);
         }
 
         [OneTimeTearDown]
@@ -65,10 +65,11 @@ namespace BBSK_PsychologistsTesting.Tests
         [TestCaseSource(typeof(OrderAdd_WhenOrderModelIsCorrect_TestSource))]
         public void OrderClientCreate_WhenOrderModelIsCorrect_ShouldCreateOrder(ClientOrdersRequestModel clientOrdersRequestModel)
         {
+
             _orderSteps.CreateClientOrder(token, clientOrdersRequestModel);
 
-            ClientOrderResponseModel expectedOrderClient = _clientMapper.MappClientOrdersRequestModelToClientOrderResponsModel(clientOrdersRequestModel, orderId);
-            //_orderSteps.GetClientClientById(orderId, token, expectedOrderClient);
+            ClientOrderGetIdResponseModel expectedOrderClient = _clientMapper.MappClientOrdersRequestModelToClientOrderResponsModel(clientOrdersRequestModel,orderId);
+            _orderSteps.GetClientClientById(orderId, token, expectedOrderClient);
         }
     }
 }

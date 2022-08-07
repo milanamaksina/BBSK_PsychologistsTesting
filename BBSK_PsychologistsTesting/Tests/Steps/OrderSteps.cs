@@ -22,7 +22,7 @@ namespace BBSK_PsychologistsTesting.Tests.Steps
         {
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
             
-            HttpContent content = _ordersOrders.AddOrder(/*token, */clientOrdersRequestModel, expectedRegistrationCode);
+            HttpContent content = _ordersOrders.AddOrder(token, clientOrdersRequestModel, expectedRegistrationCode);
             
             int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
 
@@ -36,7 +36,7 @@ namespace BBSK_PsychologistsTesting.Tests.Steps
         public ClientOrderGetIdResponseModel GetClientClientById(int id, string token, ClientOrderGetIdResponseModel expectedOrderClientId)
         {
             HttpStatusCode expectedCod = HttpStatusCode.OK;
-            HttpContent httpContent = _ordersOrders.GetOrdersById(id, token, HttpStatusCode.OK);
+            HttpContent httpContent = _ordersOrders.GetOrdersById(id, token, expectedCod);
 
             string content = httpContent.ReadAsStringAsync().Result;
             ClientOrderGetIdResponseModel actualOrderClientId = JsonSerializer.Deserialize<ClientOrderGetIdResponseModel>(content);
