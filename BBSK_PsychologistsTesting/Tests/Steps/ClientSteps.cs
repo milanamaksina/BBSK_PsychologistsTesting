@@ -51,28 +51,28 @@ namespace BBSK_PsychologistsTesting.Steps
             return actualToken;
             
         }
-        public List<ClientGetIdResponsModel> GetAllClientById(int id, string token, List<ClientGetIdResponsModel> expected)
+        public List<ClientGetIdResponseModel> GetAllClientById(int id, string token, List<ClientGetIdResponseModel> expected)
         {
             HttpStatusCode expectedCode = HttpStatusCode.OK;
 
             HttpContent httpContent = _clientsClient.GetAllClientById(id, token, expectedCode);
 
             string content = httpContent.ReadAsStringAsync().Result;
-            List<ClientGetIdResponsModel> actual = JsonSerializer.Deserialize<List<ClientGetIdResponsModel>>(content);
+            List<ClientGetIdResponseModel> actual = JsonSerializer.Deserialize<List<ClientGetIdResponseModel>>(content);
 
             CollectionAssert.AreEquivalent(expected, actual);
 
             return actual;
         }
 
-        public ClientGetIdResponsModel GetClientById(int id, string token, ClientGetIdResponsModel expectedClient)
+        public ClientGetIdResponseModel GetClientById(int id, string token, ClientGetIdResponseModel expectedClient)
         {
             HttpStatusCode expectedCode = HttpStatusCode.OK;
 
             HttpContent httpContent = _clientsClient.GetClientById(id, token, expectedCode);
 
             string content = httpContent.ReadAsStringAsync().Result;
-            ClientGetIdResponsModel actualClient = JsonSerializer.Deserialize<ClientGetIdResponsModel>(content);
+            ClientGetIdResponseModel actualClient = JsonSerializer.Deserialize<ClientGetIdResponseModel>(content);
 
             Assert.AreEqual(expectedClient, actualClient);
 
@@ -99,11 +99,5 @@ namespace BBSK_PsychologistsTesting.Steps
             _clientsClient.DeleteClientById(id,token, expectedDeleteCode);           
         }
 
-        //public void GetClientCommentsById(int id, string token)
-        //{
-        //    HttpStatusCode expectedCommentsCode = HttpStatusCode.OK;
-
-        //    _clientsClient.GetClientCommentsById(id, token, expectedCommentsCode);
-        //}
     }
 }
