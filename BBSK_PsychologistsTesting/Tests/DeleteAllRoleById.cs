@@ -61,16 +61,15 @@ namespace BBSK_PsychologistsTesting.Tests
         }
 
         [TestCaseSource(typeof(PsychologistDelete_WhenPsychologistModelIsDeleted_TestSource))]
-        public void PsychologistDelete_WhenPsychologistModelIsCorrect_ShouldDeletePsychologist(int psychologistId, PsychologistRequestModel psychologistIsDeletedModel)
+        public void PsychologistDelete_WhenPsychologistModelIsCorrect_ShouldDeletePsychologist(int psychologistId, PsychologistRequestModel psychologistIsDeletedModel, List<PsychologistRequestModel> allPsychologistModels)
         {
             _psychoSteps.DeletePsychologistById(psychologistId, psychoToken);
-
-            _psychoSteps.UpdatePsychologistById(psychologistId, psychologistIsDeletedModel, psychoToken);
             //GetById
             PsychologistResponseModel expectedPsychologist = _psychoMapper.MappPsychologistRequestModelToPsychologistResponseModel(psychologistIsDeletedModel, psychologistId);
             _psychoSteps.GetPsychologistById(psychologistId, psychoToken, expectedPsychologist);
 
-
+            List<PsychologistResponseModel> expectedAllPsychologists = _psychoMapper.MappAllPsychologistsRequestModelToPsychologistResponseModel(allPsychologistModels);
+            _psychoSteps.GetAllPsychologists(psychoToken, expectedAllPsychologists);
         }
 
         [Test]
