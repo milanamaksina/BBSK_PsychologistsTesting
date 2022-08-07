@@ -16,6 +16,7 @@ namespace BBSK_PsychologistsTesting.Steps
     {
         private ClientsClient _clientsClient = new ClientsClient(); 
         private AuthClient _authClient = new AuthClient(); 
+        private CommentsClient _commentsClient = new CommentsClient();
         
 
         public int RegistrateClient (ClientRequestModel clientModel)
@@ -97,6 +98,23 @@ namespace BBSK_PsychologistsTesting.Steps
             HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
 
             _clientsClient.DeleteClientById(id,token, expectedDeleteCode);           
+        }
+
+        public int AddCommentToPsychologist(int psychoId, CommentAddingRequestModel commentModel)
+        {
+            HttpStatusCode expectedCommentingCode = HttpStatusCode.Created;
+
+            HttpResponseMessage respons = _commentsClient.AddCommentToPsychologist(psychoId, commentModel);
+
+            HttpStatusCode actualCommentingCode = respons.StatusCode;
+            string id = respons.Content.ReadAsStringAsync().Result;
+            int? actualId = Convert.ToInt32(respons.Content.ReadAsStringAsync().Result);
+
+            Assert.AreEqual(expectedCommentingCode, actualCommentingCode);
+            Assert.NotNull(actualId);
+            Assert.IsTrue(actualId > 0);
+
+            return (int)actualId;
         }
 
     }
