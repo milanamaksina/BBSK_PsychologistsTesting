@@ -19,7 +19,5 @@ namespace BBSK_PsychologistsTesting.Models.Request
         int Rating { get; set; }
         [JsonProperty("date")]
         DateTime Date { get; set; }
-
-        
     }
 }
