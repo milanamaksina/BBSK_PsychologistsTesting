@@ -14,7 +14,7 @@ namespace BBSK_PsychologistsTesting.Tests
 {
     public class OrderCreationTest
     {
-        private OrdersOrders _orderOrder = new OrdersOrders();
+        private OrdersClient _orderOrder = new OrdersClient();
         private OrderSteps _orderSteps = new OrderSteps();
         private ClientMapper _clientMapper = new ClientMapper();
         private DataCleaning _dataCleaning = new DataCleaning();

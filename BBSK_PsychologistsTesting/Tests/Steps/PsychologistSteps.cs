@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
-using BBSK_PsychologistsTesting.Clients;
 using BBSK_PsychologistsTesting.Models.Request;
 using BBSK_PsychologistsTesting.Models.Response;
 using BBSK_PsychologistsTesting.Psychologist;

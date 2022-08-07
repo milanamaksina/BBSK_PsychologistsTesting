@@ -9,14 +9,16 @@ using System.Text.Json;
 
 namespace BBSK_PsychologistsTesting.Orders
 {
-    public class OrdersOrders
+    public class OrdersClient
     {
-        public HttpContent GetAllOrders(HttpStatusCode expectedCode)
+        public HttpContent GetAllOrders(int id, string token, HttpStatusCode expectedCode)
         {          
 
           HttpClient client = new HttpClient();
 
-          HttpRequestMessage message = new HttpRequestMessage()
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            HttpRequestMessage message = new HttpRequestMessage()
          {
             Method = HttpMethod.Get,
             RequestUri = new Uri(Urls.Orders),          

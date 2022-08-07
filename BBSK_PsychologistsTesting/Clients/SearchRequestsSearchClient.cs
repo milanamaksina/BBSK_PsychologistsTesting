@@ -10,11 +10,13 @@ using NUnit.Framework;
 
 namespace BBSK_PsychologistsTesting.SearchRequests
 {
-    public class SearchRequestsSearchRequests
+    public class SearchRequestsSearchClient
     {
-        public HttpContent CreateSearchRequests(SearchRequestsRequestsModel searchRequestsRequestsModel, HttpStatusCode expectedCode)
+        public HttpContent CreateSearchRequests(int id,string token, SearchRequestsRequestsModel searchRequestsRequestsModel, HttpStatusCode expectedCode)
         {
             HttpClient client = new HttpClient();
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             string json = JsonSerializer.Serialize(searchRequestsRequestsModel);
             HttpRequestMessage message = new HttpRequestMessage()
@@ -32,12 +34,11 @@ namespace BBSK_PsychologistsTesting.SearchRequests
             return response.Content;
         }
 
-        public HttpContent GetAllSearchRequests(HttpStatusCode expectedCode)
-        {
-            ClientOrdersRequestModel model = new ClientOrdersRequestModel();
-            string json = JsonSerializer.Serialize(model);
+        public HttpContent GetAllSearchRequests(int id, string token,HttpStatusCode expectedCode)
+        {    
             HttpClient client = new HttpClient();
 
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             HttpRequestMessage message = new HttpRequestMessage()
             {
@@ -54,9 +55,7 @@ namespace BBSK_PsychologistsTesting.SearchRequests
         }
 
         public HttpContent GetSearchRequestsById(int id, string token, HttpStatusCode expectedCode)
-        {
-            ClientOrdersRequestModel model = new ClientOrdersRequestModel();
-            string json = JsonSerializer.Serialize(model);
+        {          
             HttpClient client = new HttpClient();
 
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -95,12 +94,14 @@ namespace BBSK_PsychologistsTesting.SearchRequests
             return httpResponsec.Content;
         }
 
-        public HttpContent PutSearchRequestsById(int id, string token, SearchRequestsGetByIdResponseModel searchRequestsGetByIdResponseModel, HttpStatusCode expectedCode)
+        public HttpContent PutSearchRequestsById(int id, string token, SearchRequestsGetByIdRequestModel searchRequestsGetByIdRequestModel, HttpStatusCode expectedCode)
         {
-            string json = JsonSerializer.Serialize(searchRequestsGetByIdResponseModel);
+            string json = JsonSerializer.Serialize(searchRequestsGetByIdRequestModel);
 
             HttpClient client = new HttpClient();
+
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Put,
