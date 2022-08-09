@@ -78,6 +78,19 @@ namespace BBSK_PsychologistsTesting.Steps
 
             _psychologistsPsychologist.DeletePsychologistById(id, token, expectedDeleteCode);
         }
+
+        public PsychologistResponseModel GetDeletedPsychologistById(int id, string token)
+        {
+            HttpStatusCode expectedCode = HttpStatusCode.OK;
+            HttpContent httpContent = _psychologistsPsychologist.GetPsychologistById(id, token, HttpStatusCode.OK);
+
+            string content = httpContent.ReadAsStringAsync().Result;
+            PsychologistResponseModel actualPsychologist = JsonSerializer.Deserialize<PsychologistResponseModel>(content);
+
+            Assert.AreEqual(1, actualPsychologist.IsDeleted);
+
+            return actualPsychologist;
+        }
     }
 }
 
