@@ -13,8 +13,7 @@ using static BBSK_PsychologistsTesting.Tests.TestSources.CreateClientOrderTestSo
 namespace BBSK_PsychologistsTesting.Tests
 {
     public class OrderCreationTest
-    {
-        private OrdersClient _orderOrder = new OrdersClient();
+    {      
         private OrderSteps _orderSteps = new OrderSteps();
         private ClientMapper _clientMapper = new ClientMapper();
         private DataCleaning _dataCleaning = new DataCleaning();
@@ -24,6 +23,13 @@ namespace BBSK_PsychologistsTesting.Tests
         int actualId;
         int clientId;
         string token;
+
+
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+           _dataCleaning.Clean();
+        }
 
         [SetUp]
         public void SetUp()
@@ -49,11 +55,6 @@ namespace BBSK_PsychologistsTesting.Tests
             token = _clientSteps.AuthtorizeClientSystem(authModel);
         }
 
-        [OneTimeTearDown]
-        public void OneTimeTearDown()
-        {
-           _dataCleaning.Clean();
-        }
 
         [TearDown]
         public void TearDown()

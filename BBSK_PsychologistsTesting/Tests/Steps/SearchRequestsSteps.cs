@@ -17,11 +17,11 @@ namespace BBSK_PsychologistsTesting.Tests.Steps
     {
         private SearchRequestsClient _searchRequestsClient=new SearchRequestsClient();
 
-        public int CreateClientSearchRequests(int id, string token, SearchRequestsRequestsModel searchRequestsRequestsModel )
+        public int CreateClientSearchRequests(string token, SearchRequestsRequestsModel searchRequestsRequestsModel )
         {
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
 
-            HttpContent content = _searchRequestsClient.CreateSearchRequests(id, token, searchRequestsRequestsModel, expectedRegistrationCode);
+            HttpContent content = _searchRequestsClient.CreateSearchRequests(token, searchRequestsRequestsModel, expectedRegistrationCode);
 
             int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
 
@@ -31,18 +31,18 @@ namespace BBSK_PsychologistsTesting.Tests.Steps
             return (int)actualId;
         }
 
-        public List<SearchRequestsResponseModel> GetInfoClientSearchRequests (int id, string token, List<SearchRequestsResponseModel> expected)
+        public SearchRequestsResponseModel GetSearchRequestsById(int id, string token, SearchRequestsResponseModel expectedClient)
         {
             HttpStatusCode expectedCode = HttpStatusCode.OK;
 
-            HttpContent httpContent = _searchRequestsClient.GetSearchRequestsById(id, token, expectedCode);
+            HttpContent httpContent = _searchRequestsClient.GetSearchRequestsById(id,token, expectedCode);
 
             string content = httpContent.ReadAsStringAsync().Result;
-            List<SearchRequestsResponseModel> actual = JsonSerializer.Deserialize<List<SearchRequestsResponseModel>>(content);
+            SearchRequestsResponseModel actualClient = JsonSerializer.Deserialize<SearchRequestsResponseModel>(content);
 
-            CollectionAssert.AreEquivalent(expected, actual);
+            Assert.AreEqual(expectedClient, actualClient);
 
-            return actual;
+            return actualClient;
         }
 
         public void DeleteClientSearchRequests(int id, string token)

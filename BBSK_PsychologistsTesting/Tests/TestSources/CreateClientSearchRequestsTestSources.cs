@@ -16,13 +16,13 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
             {
                 yield return new SearchRequestsRequestsModel()
                 {
-                    Name = "Вася",
-                    PhoneNumber = "8888888888",
+                    Name = "Васiiiiii",
+                    PhoneNumber = "89817051890",
                     Description = "Тот что не дурак, а дурак не нужен",
-                    PsychologistGender = 0,
-                    CostMin = 0,
-                    CostMax = 5000,
-                    Date = new DateTime(2022, 08, 05),
+                    PsychologistGender = 1,
+                    CostMin = 2000,
+                    CostMax = 6000,
+                    Date = new DateTime(2001, 07, 01),
                     Time = 1                  
                 };
             }

@@ -51,11 +51,11 @@ namespace BBSK_PsychologistsTesting.Steps
             return actualToken;
             
         }
-        public List<ClientGetIdResponseModel> GetAllClientById(int id, string token, List<ClientGetIdResponseModel> expected)
+        public List<ClientGetIdResponseModel> GetAllClient(int id, string token, List<ClientGetIdResponseModel> expected)
         {
             HttpStatusCode expectedCode = HttpStatusCode.OK;
 
-            HttpContent httpContent = _clientsClient.GetAllClientById(id, token, expectedCode);
+            HttpContent httpContent = _clientsClient.GetAllClient(id, token, expectedCode);
 
             string content = httpContent.ReadAsStringAsync().Result;
             List<ClientGetIdResponseModel> actual = JsonSerializer.Deserialize<List<ClientGetIdResponseModel>>(content);

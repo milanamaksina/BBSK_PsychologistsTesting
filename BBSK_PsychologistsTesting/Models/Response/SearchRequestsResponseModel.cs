@@ -25,10 +25,10 @@ namespace BBSK_PsychologistsTesting.Models.Response
         public int PsychologistGender { get; set; }
 
         [JsonPropertyName("costMin")]
-        public int CostMin { get; set; }
+        public  double CostMin { get; set; }
 
         [JsonPropertyName("costMax")]
-        public int CostMax { get; set; }
+        public double CostMax { get; set; }
 
         [JsonPropertyName("date")]
         public DateTime Date { get; set; }

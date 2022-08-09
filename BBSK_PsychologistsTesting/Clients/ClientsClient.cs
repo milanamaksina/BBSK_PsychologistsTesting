@@ -26,7 +26,7 @@ namespace BBSK_PsychologistsTesting.Clients
             return client.Send(message);
         }
         
-        public HttpContent GetAllClientById(int id, string token, HttpStatusCode expectedCode)
+        public HttpContent GetAllClient(int id, string token, HttpStatusCode expectedCode)
         {
              ClientGetAllIdRequestModel model = new ClientGetAllIdRequestModel()
             {

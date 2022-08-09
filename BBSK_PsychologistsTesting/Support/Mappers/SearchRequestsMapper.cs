@@ -8,7 +8,7 @@ namespace BBSK_PsychologistsTesting.Support.Mappers
     {
         public SearchRequestsResponseModel MappSearchRequestsRequestsModelToSearchRequestsResponseModel(SearchRequestsRequestsModel searchRequestsRequestsModel, int id)
         {
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<SearchRequestsResponseModel, SearchRequestsRequestsModel>());
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<SearchRequestsRequestsModel, SearchRequestsResponseModel>());
             Mapper mapper = new Mapper(config);
             var responseModel = mapper.Map<SearchRequestsResponseModel>(searchRequestsRequestsModel);
             responseModel.Id = id;
