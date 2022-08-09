@@ -10,6 +10,7 @@ namespace BBSK_PsychologistsTesting
         public const string SearchRequests = $"{Host}/search-requests";
         public const string Psychologists = $"{Host}/Psychologists";
         public const string Auth = $"{Host}/Auth";
+        public const string PsychoAvgPrice = $"{Host}/Psychologists/avg-price";
 
 
     }

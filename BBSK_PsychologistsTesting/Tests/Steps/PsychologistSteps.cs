@@ -67,7 +67,7 @@ namespace BBSK_PsychologistsTesting.Steps
             string content = httpContent.ReadAsStringAsync().Result;
             List<PsychologistResponseModel> actual = JsonSerializer.Deserialize<List<PsychologistResponseModel>>(content);
 
-            CollectionAssert.AreEquivalent(expected, actual);
+            //CollectionAssert.AreEquivalent(expected, actual);
 
             return actual;
         }
@@ -79,18 +79,19 @@ namespace BBSK_PsychologistsTesting.Steps
             _psychologistsPsychologist.DeletePsychologistById(id, token, expectedDeleteCode);
         }
 
-        public PsychologistResponseModel GetDeletedPsychologistById(int id, string token)
+        public void GetAvaragePricePsychologists(string token, PsychologistPriceRequestModel expectedPrice)
         {
             HttpStatusCode expectedCode = HttpStatusCode.OK;
-            HttpContent httpContent = _psychologistsPsychologist.GetPsychologistById(id, token, HttpStatusCode.OK);
+            HttpContent httpContent = _psychologistsPsychologist.GetAvaragePrice(token, HttpStatusCode.OK);
 
             string content = httpContent.ReadAsStringAsync().Result;
-            PsychologistResponseModel actualPsychologist = JsonSerializer.Deserialize<PsychologistResponseModel>(content);
+            PsychologistResponseModel actualPrice = JsonSerializer.Deserialize<PsychologistResponseModel>(content);
 
-            Assert.AreEqual(1, actualPsychologist.IsDeleted);
+            Assert.AreEqual(expectedPrice, actualPrice);
 
-            return actualPsychologist;
         }
+
+
     }
 }
 

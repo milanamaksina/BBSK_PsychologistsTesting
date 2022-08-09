@@ -62,14 +62,14 @@ namespace BBSK_PsychologistsTesting.Tests
         }
 
 
-        [TestCaseSource(typeof(OrderAdd_WhenOrderModelIsCorrect_TestSource))]
-        public void OrderClientCreate_WhenOrderModelIsCorrect_ShouldCreateOrder(ClientOrdersRequestModel clientOrdersRequestModel)
-        {
+        //[TestCaseSource(typeof(OrderAdd_WhenOrderModelIsCorrect_TestSource))]
+        //public void OrderClientCreate_WhenOrderModelIsCorrect_ShouldCreateOrder(ClientOrdersRequestModel clientOrdersRequestModel)
+        //{
 
-            _orderSteps.CreateClientOrder(token, clientOrdersRequestModel);
+        //    _orderSteps.CreateClientOrder(token, clientOrdersRequestModel);
 
-            ClientOrderGetIdResponseModel expectedOrderClient = _clientMapper.MappClientOrdersRequestModelToClientOrderResponsModel(clientOrdersRequestModel,orderId);
-            _orderSteps.GetClientClientById(orderId, token, expectedOrderClient);
-        }
+        //    ClientOrderGetIdResponseModel expectedOrderClient = _clientMapper.MappClientOrdersRequestModelToClientOrderResponsModel(clientOrdersRequestModel,orderId);
+        //    _orderSteps.GetClientClientById(orderId, token, expectedOrderClient);
+        //}
     }
 }
