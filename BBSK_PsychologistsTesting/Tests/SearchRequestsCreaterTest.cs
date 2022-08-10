@@ -8,15 +8,18 @@ using BBSK_PsychologistsTesting.Psychologist;
 using static BBSK_PsychologistsTesting.Tests.TestSources.CreateClientSearchRequestsTestSources;
 using BBSK_PsychologistsTesting.Tests.Steps;
 using BBSK_PsychologistsTesting.Models.Response;
+using System.Collections.Generic;
 
 namespace BBSK_PsychologistsTesting.Tests
 {
-    public class SearchRequestsCreaterClientTest
+    public class SearchRequestsCreaterTest
     {
         private DataCleaning _dataCleaning = new DataCleaning();
         private ClientSteps _clientSteps = new ClientSteps();
         private SearchRequestsSteps _searchRequestsSteps = new SearchRequestsSteps();
         private SearchRequestsMapper _searchRequestsMapper = new SearchRequestsMapper();
+        private ClientMapper _clientMapper = new ClientMapper();
+        
 
         int id;
         int orderId;
@@ -24,7 +27,7 @@ namespace BBSK_PsychologistsTesting.Tests
         int clientId;
         string token;
         int searchRequestsId;
-
+        
 
        
 
@@ -54,6 +57,16 @@ namespace BBSK_PsychologistsTesting.Tests
 
             token = _clientSteps.AuthtorizeClientSystem(authModel);
 
+            AuthRequestModel authManager = new AuthRequestModel()
+            {
+                Email = "manager@p.ru",
+                Password = "Manager777",
+            };
+
+            token = _clientSteps.AuthtorizeClientSystem(authManager);
+
+
+
         }
 
         [TearDown]
@@ -64,7 +77,7 @@ namespace BBSK_PsychologistsTesting.Tests
 
 
         [TestCaseSource(typeof(SearchRequests_WhenSearchRequestsIsCorrect_TestSource))]
-        public void CreateSearchRequestsPhyhoforClient_WhenSearchRequestsIsCorrect_ShouldSearchRequests(SearchRequestsRequestsModel searchRequestsRequestsModel)
+        public void CreateSearchRequestsPsychoforClient_WhenSearchRequestsIsCorrect_ShouldSearchRequests(SearchRequestsRequestsModel searchRequestsRequestsModel)
         {
             searchRequestsId=_searchRequestsSteps.CreateClientSearchRequests(token, searchRequestsRequestsModel);
 
@@ -77,7 +90,7 @@ namespace BBSK_PsychologistsTesting.Tests
         }
 
         [TestCaseSource(typeof(SearchRequests_WhenSearchRequestsIsCorrect_TestSource))]
-        public void UpdateSearchRequestsPhyhoforClient_WhenSearchRequestsIsCorrect_ShouldSearchRequests(SearchRequestsRequestsModel searchRegistrationModel, SearchRequestsRequestsModel searchUpdateModel)
+        public void UpdateSearchRequestsPsychoforClient_WhenSearchRequestsIsCorrect_ShouldSearchRequests(SearchRequestsRequestsModel searchRegistrationModel, SearchRequestsRequestsModel searchUpdateModel)
         {
             searchRequestsId = _searchRequestsSteps.CreateClientSearchRequests(token, searchRegistrationModel);
 
@@ -89,6 +102,14 @@ namespace BBSK_PsychologistsTesting.Tests
 
         }
 
+        [TestCaseSource(typeof(SearchRequests_WhenSearchRequestsIsCorrect_TestSource))]
+        public void GetSearchRequestsPsychoforClient_WhenAuthManagerIsCorrect_ShouldSearchRequests(List <ClientRequestModel> clientRequestModel)
+        {
+            
+            List<ClientGetIdResponseModel> clientGetIdResponseModel = new List<ClientGetIdResponseModel>();
+            _clientSteps.GetAllClient(id, token, clientGetIdResponseModel);
 
+            List <ClientResponseModel> expectedClient = _clientMapper.MappClientRequestModelToClientResponsModel(clientRequestModel, id);
+        }
     }
 }
