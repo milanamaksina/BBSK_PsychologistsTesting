@@ -14,8 +14,10 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
         {
             public IEnumerator GetEnumerator()
             {
-                yield return new SearchRequestsRequestsModel()
-                {
+                yield return new object[]
+                    {
+                   new SearchRequestsRequestsModel()
+                   {
                     Name = "Васiiiiii",
                     PhoneNumber = "89817051890",
                     Description = "Тот что не дурак, а дурак не нужен",
@@ -23,8 +25,24 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
                     CostMin = 2000,
                     CostMax = 6000,
                     Date = new DateTime(2001, 07, 01),
-                    Time = 1                  
-                };
+                    Time = 1
+                   },
+
+                    new SearchRequestsRequestsModel()
+
+                {
+                    Name = "Вася",
+                    PhoneNumber = "89817051890",
+                    Description = "Тот что не дурак, а дурак не нужен",
+                    PsychologistGender = 1,
+                    CostMin = 4000,
+                    CostMax = 10000,
+                    Date = new DateTime(2001, 07, 01),
+                    Time = 1
+                }
+                    };
+            
+            
             }
         }
     }

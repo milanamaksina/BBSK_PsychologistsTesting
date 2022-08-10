@@ -1,9 +1,5 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BBSK_PsychologistsTesting.Support.Mappers;
 using BBSK_PsychologistsTesting.Options;
 using BBSK_PsychologistsTesting.Models.Request;
@@ -17,7 +13,6 @@ namespace BBSK_PsychologistsTesting.Tests
 {
     public class SearchRequestsCreaterClientTest
     {
-        private ClientMapper _clientMapper = new ClientMapper();
         private DataCleaning _dataCleaning = new DataCleaning();
         private ClientSteps _clientSteps = new ClientSteps();
         private SearchRequestsSteps _searchRequestsSteps = new SearchRequestsSteps();
@@ -36,10 +31,8 @@ namespace BBSK_PsychologistsTesting.Tests
         [SetUp]
         public void SetUp()
 
-        {
-            
-                _dataCleaning.Clean();
-            
+        {            
+                _dataCleaning.Clean();           
 
             ClientRequestModel clientModel = new ClientRequestModel()
             {
@@ -76,9 +69,26 @@ namespace BBSK_PsychologistsTesting.Tests
             searchRequestsId=_searchRequestsSteps.CreateClientSearchRequests(token, searchRequestsRequestsModel);
 
             SearchRequestsResponseModel expectedSearchRequests = _searchRequestsMapper.MappSearchRequestsRequestsModelToSearchRequestsResponseModel(searchRequestsRequestsModel, searchRequestsId);
+            
+            _searchRequestsSteps.GetSearchRequestsById(searchRequestsId, token, expectedSearchRequests);
+           
+            _searchRequestsSteps.DeleteClientSearchRequests(searchRequestsId, token);
+
+        }
+
+        [TestCaseSource(typeof(SearchRequests_WhenSearchRequestsIsCorrect_TestSource))]
+        public void UpdateSearchRequestsPhyhoforClient_WhenSearchRequestsIsCorrect_ShouldSearchRequests(SearchRequestsRequestsModel searchRegistrationModel, SearchRequestsRequestsModel searchUpdateModel)
+        {
+            searchRequestsId = _searchRequestsSteps.CreateClientSearchRequests(token, searchRegistrationModel);
+
+
+            _searchRequestsSteps.UpdateClientSearchRequests(searchRequestsId, token, searchUpdateModel);
+            SearchRequestsResponseModel expectedSearchRequests = _searchRequestsMapper.MappSearchRequestsRequestsModelToSearchRequestsResponseModel(searchUpdateModel, searchRequestsId);
+
             _searchRequestsSteps.GetSearchRequestsById(searchRequestsId, token, expectedSearchRequests);
 
         }
+
 
     }
 }

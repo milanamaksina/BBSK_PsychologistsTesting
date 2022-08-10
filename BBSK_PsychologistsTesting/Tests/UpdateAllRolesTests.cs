@@ -26,6 +26,8 @@ namespace BBSK_PsychologistsTesting.Tests
         [SetUp]
         public void SetUp()
         {
+            _dataCleaning.Clean();
+
             ClientRequestModel clientModel = new ClientRequestModel()
             {
                 Name = "Чудо",
@@ -72,12 +74,6 @@ namespace BBSK_PsychologistsTesting.Tests
                 Password = "Manager777",
             };
             psychoToken = _clientSteps.AuthtorizeClientSystem(authPsychoModel);
-        }
-
-        [OneTimeTearDown]
-        public void OneTimeTearDown()
-        {
-
         }
 
         [TearDown]
