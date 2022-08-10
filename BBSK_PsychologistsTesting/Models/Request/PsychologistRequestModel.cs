@@ -50,5 +50,8 @@ namespace BBSK_PsychologistsTesting.Models.Request
 
         [JsonProperty("price")]
         public decimal Price { get; set; }
+
+        [JsonProperty("isDeleted")]
+        public bool IsDeleted { get; set; }
     }
 }
