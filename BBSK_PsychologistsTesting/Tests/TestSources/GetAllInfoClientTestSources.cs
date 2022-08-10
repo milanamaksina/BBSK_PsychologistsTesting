@@ -14,6 +14,8 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
         {
             public IEnumerator GetEnumerator()
             {
+                List <ClientRequestModel> list = new List <ClientRequestModel> ();
+
                 yield return new object[]
                     {
                    new ClientRequestModel()
@@ -34,6 +36,17 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
                     Password="123456789",
                     Email="vorota@vovo.com",
                     PhoneNumber = "89817051880",
+                    BirthDate= new DateTime(2000, 04, 01)
+
+                   },
+
+                    new ClientRequestModel()
+                   {
+                    Name = "Сосулька",
+                    LastName= "Новогодняя",
+                    Password="123456789",
+                    Email="vorona@vovo.com",
+                    PhoneNumber = "89817051889",
                     BirthDate= new DateTime(2000, 04, 01)
 
                    },

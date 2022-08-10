@@ -31,6 +31,19 @@ namespace BBSK_PsychologistsTesting.Tests.Steps
             return (int)actualId;
         }
 
+        public List <ClientResponseModel> GetAllClientModeration (int id,string token, List<ClientResponseModel> expected)
+        {
+            HttpStatusCode expectedCode = HttpStatusCode.OK;
+            HttpContent httpContent = _searchRequestsClient.GetAllSearchRequests(id,token, expectedCode);
+
+            string content = httpContent.ReadAsStringAsync().Result;
+            List<ClientResponseModel> actual = JsonSerializer.Deserialize<List<ClientResponseModel>>(content);
+
+            CollectionAssert.AreEquivalent(expected, actual);
+
+            return actual;
+        }
+
         public SearchRequestsResponseModel GetSearchRequestsById(int id, string token, SearchRequestsResponseModel expectedClient)
         {
             HttpStatusCode expectedCode = HttpStatusCode.OK;
