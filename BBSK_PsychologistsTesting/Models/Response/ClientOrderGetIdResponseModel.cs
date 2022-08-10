@@ -9,7 +9,9 @@ namespace BBSK_PsychologistsTesting.Models.Response
 {
     public class ClientOrderGetIdResponseModel
     {
-        [JsonPropertyName("id")]
+        [JsonPropertyName("Id")]
         public int Id { get; set; }
+
+
     }
 }

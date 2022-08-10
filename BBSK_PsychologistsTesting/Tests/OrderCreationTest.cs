@@ -13,8 +13,7 @@ using static BBSK_PsychologistsTesting.Tests.TestSources.CreateClientOrderTestSo
 namespace BBSK_PsychologistsTesting.Tests
 {
     public class OrderCreationTest
-    {
-        private OrdersClient _orderOrder = new OrdersClient();
+    {      
         private OrderSteps _orderSteps = new OrderSteps();
         private ClientMapper _clientMapper = new ClientMapper();
         private DataCleaning _dataCleaning = new DataCleaning();
@@ -25,6 +24,13 @@ namespace BBSK_PsychologistsTesting.Tests
         int clientId;
         string token;
 
+
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+           _dataCleaning.Clean();
+        }
+
         [SetUp]
         public void SetUp()
         {
@@ -33,7 +39,7 @@ namespace BBSK_PsychologistsTesting.Tests
                 Name = "Чудо",
                 LastName = "Юдо",
                 Password = "123456789",
-                Email = "vanva@111",
+                Email = "van@vyanya",
                 PhoneNumber = "88121691833",
                 BirthDate = new DateTime(1980, 01, 01)
             };
@@ -42,18 +48,13 @@ namespace BBSK_PsychologistsTesting.Tests
 
             AuthRequestModel authModel = new AuthRequestModel()
             {
-                Email = "vanva@111",
+                Email = "van@vyanya",
                 Password = "123456789",
             };
 
-           token = _clientSteps.AuthtorizeClientSystem(authModel);
+            token = _clientSteps.AuthtorizeClientSystem(authModel);
         }
 
-        [OneTimeTearDown]
-        public void OneTimeTearDown()
-        {
-           _dataCleaning.Clean();
-        }
 
         [TearDown]
         public void TearDown()
@@ -65,11 +66,11 @@ namespace BBSK_PsychologistsTesting.Tests
         [TestCaseSource(typeof(OrderAdd_WhenOrderModelIsCorrect_TestSource))]
         public void OrderClientCreate_WhenOrderModelIsCorrect_ShouldCreateOrder(ClientOrdersRequestModel clientOrdersRequestModel)
         {
-
             _orderSteps.CreateClientOrder(token, clientOrdersRequestModel);
 
-            ClientOrderGetIdResponseModel expectedOrderClient = _clientMapper.MappClientOrdersRequestModelToClientOrderResponsModel(clientOrdersRequestModel,orderId);
+            ClientOrderResponseModel expectedOrderClient = _clientMapper.MappClientOrdersRequestModelToClientOrderResponsModel(clientOrdersRequestModel, orderId);
             _orderSteps.GetClientClientById(orderId, token, expectedOrderClient);
+
         }
     }
 }

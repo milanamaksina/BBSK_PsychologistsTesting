@@ -10,15 +10,16 @@ using NUnit.Framework;
 
 namespace BBSK_PsychologistsTesting.SearchRequests
 {
-    public class SearchRequestsSearchClient
+    public class SearchRequestsClient
     {
-        public HttpContent CreateSearchRequests(int id,string token, SearchRequestsRequestsModel searchRequestsRequestsModel, HttpStatusCode expectedCode)
+        public HttpContent CreateSearchRequests(string token, SearchRequestsRequestsModel searchRequestsRequestsModel, HttpStatusCode expectedCode)
         {
+            string json = JsonSerializer.Serialize(searchRequestsRequestsModel);
+
             HttpClient client = new HttpClient();
 
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            string json = JsonSerializer.Serialize(searchRequestsRequestsModel);
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Post,
@@ -55,7 +56,7 @@ namespace BBSK_PsychologistsTesting.SearchRequests
         }
 
         public HttpContent GetSearchRequestsById(int id, string token, HttpStatusCode expectedCode)
-        {          
+        {           
             HttpClient client = new HttpClient();
 
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -63,7 +64,7 @@ namespace BBSK_PsychologistsTesting.SearchRequests
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Get,
-                RequestUri = new System.Uri($"{Urls.SearchRequests}/{id}"),
+                RequestUri = new System.Uri($"{Urls.SearchRequests}/{id}"),               
             };
 
             HttpResponseMessage httpResponsec = client.Send(message);
@@ -94,9 +95,9 @@ namespace BBSK_PsychologistsTesting.SearchRequests
             return httpResponsec.Content;
         }
 
-        public HttpContent PutSearchRequestsById(int id, string token, SearchRequestsGetByIdRequestModel searchRequestsGetByIdRequestModel, HttpStatusCode expectedCode)
+        public HttpContent PutSearchRequestsById(int id, string token,SearchRequestsRequestsModel  searchRequestsRequestsModel, HttpStatusCode expectedCode)
         {
-            string json = JsonSerializer.Serialize(searchRequestsGetByIdRequestModel);
+            string json = JsonSerializer.Serialize(searchRequestsRequestsModel);
 
             HttpClient client = new HttpClient();
 

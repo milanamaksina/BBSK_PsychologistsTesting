@@ -1,10 +1,6 @@
 ﻿using BBSK_PsychologistsTesting.Models.Request;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BBSK_PsychologistsTesting.Tests.TestSources
 {

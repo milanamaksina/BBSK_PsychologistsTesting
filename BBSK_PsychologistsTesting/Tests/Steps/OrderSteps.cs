@@ -28,13 +28,13 @@ namespace BBSK_PsychologistsTesting.Tests.Steps
             return (int)actualId;
         }
 
-        public ClientOrderGetIdResponseModel GetClientClientById(int id, string token, ClientOrderGetIdResponseModel expectedOrderClientId)
+        public ClientOrderResponseModel GetClientClientById(int id, string token, ClientOrderResponseModel expectedOrderClientId)
         {
             HttpStatusCode expectedCod = HttpStatusCode.OK;
             HttpContent httpContent = _ordersOrders.GetOrdersById(id, token, expectedCod);
 
             string content = httpContent.ReadAsStringAsync().Result;
-            ClientOrderGetIdResponseModel actualOrderClientId = JsonSerializer.Deserialize<ClientOrderGetIdResponseModel>(content);
+            ClientOrderResponseModel actualOrderClientId = JsonSerializer.Deserialize<ClientOrderResponseModel>(content);
 
             Assert.AreEqual(expectedOrderClientId, actualOrderClientId);
 
