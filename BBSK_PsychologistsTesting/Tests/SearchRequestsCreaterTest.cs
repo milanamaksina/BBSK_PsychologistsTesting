@@ -102,14 +102,6 @@ namespace BBSK_PsychologistsTesting.Tests
 
         }
 
-        [TestCaseSource(typeof(SearchRequests_WhenSearchRequestsIsCorrect_TestSource))]
-        public void GetSearchRequestsPsychoforClient_WhenAuthManagerIsCorrect_ShouldSearchRequests(List <ClientRequestModel> clientRequestModel)
-        {
-            
-            List<ClientGetIdResponseModel> clientGetIdResponseModel = new List<ClientGetIdResponseModel>();
-            _clientSteps.GetAllClient(id, token, clientGetIdResponseModel);
-
-            List <ClientResponseModel> expectedClient = _clientMapper.MappClientRequestModelToClientResponsModel(clientRequestModel, id);
-        }
+        
     }
 }

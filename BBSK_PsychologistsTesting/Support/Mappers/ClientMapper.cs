@@ -16,7 +16,7 @@ namespace BBSK_PsychologistsTesting.Support.Mappers
             return responseModel;
         }
 
-        public ClientResponseModel MappClientRequestModelToClientResponsModel(ClientRequestModel clientRequest, int id)
+        public  ClientResponseModel MappClientRequestModelToClientResponsModel(ClientRequestModel clientRequest, int id)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<ClientResponseModel, ClientRequestModel>());
             Mapper mapper = new Mapper(config);
