@@ -39,7 +39,7 @@ namespace BBSK_PsychologistsTesting.Tests.Steps
             string content = httpContent.ReadAsStringAsync().Result;
             List<ClientResponseModel> actual = JsonSerializer.Deserialize<List<ClientResponseModel>>(content);
 
-            CollectionAssert.AreEquivalent(expected, actual);
+            CollectionAssert.AreEqual(expected, actual);
 
             return actual;
         }

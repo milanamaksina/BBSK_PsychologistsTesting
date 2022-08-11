@@ -8,6 +8,7 @@ using BBSK_PsychologistsTesting.Tests.Steps;
 using BBSK_PsychologistsTesting.Models.Response;
 using System.Collections.Generic;
 using static BBSK_PsychologistsTesting.Tests.TestSources.GetAllInfoClientTestSources;
+using System;
 
 namespace BBSK_PsychologistsTesting.Tests.TestSources
 {
@@ -51,11 +52,11 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
             foreach (var client in clientRequestModel)
             {
                 var clientId = _clientSteps.RegistrateClient(client);
-               clientResponseModel.Add(_clientMapper.MappClientRequestModelToClientResponsModel(client, clientId));
+                var data = DateTime.Now.Date;
+               clientResponseModel.Add(_clientMapper.MappClientRequestModelToClientResponsModel(data, client, clientId));
             }
            
-            _searchRequestsSteps.GetAllClientModeration(token, clientResponseModel);
-
+            _clientSteps.GetAllClient(token, clientResponseModel);
             
         }
     }

@@ -21,11 +21,12 @@ namespace BBSK_PsychologistsTesting.Options
                 command.Connection = connection;
                 command.ExecuteNonQuery();
 
+                command.CommandText = "delete from dbo.[Client]";
+                command.ExecuteNonQuery();
+
                 command.CommandText = "delete from dbo.[Order]";
                 command.ExecuteNonQuery();
 
-                command.CommandText = "delete from dbo.[Client]";
-                command.ExecuteNonQuery();
 
 
 
