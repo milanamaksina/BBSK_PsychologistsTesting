@@ -10,7 +10,7 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
 {
     public class GetAllInfoClientTestSources
     {
-        public class GetAllInfoClient_WhenClientRequestIsCorrect_TestSource : IEnumerable
+        public class GetAllClientsofManager_WhenAuthManagerIsCorrect_TestSource : IEnumerable
         {
             ClientRequestModel clientRequestModelOne;
             ClientRequestModel clientRequestModelTwo;

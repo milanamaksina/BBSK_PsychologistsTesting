@@ -15,8 +15,7 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
     public class GetAllClientsOfManagerTests
     {
         private DataCleaning _dataCleaning = new DataCleaning();
-        private ClientSteps _clientSteps = new ClientSteps();
-        private SearchRequestsSteps _searchRequestsSteps = new SearchRequestsSteps();    
+        private ClientSteps _clientSteps = new ClientSteps();    
         private ClientMapper _clientMapper = new ClientMapper();
 
         
@@ -45,8 +44,8 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
             _dataCleaning.Clean();
         }
 
-        [TestCaseSource(typeof(GetAllInfoClient_WhenClientRequestIsCorrect_TestSource))]
-        public void GetSearchRequestsPsychoforClient_WhenAuthManagerIsCorrect_ShouldSearchRequests(List<ClientRequestModel> clientRequestModel)
+        [TestCaseSource(typeof(GetAllClientsofManager_WhenAuthManagerIsCorrect_TestSource))]
+        public void GetAllClientsofManager_WhenAuthManagerIsCorrect_ShouldGetAllClients(List<ClientRequestModel> clientRequestModel)
         {
             List<ClientResponseModel> clientResponseModel = new List<ClientResponseModel>();
             foreach (var client in clientRequestModel)
