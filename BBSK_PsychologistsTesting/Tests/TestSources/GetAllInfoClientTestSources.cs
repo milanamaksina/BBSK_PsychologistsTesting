@@ -55,9 +55,8 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
 
 
                     };
-                clientRequestModels.Add(clientRequestModelOne);
-                clientRequestModels.Add(clientRequestModelTwo);
-                clientRequestModels.Add(clientRequestModelTree);
+                var clients = new List<ClientRequestModel> { clientRequestModelOne, clientRequestModelTwo, clientRequestModelTree };
+                
                 yield return clientRequestModels;
 
 
