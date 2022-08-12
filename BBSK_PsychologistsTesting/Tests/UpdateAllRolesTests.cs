@@ -38,7 +38,7 @@ namespace BBSK_PsychologistsTesting.Tests
                 BirthDate = new DateTime(1980, 01, 01)
             };
 
-            int actualId = _clientSteps.RegistrateClient(clientModel);
+            actualId = _clientSteps.RegistrateClient(clientModel);
 
             AuthRequestModel authModel = new AuthRequestModel()
             {
@@ -46,7 +46,7 @@ namespace BBSK_PsychologistsTesting.Tests
                 Password = "0000000000",
             };
 
-            string token = _clientSteps.AuthtorizeClientSystem(authModel);
+            token = _clientSteps.AuthtorizeClientSystem(authModel);
 
             PsychologistRequestModel psychologistModel = new PsychologistRequestModel()
             {

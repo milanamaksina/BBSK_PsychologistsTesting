@@ -28,6 +28,8 @@ namespace BBSK_PsychologistsTesting.Options
                 command.ExecuteNonQuery();
 
 
+
+
                 connection.Close();
 
             }

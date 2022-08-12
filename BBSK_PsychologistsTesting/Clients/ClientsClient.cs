@@ -26,14 +26,9 @@ namespace BBSK_PsychologistsTesting.Clients
             return client.Send(message);
         }
         
-        public HttpContent GetAllClient(int id, string token, HttpStatusCode expectedCode)
+        public HttpContent GetAllClient(string token, HttpStatusCode expectedCode)
         {
-             ClientGetAllIdRequestModel model = new ClientGetAllIdRequestModel()
-            {
-                Id = id
-            };
-            string json = JsonSerializer.Serialize(model);
-
+                      
             HttpClient client = new HttpClient();
 
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -41,7 +36,7 @@ namespace BBSK_PsychologistsTesting.Clients
             {
                 Method = HttpMethod.Get,
                 RequestUri = new Uri(Urls.Clients),
-                Content = new StringContent(json, Encoding.UTF8, "application/json")
+               
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
