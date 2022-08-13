@@ -6,28 +6,29 @@ using BBSK_PsychologistsTesting.Steps;
 using BBSK_PsychologistsTesting.Psychologist;
 using BBSK_PsychologistsTesting.Models.Response;
 using System.Collections.Generic;
+using static BBSK_PsychologistsTesting.Tests.TestSources.GetAllInfoClientTestSources;
 using System;
 using BBSK_PsychologistsTesting.Tests.Steps;
 using static BBSK_PsychologistsTesting.Tests.TestSources.CreateClientSearchRequestsTestSources;
 
-namespace BBSK_PsychologistsTesting.Tests
+namespace BBSK_PsychologistsTesting.Tests.TestSources
 {
-    public class GetAllClientHaveSeachRequetsOfManagerTests
+    public class GetAllClientsTests
     {
         private DataCleaning _dataCleaning;
-        private ClientSteps _clientSteps; 
-        private SearchRequestsMapper _searchRequestsMapper; 
-        private SearchRequestsSteps _searchRequestsSteps; 
-        private ClientMapper _clientMapper; 
+        private ClientSteps _clientSteps;
+        private SearchRequestsMapper _searchRequestsMapper;
+        private SearchRequestsSteps _searchRequestsSteps;
+        private ClientMapper _clientMapper;
 
-        public GetAllClientHaveSeachRequetsOfManagerTests()
-            {
+        public GetAllClientsTests()
+        {
             _dataCleaning = new DataCleaning();
             _clientSteps = new ClientSteps();
             _searchRequestsMapper = new SearchRequestsMapper();
             _searchRequestsSteps = new SearchRequestsSteps();
             _clientMapper = new ClientMapper();
-            }
+        }
 
 
         string tokenClientOne;
@@ -121,7 +122,7 @@ namespace BBSK_PsychologistsTesting.Tests
 
             List<ClientResponseModel> clientResponseModel = new List<ClientResponseModel>();
 
-            foreach (var client in _clients) 
+            foreach (var client in _clients)
             {
                 foreach (var clientId in _clientsId)
                 {
@@ -133,6 +134,20 @@ namespace BBSK_PsychologistsTesting.Tests
 
             _searchRequestsSteps.GetAllClientModeration(token, clientResponseModel);
         }
+
+        [TestCaseSource(typeof(GetAllClientsofManager_WhenAuthManagerIsCorrect_TestSource))]
+        public void GetAllClientsofManager_WhenAuthManagerIsCorrect_ShouldGetAllClients(List<ClientRequestModel> clientRequestModel)
+        {
+            List<ClientResponseModel> clientResponseModel = new List<ClientResponseModel>();
+            foreach (var client in clientRequestModel)
+            {
+                var clientId = _clientSteps.RegistrateClient(client);
+                var data = DateTime.Now.Date;
+               clientResponseModel.Add(_clientMapper.MappClientRequestModelToClientResponsModel(data, client, clientId));
+            }
+           
+            _clientSteps.GetAllClient(token, clientResponseModel);
+            
+        }
     }
-    
 }
