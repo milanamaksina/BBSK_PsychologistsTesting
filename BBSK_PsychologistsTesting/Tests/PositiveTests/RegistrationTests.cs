@@ -6,6 +6,7 @@ using BBSK_PsychologistsTesting.Models.Request;
 using BBSK_PsychologistsTesting.Models.Response;
 using BBSK_PsychologistsTesting.Steps;
 using BBSK_PsychologistsTesting.Clients;
+using BBSK_PsychologistsTesting.Options;
 
 namespace BBSK_PsychologistsTesting.Tests
 {
@@ -13,18 +14,26 @@ namespace BBSK_PsychologistsTesting.Tests
     {
         private ClientSteps _clientSteps;
         private PsychologistSteps _psychoSteps;
-        private AuthClient _authManager; 
+        private AuthClient _authManager;
+        private DataCleaning _dataCleaning;
+
 
         public RegistrationTests()
         {
             _clientSteps = new ClientSteps();
             _psychoSteps = new PsychologistSteps();
             _authManager = new AuthClient();
+            _dataCleaning = new DataCleaning();
         }
         string token;
         int actualId;
         int psychologistId;
 
+        [TearDown]
+        public void TearDown()
+        {
+            _dataCleaning.Clean();
+        }
 
         [Test]
         public void PsychologistCreation_WhenPsychologistModelIsCorrect_ShouldCreatePsychologist()
@@ -117,7 +126,7 @@ namespace BBSK_PsychologistsTesting.Tests
                 Name = "Ляшка",
                 LastName = "Какашка",
                 Password = "12345678",
-                Email = "vo@ooaaoks.ru",
+                Email = "vo@ooaaok.ru",
                 PhoneNumber = "8888044617",
                 BirthDate = new DateTime(1991, 06, 01)
             };// я создал модельку
@@ -126,7 +135,7 @@ namespace BBSK_PsychologistsTesting.Tests
 
             AuthRequestModel authModel = new AuthRequestModel()
             {
-                Email = "vo@ooaaoks.ru",
+                Email = "vo@ooaaok.ru",
                 Password = "12345678",
             };// я создал модельку 
 

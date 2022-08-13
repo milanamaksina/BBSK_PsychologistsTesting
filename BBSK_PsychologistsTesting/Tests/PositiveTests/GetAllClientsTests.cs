@@ -135,19 +135,6 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
             _searchRequestsSteps.GetAllClientModeration(token, clientResponseModel);
         }
 
-        [TestCaseSource(typeof(GetAllClientsofManager_WhenAuthManagerIsCorrect_TestSource))]
-        public void GetAllClientsofManager_WhenAuthManagerIsCorrect_ShouldGetAllClients(List<ClientRequestModel> clientRequestModel)
-        {
-            List<ClientResponseModel> clientResponseModel = new List<ClientResponseModel>();
-            foreach (var client in clientRequestModel)
-            {
-                var clientId = _clientSteps.RegistrateClient(client);
-                var data = DateTime.Now.Date;
-               clientResponseModel.Add(_clientMapper.MappClientRequestModelToClientResponsModel(data, client, clientId));
-            }
-           
-            _clientSteps.GetAllClient(token, clientResponseModel);
-            
-        }
+       
     }
 }
