@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BBSK_PsychologistsTesting.Tests.TestSources
 {
-    public class CreateClientUpdateSearchRequestsTestSources
+    public class UpdateClientSearchRequestsTestSources
     {
         public class SearchRequestsUpdateClients_WhenSearchRequestsIsCorrect_TestSource : IEnumerable
         {

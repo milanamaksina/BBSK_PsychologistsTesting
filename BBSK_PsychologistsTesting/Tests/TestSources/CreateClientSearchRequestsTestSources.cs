@@ -15,15 +15,15 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
                     {
                    new SearchRequestsRequestsModel()
                    {
-                    Name = "Васiiiiii",
-                    PhoneNumber = "89817051890",
+                    Name = "Чудо",
+                    PhoneNumber = "88121691837",
                     Description = "Тот что не дурак, а дурак не нужен",
                     PsychologistGender = 1,
                     CostMin = 2000,
                     CostMax = 6000,
                     Date = new DateTime(2001, 07, 01),
                     Time = 1
-                   },              
+                   }              
                     };
 
 

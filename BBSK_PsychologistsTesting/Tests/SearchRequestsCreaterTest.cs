@@ -8,29 +8,31 @@ using BBSK_PsychologistsTesting.Psychologist;
 using static BBSK_PsychologistsTesting.Tests.TestSources.CreateClientSearchRequestsTestSources;
 using BBSK_PsychologistsTesting.Tests.Steps;
 using BBSK_PsychologistsTesting.Models.Response;
-using System.Collections.Generic;
-using static BBSK_PsychologistsTesting.Tests.TestSources.CreateClientUpdateSearchRequestsTestSources;
+using static BBSK_PsychologistsTesting.Tests.TestSources.UpdateClientSearchRequestsTestSources;
 
 namespace BBSK_PsychologistsTesting.Tests
 {
     public class SearchRequestsCreaterTest
     {
-        private DataCleaning _dataCleaning = new DataCleaning();
-        private ClientSteps _clientSteps = new ClientSteps();
-        private SearchRequestsSteps _searchRequestsSteps = new SearchRequestsSteps();
-        private SearchRequestsMapper _searchRequestsMapper = new SearchRequestsMapper();
-        private ClientMapper _clientMapper = new ClientMapper();
-        
+        private DataCleaning _dataCleaning;
+        private ClientSteps _clientSteps; 
+        private SearchRequestsSteps _searchRequestsSteps; 
+        private SearchRequestsMapper _searchRequestsMapper; 
+        private ClientMapper _clientMapper;
 
-        int id;
-        int orderId;
-        int actualId;
-        int clientId;
+        public SearchRequestsCreaterTest()
+        {
+            _dataCleaning = new DataCleaning();
+            _clientSteps = new ClientSteps();
+            _searchRequestsSteps = new SearchRequestsSteps();
+            _searchRequestsMapper = new SearchRequestsMapper();
+            _clientMapper = new ClientMapper();
+        }
+
+
         string token;
         int searchRequestsId;
-        
-
-       
+        int actualId;    
 
         [SetUp]
         public void SetUp()

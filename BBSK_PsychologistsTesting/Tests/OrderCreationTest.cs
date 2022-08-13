@@ -13,17 +13,23 @@ using static BBSK_PsychologistsTesting.Tests.TestSources.CreateClientOrderTestSo
 namespace BBSK_PsychologistsTesting.Tests
 {
     public class OrderCreationTest
-    {      
-        private OrderSteps _orderSteps = new OrderSteps();
-        private ClientMapper _clientMapper = new ClientMapper();
-        private DataCleaning _dataCleaning = new DataCleaning();
-        private ClientSteps _clientSteps = new ClientSteps();
+    {
+        private OrderSteps _orderSteps;
+        private ClientMapper _clientMapper;
+        private DataCleaning _dataCleaning; 
+        private ClientSteps _clientSteps; 
+
+        public OrderCreationTest()
+        {
+            _orderSteps = new OrderSteps();
+            _clientMapper = new ClientMapper();
+            _dataCleaning = new DataCleaning();
+            _clientSteps = new ClientSteps();
+        }
 
         int orderId;
-        int actualId;
-        int clientId;
         string token;
-
+        int actualId;
 
         [OneTimeTearDown]
         public void OneTimeTearDown()

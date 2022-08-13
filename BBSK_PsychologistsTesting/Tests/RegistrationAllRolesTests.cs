@@ -10,9 +10,14 @@ namespace BBSK_PsychologistsTesting.Tests
 {
     public class RegistrationAllRolesTests
     {
-        private ClientSteps _clientSteps= new ClientSteps();
-        private PsychologistSteps _psychoSteps = new PsychologistSteps();
-        
+        private ClientSteps _clientSteps;
+        private PsychologistSteps _psychoSteps; 
+
+        public RegistrationAllRolesTests()
+        {
+            _clientSteps = new ClientSteps();
+            _psychoSteps = new PsychologistSteps();
+        }
 
         [Test]
         public void PsychologistCreation_WhenPsychologistModelIsCorrect_ShouldCreatePsychologist()

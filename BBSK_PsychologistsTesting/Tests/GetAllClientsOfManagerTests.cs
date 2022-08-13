@@ -4,7 +4,6 @@ using BBSK_PsychologistsTesting.Options;
 using BBSK_PsychologistsTesting.Models.Request;
 using BBSK_PsychologistsTesting.Steps;
 using BBSK_PsychologistsTesting.Psychologist;
-using BBSK_PsychologistsTesting.Tests.Steps;
 using BBSK_PsychologistsTesting.Models.Response;
 using System.Collections.Generic;
 using static BBSK_PsychologistsTesting.Tests.TestSources.GetAllInfoClientTestSources;
@@ -12,7 +11,7 @@ using System;
 
 namespace BBSK_PsychologistsTesting.Tests.TestSources
 {
-    public class GetAllClientsOfManagerTests
+    public class GetAllClientsHaveResponseRequestOfManagerTests
     {
         private DataCleaning _dataCleaning = new DataCleaning();
         private ClientSteps _clientSteps = new ClientSteps();    

@@ -13,11 +13,21 @@ namespace BBSK_PsychologistsTesting.Tests
 {
     public class UpdateAllRolesTests
     {
-        private ClientSteps _clientSteps = new ClientSteps();
-        private PsychologistSteps _psychoSteps = new PsychologistSteps();
-        private DataCleaning _dataCleaning = new DataCleaning();
-        private ClientRequestModel clientModel = new ClientRequestModel();
-        private PsychoMapper _psychoMapper = new PsychoMapper();
+        private ClientSteps _clientSteps; 
+        private PsychologistSteps _psychoSteps; 
+        private DataCleaning _dataCleaning; 
+        private ClientRequestModel clientModel; 
+        private PsychoMapper _psychoMapper; 
+
+        public UpdateAllRolesTests()
+        {
+            _clientSteps = new ClientSteps();   
+            _psychoSteps = new PsychologistSteps();
+            _dataCleaning = new DataCleaning();
+            _psychoMapper = new PsychoMapper();
+            _psychoMapper = new PsychoMapper();
+        }
+
         int psychologistId;
         int actualId;
         string token;
@@ -48,32 +58,32 @@ namespace BBSK_PsychologistsTesting.Tests
 
             token = _clientSteps.AuthtorizeClientSystem(authModel);
 
-            PsychologistRequestModel psychologistModel = new PsychologistRequestModel()
-            {
-                Name = "Валерий",
-                LastName = "Александрович",
-                Patronymic = "Нежный",
-                Gender = 1,
-                BirthDate = new DateTime(2022, 05, 01),
-                Phone = "89992314543",
-                Password = "Azino777",
-                Email = "valera@mail.ru",
-                WorkExperience = 5,
-                PasportData = "4015 2453443 ГУ МВД ПО СПБ",
-                Education = new List<string> { "Мгу" },
-                CheckStatus = 1,
-                TherapyMethods = new List<string> { "когнитивная терапия" },
-                Problems = new List<string> { "тревога" },
-                Price = 1000
-            };
-            psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);
+            //PsychologistRequestModel psychologistModel = new PsychologistRequestModel()
+            //{
+            //    Name = "Валерий",
+            //    LastName = "Александрович",
+            //    Patronymic = "Нежный",
+            //    Gender = 1,
+            //    BirthDate = new DateTime(2022, 05, 01),
+            //    Phone = "89992314544",
+            //    Password = "Azino777",
+            //    Email = "valer@mail.ru",
+            //    WorkExperience = 5,
+            //    PasportData = "4015 2453443 ГУ МВД ПО СПБ",
+            //    Education = new List<string> { "Мгу" },
+            //    CheckStatus = 1,
+            //    TherapyMethods = new List<string> { "когнитивная терапия" },
+            //    Problems = new List<string> { "тревога" },
+            //    Price = 1000
+            //};
+            //psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);
 
-            AuthRequestModel authPsychoModel = new AuthRequestModel()
-            {
-                Email = "manager@p.ru",
-                Password = "Manager777",
-            };
-            psychoToken = _clientSteps.AuthtorizeClientSystem(authPsychoModel);
+            //AuthRequestModel authPsychoModel = new AuthRequestModel()
+            //{
+            //    Email = "manager@p.ru",
+            //    Password = "Manager777",
+            //};
+            //psychoToken = _clientSteps.AuthtorizeClientSystem(authPsychoModel);
         }
 
         [TearDown]
@@ -117,7 +127,7 @@ namespace BBSK_PsychologistsTesting.Tests
 
 
             };
-            _clientSteps.GetClientById(actualId, token, expectedClient);
+            //_clientSteps.GetClientById(actualId, token, expectedClient);
         }
     }
 }

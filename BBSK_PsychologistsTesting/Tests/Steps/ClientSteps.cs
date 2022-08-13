@@ -82,15 +82,18 @@ namespace BBSK_PsychologistsTesting.Steps
 
         public void UpdateClient(int id, ClientUpdateRequestModel newClientUpdateModel, string token)
         {
+            //HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
+
+            ////HttpContent httpContent = _clientsClient.GetClientById(id, token, expectedUpdateCode);
+            //HttpResponseMessage updateResponse = _clientsClient.UpdateClientById(id, newClientUpdateModel, token, expectedUpdateCode);
+            //HttpStatusCode actualUpdateCode = updateResponse.StatusCode;
+            //string actualUpdateToken = updateResponse.Content.ReadAsStringAsync().Result;
+
+            //Assert.AreEqual(expectedUpdateCode, actualUpdateCode);
+            //Assert.NotNull(actualUpdateToken);
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
 
-            HttpContent httpContent = _clientsClient.GetClientById(id, token, expectedUpdateCode);
-            HttpResponseMessage updateResponse = _clientsClient.UpdateClientById(id, newClientUpdateModel, token, expectedUpdateCode);
-            HttpStatusCode actualUpdateCode = updateResponse.StatusCode;
-            string actualUpdateToken = updateResponse.Content.ReadAsStringAsync().Result;
-
-            Assert.AreEqual(expectedUpdateCode, actualUpdateCode);
-            Assert.NotNull(actualUpdateToken);
+            _clientsClient.UpdateClientById(id, newClientUpdateModel, token, expectedUpdateCode);
         }
 
         public void DeleteClientById (int id, string token)

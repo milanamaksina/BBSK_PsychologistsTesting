@@ -46,9 +46,7 @@ namespace BBSK_PsychologistsTesting.Clients
         }
 
         public HttpContent GetClientById(int id, string token, HttpStatusCode expectedCode)
-        {
-            ClientRequestModel model = new ClientRequestModel();
-            string json = JsonSerializer.Serialize(model);
+        {          
             HttpClient client = new HttpClient();
 
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -57,7 +55,7 @@ namespace BBSK_PsychologistsTesting.Clients
             {
                 Method = HttpMethod.Get,
                 RequestUri = new System.Uri($"{Urls.Clients}/{id}"),
-                Content = new StringContent(json, Encoding.UTF8, "application/json")
+                
             };
 
             HttpResponseMessage httpResponsec=client.Send(message);
@@ -68,7 +66,7 @@ namespace BBSK_PsychologistsTesting.Clients
             return httpResponsec.Content;
         }
 
-        public HttpResponseMessage UpdateClientById(int id, ClientUpdateRequestModel clientsUpdateModel, string token, HttpStatusCode expectedCode)
+        public HttpContent UpdateClientById(int id, ClientUpdateRequestModel clientsUpdateModel, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(clientsUpdateModel);
 
@@ -85,7 +83,7 @@ namespace BBSK_PsychologistsTesting.Clients
 
             Assert.AreEqual(expectedCode, actualCode);
 
-            return client.Send(message);
+            return response.Content;
 
         }
         

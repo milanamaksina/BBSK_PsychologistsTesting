@@ -27,6 +27,9 @@ namespace BBSK_PsychologistsTesting.Options
                 command.CommandText = "delete from dbo.[Order]";
                 command.ExecuteNonQuery();
 
+                command.CommandText = "delete from dbo.[Psychologist]";
+                command.ExecuteNonQuery();
+
 
 
 
