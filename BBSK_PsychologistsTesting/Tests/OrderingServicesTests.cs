@@ -12,14 +12,14 @@ using static BBSK_PsychologistsTesting.Tests.TestSources.CreateClientOrderTestSo
 
 namespace BBSK_PsychologistsTesting.Tests
 {
-    public class OrderCreationTest
+    public class OrderingServicesTests
     {
         private OrderSteps _orderSteps;
         private ClientMapper _clientMapper;
         private DataCleaning _dataCleaning; 
         private ClientSteps _clientSteps; 
 
-        public OrderCreationTest()
+        public OrderingServicesTests()
         {
             _orderSteps = new OrderSteps();
             _clientMapper = new ClientMapper();
