@@ -8,5 +8,7 @@ namespace BBSK_PsychologistsTesting.Models.Request
     {
         [JsonProperty("price")]
         public decimal Price { get; set; }
+
+
     }
 }
