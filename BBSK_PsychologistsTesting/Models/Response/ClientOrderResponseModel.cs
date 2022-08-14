@@ -1,11 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
-namespace BBSK_PsychologistsTesting.Models.Request
+namespace BBSK_PsychologistsTesting.Models.Response
 {
-    public class ClientOrdersRequestModel
+    public class ClientOrderResponseModel
     {
-        
+        [JsonPropertyName("Id")]
+        public int Id { get; set; }
 
         [JsonPropertyName("clientId")]
         public int ClientId { get; set; }
@@ -36,5 +41,6 @@ namespace BBSK_PsychologistsTesting.Models.Request
 
         [JsonPropertyName("orderPaymentStatus")]
         public int OrderPaymentStatus { get; set; }
+
     }
 }

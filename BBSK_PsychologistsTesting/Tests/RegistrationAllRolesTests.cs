@@ -105,7 +105,7 @@ namespace BBSK_PsychologistsTesting.Tests
                 Name = "Ляшка",
                 LastName = "Какашка",
                 Password = "12345678",
-                Email = "жела@ooaaoks.ru",
+                Email = "vo@ooaaoks.ru",
                 PhoneNumber = "8888044617",
                 BirthDate = new DateTime(1991, 06, 01)
             };// я создал модельку
@@ -114,7 +114,7 @@ namespace BBSK_PsychologistsTesting.Tests
 
             AuthRequestModel authModel = new AuthRequestModel()
             {
-                Email = "жела@ooaaoks.ru",
+                Email = "vo@ooaaoks.ru",
                 Password = "12345678",
             };// я создал модельку 
 
