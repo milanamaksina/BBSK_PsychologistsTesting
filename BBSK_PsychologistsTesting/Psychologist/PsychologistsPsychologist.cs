@@ -86,7 +86,7 @@ namespace BBSK_PsychologistsTesting.Psychologist
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-            //Assert.AreEqual(expectedCode, actualCode);
+            Assert.AreEqual(expectedCode, actualCode);
 
             return response.Content;
         }
