@@ -7,7 +7,7 @@ using System.Net;
 using BBSK_PsychologistsTesting.Psychologist;
 using System.Collections.Generic;
 using System.Text.Json;
-
+using BBSK_PsychologistsTesting.Models.Response;
 
 namespace BBSK_PsychologistsTesting.Steps
 {
@@ -51,16 +51,17 @@ namespace BBSK_PsychologistsTesting.Steps
             return actualToken;
             
         }
-        public List<ClientGetIdResponseModel> GetAllClient(int id, string token, List<ClientGetIdResponseModel> expected)
+
+        public List<ClientResponseModel> GetAllClient(string token, List<ClientResponseModel> expected)
         {
             HttpStatusCode expectedCode = HttpStatusCode.OK;
 
-            HttpContent httpContent = _clientsClient.GetAllClient(id, token, expectedCode);
+            HttpContent httpContent = _clientsClient.GetAllClient( token, expectedCode);
 
             string content = httpContent.ReadAsStringAsync().Result;
-            List<ClientGetIdResponseModel> actual = JsonSerializer.Deserialize<List<ClientGetIdResponseModel>>(content);
+            List<ClientResponseModel> actual = JsonSerializer.Deserialize<List<ClientResponseModel>>(content);
 
-            CollectionAssert.AreEquivalent(expected, actual);
+            CollectionAssert.AreEqual(expected, actual);
 
             return actual;
         }
@@ -81,15 +82,18 @@ namespace BBSK_PsychologistsTesting.Steps
 
         public void UpdateClient(int id, ClientUpdateRequestModel newClientUpdateModel, string token)
         {
+            //HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
+
+            ////HttpContent httpContent = _clientsClient.GetClientById(id, token, expectedUpdateCode);
+            //HttpResponseMessage updateResponse = _clientsClient.UpdateClientById(id, newClientUpdateModel, token, expectedUpdateCode);
+            //HttpStatusCode actualUpdateCode = updateResponse.StatusCode;
+            //string actualUpdateToken = updateResponse.Content.ReadAsStringAsync().Result;
+
+            //Assert.AreEqual(expectedUpdateCode, actualUpdateCode);
+            //Assert.NotNull(actualUpdateToken);
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
 
-            HttpContent httpContent = _clientsClient.GetClientById(id, token, expectedUpdateCode);
-            HttpResponseMessage updateResponse = _clientsClient.UpdateClientById(id, newClientUpdateModel, token, expectedUpdateCode);
-            HttpStatusCode actualUpdateCode = updateResponse.StatusCode;
-            string actualUpdateToken = updateResponse.Content.ReadAsStringAsync().Result;
-
-            Assert.AreEqual(expectedUpdateCode, actualUpdateCode);
-            Assert.NotNull(actualUpdateToken);
+            _clientsClient.UpdateClientById(id, newClientUpdateModel, token, expectedUpdateCode);
         }
 
         public void DeleteClientById (int id, string token)
