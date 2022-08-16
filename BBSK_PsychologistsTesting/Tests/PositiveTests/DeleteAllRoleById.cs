@@ -17,18 +17,14 @@ namespace BBSK_PsychologistsTesting.Tests
         private PsychologistSteps _psychoSteps;
         private DataCleaning _dataCleaning;
         private PsychoMapper _psychoMapper;
-
         public DeleteAllRoleById()
         {
             _clientSteps = new ClientSteps();
             _psychoSteps = new PsychologistSteps();
             _dataCleaning = new DataCleaning();
             _psychoMapper = new PsychoMapper();
-        }
-
-        
+        }       
         string psychoToken;
-
         [SetUp]
         public void SetUp()
         {
@@ -65,13 +61,11 @@ namespace BBSK_PsychologistsTesting.Tests
         {
             _dataCleaning.Clean();
         }
-
         [TearDown]
         public void TearDown()
         {
             _dataCleaning.Clean();
         }
-
         [TestCaseSource(typeof(PsychologistDelete_WhenPsychologistModelIsDeleted_TestSource))]
         public void PsychologistDelete_WhenPsychologistModelIsCorrect_ShouldDeletePsychologist(int psychologistId, PsychologistRequestModel psychologistIsDeletedModel, List<PsychologistRequestModel> allPsychologistModels)
         {
@@ -79,7 +73,6 @@ namespace BBSK_PsychologistsTesting.Tests
             //GetById
             PsychologistResponseModel expectedPsychologist = _psychoMapper.MappPsychologistRequestModelToPsychologistResponseModel(psychologistIsDeletedModel, psychologistId);
             _psychoSteps.GetPsychologistById(psychologistId, psychoToken, expectedPsychologist);
-
             List<PsychologistResponseModel> expectedAllPsychologists = _psychoMapper.MappAllPsychologistsRequestModelToPsychologistResponseModel(allPsychologistModels);
             _psychoSteps.GetAllPsychologists(psychoToken, expectedAllPsychologists);
         }
@@ -96,19 +89,14 @@ namespace BBSK_PsychologistsTesting.Tests
                 PhoneNumber = "812345678",
                 BirthDate = new DateTime(1980, 01, 01)
             };
-
             int actualId = _clientSteps.RegistrateClient(clientModel);
-
             AuthRequestModel authModel = new AuthRequestModel()
             {
                 Email = "новая почта@oksf.ru",
                 Password = "0000000000",
             }; 
-
             string token = _clientSteps.AuthtorizeClientSystem(authModel);
-
             _clientSteps.DeleteClientById(actualId, token);
-
         }
     }
 }

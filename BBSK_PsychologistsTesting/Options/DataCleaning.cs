@@ -17,15 +17,16 @@ namespace BBSK_PsychologistsTesting.Options
                 connection.Open();
 
                 SqlCommand command = new SqlCommand();
-                command.CommandText = "delete from dbo.[ApplicationForPsychologistSearch]";
+                command.CommandText = "delete from dbo.[Order]";
                 command.Connection = connection;
+                command.ExecuteNonQuery();
+
+                command.CommandText = "delete from dbo.[ApplicationForPsychologistSearch]";
                 command.ExecuteNonQuery();
 
                 command.CommandText = "delete from dbo.[Client]";
                 command.ExecuteNonQuery();
 
-                command.CommandText = "delete from dbo.[Order]";
-                command.ExecuteNonQuery();
 
                 command.CommandText = "delete from dbo.[Psychologist]";
                 command.ExecuteNonQuery();

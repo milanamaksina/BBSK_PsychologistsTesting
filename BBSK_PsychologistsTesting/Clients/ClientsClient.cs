@@ -11,7 +11,7 @@ namespace BBSK_PsychologistsTesting.Clients
 {
     public class ClientsClient
     {
-        public HttpResponseMessage RegistrationClient(ClientRequestModel model)
+        public HttpContent RegistrationClient(ClientRequestModel model, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
 
@@ -23,9 +23,14 @@ namespace BBSK_PsychologistsTesting.Clients
                 Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
 
-            return client.Send(message);
+            HttpResponseMessage response = client.Send(message);
+            HttpStatusCode actualCode = response.StatusCode;
+
+            Assert.AreEqual(expectedCode, actualCode);
+
+            return response.Content;
         }
-        
+      
         public HttpContent GetAllClient(string token, HttpStatusCode expectedCode)
         {
                       

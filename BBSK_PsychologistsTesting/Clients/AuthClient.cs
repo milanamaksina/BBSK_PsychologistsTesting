@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using BBSK_PsychologistsTesting.Psychologist;
+using NUnit.Framework;
 
 namespace BBSK_PsychologistsTesting.Clients
 {
     public class AuthClient
     {
-        public HttpResponseMessage AutorializeClient(AuthRequestModel model)
+        public HttpContent AutorializeClient(AuthRequestModel model, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
 
@@ -21,8 +23,14 @@ namespace BBSK_PsychologistsTesting.Clients
                 RequestUri = new System.Uri(Urls.Auth),
                 Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
-            return client.Send(message);
+            HttpResponseMessage response = client.Send(message);
+            HttpStatusCode actualCode = response.StatusCode;
+
+            Assert.AreEqual(expectedCode, actualCode);
+
+            return response.Content;
 
         }
+
     }
 }

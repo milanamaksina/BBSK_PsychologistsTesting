@@ -15,16 +15,11 @@ namespace BBSK_PsychologistsTesting.Tests.Steps
         
         public int CreateClientOrder(string token, ClientOrdersRequestModel clientOrdersRequestModel)
         {
-            HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
-            
-            HttpContent content = _ordersOrders.AddOrder(token, clientOrdersRequestModel, expectedRegistrationCode);
-            
+            HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;          
+            HttpContent content = _ordersOrders.AddOrder(token, clientOrdersRequestModel, expectedRegistrationCode);           
             int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
-
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);
-
-
             return (int)actualId;
         }
 
@@ -32,12 +27,9 @@ namespace BBSK_PsychologistsTesting.Tests.Steps
         {
             HttpStatusCode expectedCod = HttpStatusCode.OK;
             HttpContent httpContent = _ordersOrders.GetOrdersById(id, token, expectedCod);
-
             string content = httpContent.ReadAsStringAsync().Result;
             ClientOrderResponseModel actualOrderClientId = JsonSerializer.Deserialize<ClientOrderResponseModel>(content);
-
             Assert.AreEqual(expectedOrderClientId, actualOrderClientId);
-
             return actualOrderClientId;
         }
     }

@@ -18,7 +18,6 @@ namespace BBSK_PsychologistsTesting.Tests
         private ClientMapper _clientMapper;
         private DataCleaning _dataCleaning; 
         private ClientSteps _clientSteps; 
-
         public OrderingServicesTests()
         {
             _orderSteps = new OrderSteps();
@@ -26,17 +25,14 @@ namespace BBSK_PsychologistsTesting.Tests
             _dataCleaning = new DataCleaning();
             _clientSteps = new ClientSteps();
         }
-
         int orderId;
         string token;
         int actualId;
-
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
            _dataCleaning.Clean();
         }
-
         [SetUp]
         public void SetUp()
         {
@@ -49,34 +45,25 @@ namespace BBSK_PsychologistsTesting.Tests
                 PhoneNumber = "88121691833",
                 BirthDate = new DateTime(1980, 01, 01)
             };
-
             actualId = _clientSteps.RegistrateClient(clientModel);
-
             AuthRequestModel authModel = new AuthRequestModel()
             {
                 Email = "van@vyanya",
                 Password = "123456789",
             };
-
             token = _clientSteps.AuthtorizeClientSystem(authModel);
         }
-
-
         [TearDown]
         public void TearDown()
         {
             _dataCleaning.Clean();
         }
-
-
         [TestCaseSource(typeof(OrderAdd_WhenOrderModelIsCorrect_TestSource))]
         public void OrderClientCreate_WhenOrderModelIsCorrect_ShouldCreateOrder(ClientOrdersRequestModel clientOrdersRequestModel)
         {
             _orderSteps.CreateClientOrder(token, clientOrdersRequestModel);
-
             ClientOrderResponseModel expectedOrderClient = _clientMapper.MappClientOrdersRequestModelToClientOrderResponsModel(clientOrdersRequestModel, orderId);
             _orderSteps.GetClientClientById(orderId, token, expectedOrderClient);
-
         }
     }
 }

@@ -16,8 +16,6 @@ namespace BBSK_PsychologistsTesting.Tests
         private PsychologistSteps _psychoSteps;
         private AuthClient _authManager;
         private DataCleaning _dataCleaning;
-
-
         public RegistrationTests()
         {
             _clientSteps = new ClientSteps();
@@ -28,17 +26,14 @@ namespace BBSK_PsychologistsTesting.Tests
         string token;
         int actualId;
         int psychologistId;
-
         [TearDown]
         public void TearDown()
         {
             _dataCleaning.Clean();
         }
-
         [Test]
         public void PsychologistCreation_WhenPsychologistModelIsCorrect_ShouldCreatePsychologist()
-        {
-            
+        {          
             PsychologistRequestModel psychologistModel = new PsychologistRequestModel()
             {
                 Name = "Валерий",
@@ -57,17 +52,13 @@ namespace BBSK_PsychologistsTesting.Tests
                 Problems = new List<string> { "тревога" },
                 Price = 1000
             };
-            psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);
-
-            
+            psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);           
             AuthRequestModel authModel = new AuthRequestModel()
             {
                 Email = "valera@mail.ru",
                 Password = "Azino777",
             };
-            token = _clientSteps.AuthtorizeClientSystem(authModel);
-
-            
+            token = _clientSteps.AuthtorizeClientSystem(authModel);          
             PsychologistResponseModel expectedPsychologist = new PsychologistResponseModel()
             {
                 Id = psychologistId,
@@ -88,9 +79,7 @@ namespace BBSK_PsychologistsTesting.Tests
                 Price = psychologistModel.Price,
 
             };
-
             _psychoSteps.GetPsychologistById(psychologistId, token, expectedPsychologist);
-
         }
 
         [Test]
@@ -129,22 +118,15 @@ namespace BBSK_PsychologistsTesting.Tests
                 Email = "vo@ooaaok.ru",
                 PhoneNumber = "8888044617",
                 BirthDate = new DateTime(1991, 06, 01)
-            };// я создал модельку
-
+            };
             actualId = _clientSteps.RegistrateClient(clientModel);
-
             AuthRequestModel authModel = new AuthRequestModel()
             {
                 Email = "vo@ooaaok.ru",
                 Password = "12345678",
-            };// я создал модельку 
-
+            };
             token = _clientSteps.AuthtorizeClientSystem(authModel);
-
-
         }
-
-
         [Test]
         public void ManagerAuth_WhenPasswordIsMoreOrEqualThan8Symbols_ShouldThrowCode200()
         {
@@ -153,10 +135,8 @@ namespace BBSK_PsychologistsTesting.Tests
                 Email = "king@p.ru",
                 Password = "Manager666",
             };
-
              token = _clientSteps.AuthtorizeClientSystem(authManagerModel);
         }
-
     }
     
 }

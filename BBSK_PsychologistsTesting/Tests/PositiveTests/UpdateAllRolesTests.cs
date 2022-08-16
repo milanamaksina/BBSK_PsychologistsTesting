@@ -47,17 +47,13 @@ namespace BBSK_PsychologistsTesting.Tests
                 PhoneNumber = "88121691813",
                 BirthDate = new DateTime(1980, 01, 01)
             };
-
             actualId = _clientSteps.RegistrateClient(clientModel);
-
             AuthRequestModel authModel = new AuthRequestModel()
             {
                 Email = "новаяппочта@oksf.ru",
                 Password = "0000000000",
             };
-
             token = _clientSteps.AuthtorizeClientSystem(authModel);
-
             //PsychologistRequestModel psychologistModel = new PsychologistRequestModel()
             //{
             //    Name = "Валерий",
@@ -85,7 +81,6 @@ namespace BBSK_PsychologistsTesting.Tests
             //};
             //psychoToken = _clientSteps.AuthtorizeClientSystem(authPsychoModel);
         }
-
         [TearDown]
         public void TearDown()
         {
@@ -96,7 +91,6 @@ namespace BBSK_PsychologistsTesting.Tests
         public void PsychologistUpdate_WhenPsychologistModelIsCorrect_ShouldUpdatePsychologist(PsychologistRequestModel psychologistNewModel)
         {
             _psychoSteps.UpdatePsychologistById(psychologistId, psychologistNewModel, token);
-            //GetById
             PsychologistResponseModel expectedPsychologist = _psychoMapper.MappPsychologistRequestModelToPsychologistResponseModel(psychologistNewModel, psychologistId);
             _psychoSteps.GetPsychologistById(psychologistId, token, expectedPsychologist);
         }
@@ -104,17 +98,13 @@ namespace BBSK_PsychologistsTesting.Tests
         [Test]
         public void DataСhanged_WhenClientLogged_ShouldThrowCode422()
         {
-
-
             ClientUpdateRequestModel clientUpdateModel = new ClientUpdateRequestModel()
             {
                 Name = "Чудо",
                 LastName = "БольшоеЮдооо",
                 BirthDate = new DateTime(1991, 06, 01)
             };
-
             _clientSteps.UpdateClient(actualId, clientUpdateModel, token);
-
             ClientGetIdResponseModel expectedClient = new ClientGetIdResponseModel()
             {
                 Id = actualId,
@@ -124,8 +114,6 @@ namespace BBSK_PsychologistsTesting.Tests
                 Email = clientModel.Email,
                 BirthDate = clientUpdateModel.BirthDate,
                 RegistrationDate = DateTime.Now.Date,
-
-
             };
             //_clientSteps.GetClientById(actualId, token, expectedClient);
         }
