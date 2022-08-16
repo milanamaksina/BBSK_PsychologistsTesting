@@ -144,6 +144,7 @@ namespace BBSK_PsychologistsTesting.Tests
                 Price = 1000
             };
 
+
             _psychoSteps.RegisterPsychologist_WhenPsychoModelIsWrong_ShouldThrowException(psychologistModel);
         }
 
