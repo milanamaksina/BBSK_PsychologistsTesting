@@ -94,6 +94,16 @@ namespace BBSK_PsychologistsTesting.Steps
 
         }
 
+        public void RegisterPsychologist_WhenPsychoModelIsWrong_ShouldThrowException(PsychologistRequestModel psychologistModel)
+        {
+            HttpStatusCode expectedRegistrationCode = HttpStatusCode.UnprocessableEntity;
+
+            HttpResponseMessage response = _psychologistsPsychologist.RegisterPsychologist(psychologistModel);
+            HttpStatusCode actualRegistrationCode = response.StatusCode;
+            int? actualId = Convert.ToInt32(response.Content.ReadAsStringAsync().Result);
+
+        }
+
     }
 }
 
