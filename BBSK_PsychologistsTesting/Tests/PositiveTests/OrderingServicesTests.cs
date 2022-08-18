@@ -71,10 +71,18 @@ namespace BBSK_PsychologistsTesting.Tests
             _orderSteps.GetClientClientById(orderId, token, expectedOrderClient);
         }
 
-        [Test]
-        public void DeleteOrder_WhenClientRegistrateAthtorize_ShouldThrowCode204()
+        [TestCaseSource(typeof(OrderAdd_WhenOrderModelIsCorrect_TestSource))]
+        public void DeleteOrder_WhenClientAthtorize_ShouldThrowCode204(ClientOrdersRequestModel clientOrdersRequestModel)
         {
-            _orderSteps.d
+            _orderSteps.CreateClientOrder(token, clientOrdersRequestModel);
+            ClientOrderResponseModel expectedOrderClient = _clientMapper.MappClientOrdersRequestModelToClientOrderResponsModel(clientOrdersRequestModel, orderId);
+            _orderSteps.DeleteOrderById(orderId, token);
+        }
+
+        [Test]
+        public void DeleteOrder_WhenManagerAthtorize_ShouldThrowCode204()
+        {
+            _orderSteps.DeleteOrderById(orderId, tokenManager);
         }
     }
 }

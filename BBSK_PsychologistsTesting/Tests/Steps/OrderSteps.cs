@@ -36,7 +36,7 @@ namespace BBSK_PsychologistsTesting.Tests.Steps
         public void DeleteOrderById (int id,string token)
         {
             HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
-            _ordersOrders.DeleteOrdersById(id, token);
+            _ordersOrders.DeleteOrdersById(id, token,expectedDeleteCode);
         }
     }
 }
