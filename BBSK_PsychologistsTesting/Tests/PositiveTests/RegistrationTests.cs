@@ -5,19 +5,35 @@ using NUnit.Framework;
 using BBSK_PsychologistsTesting.Models.Request;
 using BBSK_PsychologistsTesting.Models.Response;
 using BBSK_PsychologistsTesting.Steps;
+using BBSK_PsychologistsTesting.Clients;
+using BBSK_PsychologistsTesting.Options;
 
 namespace BBSK_PsychologistsTesting.Tests
 {
-    public class RegistrationAllRolesTests
+    public class RegistrationTests
     {
-        private ClientSteps _clientSteps= new ClientSteps();
-        private PsychologistSteps _psychoSteps = new PsychologistSteps();
-        
-
+        private ClientSteps _clientSteps;
+        private PsychologistSteps _psychoSteps;
+        private AuthClient _authManager;
+        private DataCleaning _dataCleaning;
+        public RegistrationTests()
+        {
+            _clientSteps = new ClientSteps();
+            _psychoSteps = new PsychologistSteps();
+            _authManager = new AuthClient();
+            _dataCleaning = new DataCleaning();
+        }
+        string token;
+        int actualId;
+        int psychologistId;
+        [TearDown]
+        public void TearDown()
+        {
+            _dataCleaning.Clean();
+        }
         [Test]
         public void PsychologistCreation_WhenPsychologistModelIsCorrect_ShouldCreatePsychologist()
-        {
-            //Регистрация 
+        {          
             PsychologistRequestModel psychologistModel = new PsychologistRequestModel()
             {
                 Name = "Валерий",
@@ -36,17 +52,13 @@ namespace BBSK_PsychologistsTesting.Tests
                 Problems = new List<string> { "тревога" },
                 Price = 1000
             };
-            int psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);
-
-            //Авторизация 
+            psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);           
             AuthRequestModel authModel = new AuthRequestModel()
             {
                 Email = "valera@mail.ru",
                 Password = "Azino777",
             };
-            string token = _clientSteps.AuthtorizeClientSystem(authModel);
-
-            //Гет по айди 
+            token = _clientSteps.AuthtorizeClientSystem(authModel);          
             PsychologistResponseModel expectedPsychologist = new PsychologistResponseModel()
             {
                 Id = psychologistId,
@@ -67,9 +79,7 @@ namespace BBSK_PsychologistsTesting.Tests
                 Price = psychologistModel.Price,
 
             };
-
             _psychoSteps.GetPsychologistById(psychologistId, token, expectedPsychologist);
-
         }
 
         [Test]
@@ -94,36 +104,39 @@ namespace BBSK_PsychologistsTesting.Tests
                 Price = 1000
             };
 
-            int psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);
+            psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);
         }
 
         [Test]
-        public void ClientCreation_WhenPasswordIsLessThan8Symbols_ShouldThrowCode422()
+        public void ClientCreation_WhenPasswordIsLessThan8Symbols_ShouldThrowCode201()
         {
             ClientRequestModel clientModel = new ClientRequestModel()
             {
                 Name = "Ляшка",
                 LastName = "Какашка",
                 Password = "12345678",
-                Email = "vo@ooaaoks.ru",
+                Email = "vo@ooaaok.ru",
                 PhoneNumber = "8888044617",
                 BirthDate = new DateTime(1991, 06, 01)
-            };// я создал модельку
-
-            int actualId = _clientSteps.RegistrateClient(clientModel);
-
+            };
+            actualId = _clientSteps.RegistrateClient(clientModel);
             AuthRequestModel authModel = new AuthRequestModel()
             {
-                Email = "vo@ooaaoks.ru",
+                Email = "vo@ooaaok.ru",
                 Password = "12345678",
-            };// я создал модельку 
-
-            string token = _clientSteps.AuthtorizeClientSystem(authModel);
-
-
+            };
+            token = _clientSteps.AuthtorizeClientSystem(authModel);
         }
-
-
+        [Test]
+        public void ManagerAuth_WhenPasswordIsMoreOrEqualThan8Symbols_ShouldThrowCode200()
+        {
+            AuthRequestModel authManagerModel = new AuthRequestModel()
+            {
+                Email = "king@p.ru",
+                Password = "Manager666",
+            };
+             token = _clientSteps.AuthtorizeClientSystem(authManagerModel);
+        }
     }
     
 }

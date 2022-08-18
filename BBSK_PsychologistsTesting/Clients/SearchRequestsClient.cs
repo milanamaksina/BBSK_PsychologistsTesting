@@ -35,7 +35,7 @@ namespace BBSK_PsychologistsTesting.SearchRequests
             return response.Content;
         }
 
-        public HttpContent GetAllSearchRequests(int id, string token,HttpStatusCode expectedCode)
+        public HttpContent GetAllSearchRequests(string token,HttpStatusCode expectedCode)
         {    
             HttpClient client = new HttpClient();
 

@@ -1,12 +1,8 @@
-﻿using BBSK_PsychologistsTesting.Clients;
-using BBSK_PsychologistsTesting.Models.Request;
+﻿using BBSK_PsychologistsTesting.Models.Request;
 using BBSK_PsychologistsTesting.Psychologist;
 using BBSK_PsychologistsTesting.Steps;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BBSK_PsychologistsTesting.Tests
 {

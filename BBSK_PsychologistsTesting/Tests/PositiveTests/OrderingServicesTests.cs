@@ -12,28 +12,28 @@ using static BBSK_PsychologistsTesting.Tests.TestSources.CreateClientOrderTestSo
 
 namespace BBSK_PsychologistsTesting.Tests
 {
-    public class OrderCreationTest
-    {      
-        private OrderSteps _orderSteps = new OrderSteps();
-        private ClientMapper _clientMapper = new ClientMapper();
-        private DataCleaning _dataCleaning = new DataCleaning();
-        private ClientSteps _clientSteps = new ClientSteps();
-
-        int orderId;
-        int actualId;
-        int clientId;
-        string token;
-
-
-        [OneTimeTearDown]
-        public void OneTimeTearDown()
+    public class OrderingServicesTests
+    {
+        private OrderSteps _orderSteps;
+        private ClientMapper _clientMapper;
+        private DataCleaning _dataCleaning; 
+        private ClientSteps _clientSteps; 
+        public OrderingServicesTests()
         {
-           _dataCleaning.Clean();
+            _orderSteps = new OrderSteps();
+            _clientMapper = new ClientMapper();
+            _dataCleaning = new DataCleaning();
+            _clientSteps = new ClientSteps();
         }
-
+        int orderId;
+        string token;
+        int actualId;
+        string tokenManager;
         [SetUp]
         public void SetUp()
         {
+            _dataCleaning.Clean();
+
             ClientRequestModel clientModel = new ClientRequestModel()
             {
                 Name = "Чудо",
@@ -43,34 +43,46 @@ namespace BBSK_PsychologistsTesting.Tests
                 PhoneNumber = "88121691833",
                 BirthDate = new DateTime(1980, 01, 01)
             };
-
             actualId = _clientSteps.RegistrateClient(clientModel);
-
             AuthRequestModel authModel = new AuthRequestModel()
             {
                 Email = "van@vyanya",
                 Password = "123456789",
             };
-
             token = _clientSteps.AuthtorizeClientSystem(authModel);
+
+            AuthRequestModel authModelbyManager = new AuthRequestModel()
+            {
+                Email = "manager@p.ru",
+                Password = "Manager777",
+            };
+            tokenManager = _clientSteps.AuthtorizeClientSystem(authModel);
         }
-
-
         [TearDown]
         public void TearDown()
         {
             _dataCleaning.Clean();
         }
-
-
         [TestCaseSource(typeof(OrderAdd_WhenOrderModelIsCorrect_TestSource))]
         public void OrderClientCreate_WhenOrderModelIsCorrect_ShouldCreateOrder(ClientOrdersRequestModel clientOrdersRequestModel)
         {
             _orderSteps.CreateClientOrder(token, clientOrdersRequestModel);
-
             ClientOrderResponseModel expectedOrderClient = _clientMapper.MappClientOrdersRequestModelToClientOrderResponsModel(clientOrdersRequestModel, orderId);
             _orderSteps.GetClientClientById(orderId, token, expectedOrderClient);
+        }
 
+        [TestCaseSource(typeof(OrderAdd_WhenOrderModelIsCorrect_TestSource))]
+        public void DeleteOrder_WhenClientAthtorize_ShouldThrowCode204(ClientOrdersRequestModel clientOrdersRequestModel)
+        {
+            _orderSteps.CreateClientOrder(token, clientOrdersRequestModel);
+            ClientOrderResponseModel expectedOrderClient = _clientMapper.MappClientOrdersRequestModelToClientOrderResponsModel(clientOrdersRequestModel, orderId);
+            _orderSteps.DeleteOrderById(orderId, token);
+        }
+
+        [Test]
+        public void DeleteOrder_WhenManagerAthtorize_ShouldThrowCode204()
+        {
+            _orderSteps.DeleteOrderById(orderId, tokenManager);
         }
     }
 }

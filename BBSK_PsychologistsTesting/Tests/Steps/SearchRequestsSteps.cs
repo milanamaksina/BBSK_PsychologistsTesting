@@ -20,43 +20,42 @@ namespace BBSK_PsychologistsTesting.Tests.Steps
         public int CreateClientSearchRequests(string token, SearchRequestsRequestsModel searchRequestsRequestsModel )
         {
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
-
             HttpContent content = _searchRequestsClient.CreateSearchRequests(token, searchRequestsRequestsModel, expectedRegistrationCode);
-
             int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
-
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);
-
             return (int)actualId;
+        }
+
+        public List <ClientResponseModel> GetAllClientModeration (string token, List<ClientResponseModel> expected)
+        {
+            HttpStatusCode expectedCode = HttpStatusCode.OK;
+            HttpContent httpContent = _searchRequestsClient.GetAllSearchRequests(token, expectedCode);
+            string content = httpContent.ReadAsStringAsync().Result;
+            List<ClientResponseModel> actual = JsonSerializer.Deserialize<List<ClientResponseModel>>(content);
+            CollectionAssert.AreEqual(expected, actual);
+            return actual;
         }
 
         public SearchRequestsResponseModel GetSearchRequestsById(int id, string token, SearchRequestsResponseModel expectedClient)
         {
             HttpStatusCode expectedCode = HttpStatusCode.OK;
-
             HttpContent httpContent = _searchRequestsClient.GetSearchRequestsById(id,token, expectedCode);
-
             string content = httpContent.ReadAsStringAsync().Result;
             SearchRequestsResponseModel actualClient = JsonSerializer.Deserialize<SearchRequestsResponseModel>(content);
-
             Assert.AreEqual(expectedClient, actualClient);
-
             return actualClient;
         }
 
         public void DeleteClientSearchRequests(int id, string token)
         {
             HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
-
             _searchRequestsClient.DeleteSearchRequestsById(id, token, expectedDeleteCode);
         }
 
         public void UpdateClientSearchRequests(int id, string token, SearchRequestsRequestsModel searchRequestsRequestsModel)
-        {
-           
-            HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
-            
+        {          
+            HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;           
             _searchRequestsClient.PutSearchRequestsById(id, token, searchRequestsRequestsModel, expectedUpdateCode);
         }
     }
