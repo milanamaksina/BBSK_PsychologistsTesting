@@ -30,5 +30,6 @@ namespace BBSK_PsychologistsTesting.Tests.Steps
             HttpStatusCode expectedAuthCode = HttpStatusCode.Unauthorized;
             _authClient.AutorializeClient(authModel, expectedAuthCode);
         }
+
     }
 }

@@ -32,5 +32,11 @@ namespace BBSK_PsychologistsTesting.Tests.Steps
             Assert.AreEqual(expectedOrderClientId, actualOrderClientId);
             return actualOrderClientId;
         }
+
+        public void DeleteOrderById (int id,string token)
+        {
+            HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
+            _ordersOrders.DeleteOrdersById(id, token);
+        }
     }
 }
