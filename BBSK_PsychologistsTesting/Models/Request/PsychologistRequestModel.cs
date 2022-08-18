@@ -31,7 +31,7 @@ namespace BBSK_PsychologistsTesting.Models.Request
         public string Email { get; set; }
 
         [JsonProperty("workExperience")]
-        public int WorkExperience { get; set; }
+        public int? WorkExperience { get; set; }
 
         [JsonProperty("pasportData")]
         public string PasportData { get; set; }

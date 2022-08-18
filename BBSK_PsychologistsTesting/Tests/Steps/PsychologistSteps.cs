@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
@@ -79,18 +81,29 @@ namespace BBSK_PsychologistsTesting.Steps
             _psychologistsPsychologist.DeletePsychologistById(id, token, expectedDeleteCode);
         }
 
-        public PsychologistResponseModel GetDeletedPsychologistById(int id, string token)
+        public void GetAvaragePricePsychologists(string token, decimal expectedPrice)
         {
             HttpStatusCode expectedCode = HttpStatusCode.OK;
-            HttpContent httpContent = _psychologistsPsychologist.GetPsychologistById(id, token, HttpStatusCode.OK);
+            HttpContent httpContent = _psychologistsPsychologist.GetAvaragePrice(token, HttpStatusCode.OK);
 
-            string content = httpContent.ReadAsStringAsync().Result;
-            PsychologistResponseModel actualPsychologist = JsonSerializer.Deserialize<PsychologistResponseModel>(content);
+            var content = httpContent.ReadAsStringAsync().Result;
+            IFormatProvider formatter = new NumberFormatInfo { NumberDecimalSeparator = "." };
+            var result = Decimal.Parse(content, formatter);
 
-            Assert.AreEqual(1, actualPsychologist.IsDeleted);
+            Assert.AreEqual(expectedPrice, result);
 
-            return actualPsychologist;
         }
+
+        public void RegisterPsychologist_WhenPsychoModelIsWrong_ShouldThrowException(PsychologistRequestModel psychologistModel)
+        {
+            HttpStatusCode expectedRegistrationCode = HttpStatusCode.UnprocessableEntity;
+
+            HttpResponseMessage response = _psychologistsPsychologist.RegisterPsychologist(psychologistModel);
+            HttpStatusCode actualRegistrationCode = response.StatusCode;
+            int? actualId = Convert.ToInt32(response.Content.ReadAsStringAsync().Result);
+
+        }
+
     }
 }
 
