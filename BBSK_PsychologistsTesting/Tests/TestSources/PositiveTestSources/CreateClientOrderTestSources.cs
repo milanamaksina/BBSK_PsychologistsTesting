@@ -12,12 +12,12 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
             {
                 yield return new ClientOrdersRequestModel()
                 {
-                    ClientId = 1,
-                    PsychologistId=1,
+                    ClientId = 243,
+                    PsychologistId=55,
                     Cost=1000,
                     Duration=0,
                     Message="не убил бы и хорошо",
-                    SessionDate= new DateTime(2022, 08, 05),
+                    SessionDate= new DateTime(2022, 08, 31),
                     OrderDate= new DateTime(2022, 08, 05),
                     PayDate= new DateTime(2022, 08, 05),
                     OrderStatus= 0,

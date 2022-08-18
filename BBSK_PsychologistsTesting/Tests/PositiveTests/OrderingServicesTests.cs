@@ -28,14 +28,12 @@ namespace BBSK_PsychologistsTesting.Tests
         int orderId;
         string token;
         int actualId;
-        [OneTimeTearDown]
-        public void OneTimeTearDown()
-        {
-           _dataCleaning.Clean();
-        }
+        string tokenManager;
         [SetUp]
         public void SetUp()
         {
+            _dataCleaning.Clean();
+
             ClientRequestModel clientModel = new ClientRequestModel()
             {
                 Name = "Чудо",
@@ -52,6 +50,13 @@ namespace BBSK_PsychologistsTesting.Tests
                 Password = "123456789",
             };
             token = _clientSteps.AuthtorizeClientSystem(authModel);
+
+            AuthRequestModel authModelbyManager = new AuthRequestModel()
+            {
+                Email = "manager@p.ru",
+                Password = "Manager777",
+            };
+            tokenManager = _clientSteps.AuthtorizeClientSystem(authModel);
         }
         [TearDown]
         public void TearDown()
@@ -64,6 +69,12 @@ namespace BBSK_PsychologistsTesting.Tests
             _orderSteps.CreateClientOrder(token, clientOrdersRequestModel);
             ClientOrderResponseModel expectedOrderClient = _clientMapper.MappClientOrdersRequestModelToClientOrderResponsModel(clientOrdersRequestModel, orderId);
             _orderSteps.GetClientClientById(orderId, token, expectedOrderClient);
+        }
+
+        [Test]
+        public void DeleteOrder_WhenClientRegistrateAthtorize_ShouldThrowCode204()
+        {
+            _orderSteps.d
         }
     }
 }
