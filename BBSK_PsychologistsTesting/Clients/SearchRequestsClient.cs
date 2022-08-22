@@ -27,9 +27,7 @@ namespace BBSK_PsychologistsTesting.SearchRequests
                 Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
             HttpResponseMessage response = client.Send(message);
-
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
 
             return response.Content;

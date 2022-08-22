@@ -20,10 +20,10 @@ namespace BBSK_PsychologistsTesting.Tests
         private PsychologistSteps _psychoSteps = new PsychologistSteps();
         private DataCleaning _dataCleaning = new DataCleaning();
 
-        int psychologistId;
-        int actualId;
-        string token;
-        string psychoToken;
+        private int psychologistId;
+        private int actualId;
+        private string token;
+        private string psychoToken;
 
         [SetUp]
         public void SetUp()

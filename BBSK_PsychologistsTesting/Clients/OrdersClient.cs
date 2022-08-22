@@ -40,12 +40,10 @@ namespace BBSK_PsychologistsTesting.Orders
 
         public HttpContent AddOrder(string token, ClientOrdersRequestModel clientOrdersRequestModel, HttpStatusCode expectedCode)
         {
-
-            HttpClient client = new HttpClient();
-
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
             string json = JsonSerializer.Serialize(clientOrdersRequestModel);
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Post,
@@ -54,9 +52,7 @@ namespace BBSK_PsychologistsTesting.Orders
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return response.Content;
         }
 

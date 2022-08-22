@@ -20,6 +20,15 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
         private SearchRequestsMapper _searchRequestsMapper;
         private SearchRequestsSteps _searchRequestsSteps;
         private ClientMapper _clientMapper;
+        private string tokenClientOne;
+        private string tokenClientTwo;
+        private int actualIdOne;
+        private int actualIdTwo;
+        private string token;
+        List<ClientRequestModel> _clients;
+        List<int> _clientsId;
+        ClientRequestModel clientModelOne;
+        ClientRequestModel clientModelTwo;
         public GetAllClientsTests()
         {
             _dataCleaning = new DataCleaning();
@@ -28,17 +37,6 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
             _searchRequestsSteps = new SearchRequestsSteps();
             _clientMapper = new ClientMapper();
         }
-        string tokenClientOne;
-        string tokenClientTwo;
-        int actualIdOne;
-        int actualIdTwo;
-        string token;
-        int searchRequestsId;
-        int id;
-        List<ClientRequestModel> _clients;
-        List<int> _clientsId;
-        ClientRequestModel clientModelOne;
-        ClientRequestModel clientModelTwo;
         [SetUp]
         public void SetUp()
         {

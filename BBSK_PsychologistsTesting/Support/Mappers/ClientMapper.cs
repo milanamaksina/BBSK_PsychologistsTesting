@@ -10,7 +10,7 @@ namespace BBSK_PsychologistsTesting.Support.Mappers
     {
         public ClientOrderResponseModel MappClientOrdersRequestModelToClientOrderResponsModel(ClientOrdersRequestModel clientOrdersRequestModel, int id)
         {
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<ClientOrderResponseModel, ClientOrdersRequestModel>());
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<ClientOrdersRequestModel, ClientOrderResponseModel>());
             Mapper mapper = new Mapper(config);
             var responseModel = mapper.Map<ClientOrderResponseModel>(clientOrdersRequestModel);
             responseModel.Id = id;

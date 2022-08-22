@@ -17,45 +17,53 @@ namespace BBSK_PsychologistsTesting.Options
                 connection.Open();
 
                 SqlCommand command = new SqlCommand();
+
                 command.CommandText = "delete from dbo.[Order]";
-                command.ExecuteNonQuery();
                 command.Connection = connection;
+                command.ExecuteNonQuery();
 
                 command.CommandText = "delete from dbo.[ApplicationForPsychologistSearch]";
                 command.ExecuteNonQuery();
-
+               
                 command.CommandText = "delete from dbo.[Client]";
                 command.ExecuteNonQuery();
 
-                command.CommandText = "delete from dbo.[Comment]";
-                command.ExecuteNonQuery();
-
-                command.CommandText = "delete from dbo.[Education]";
-                command.ExecuteNonQuery();
-
-                command.CommandText = "delete from dbo.[Manager]";
-                command.ExecuteNonQuery();
 
 
-                command.CommandText = "delete from dbo.[Problem]";
-                command.ExecuteNonQuery();
 
-                command.CommandText = "delete from dbo.[ProblemPsychologist]";
-                command.ExecuteNonQuery();
+                //command.CommandText = "delete from dbo.[ApplicationForPsychologistSearch]";
+                //command.ExecuteNonQuery();
 
-                command.CommandText = "delete from dbo.[Psychologist]";
-                command.ExecuteNonQuery();
+                //command.CommandText = "delete from dbo.[ProblemPsychologist]";
+                //command.ExecuteNonQuery();
 
-                command.CommandText = "delete from dbo.[PsychologistTherapyMethod]";
-                command.ExecuteNonQuery();
 
-                command.CommandText = "delete from dbo.[Shedule]";
-                command.ExecuteNonQuery();
+                //command.CommandText = "delete from dbo.[Comment]";
+                //command.ExecuteNonQuery();
 
-                command.CommandText = "delete from dbo.[TherapyMethod]";
-                command.ExecuteNonQuery();
+                //command.CommandText = "delete from dbo.[Education]";
+                //command.ExecuteNonQuery();
+
+                //command.CommandText = "delete from dbo.[Manager]";
+                //command.ExecuteNonQuery();
+
+                //command.CommandText = "delete from dbo.[Problem]";
+                //command.ExecuteNonQuery();
+
+
+                //command.CommandText = "delete from dbo.[Psychologist]";
+                //command.ExecuteNonQuery();
+
+                //command.CommandText = "delete from dbo.[PsychologistTherapyMethod]";
+                //command.ExecuteNonQuery();
+
+                //command.CommandText = "delete from dbo.[Shedule]";
+                //command.ExecuteNonQuery();
+
+                //command.CommandText = "delete from dbo.[TherapyMethod]";
+                //command.ExecuteNonQuery();
+
                 connection.Close();
-
             }
 
         }        

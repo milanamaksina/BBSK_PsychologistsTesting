@@ -17,6 +17,8 @@ namespace BBSK_PsychologistsTesting.Tests
         private PsychologistSteps _psychoSteps;
         private DataCleaning _dataCleaning;
         private PsychoMapper _psychoMapper;
+        private string psychoToken;
+
         public DeleteAllRoleById()
         {
             _clientSteps = new ClientSteps();
@@ -24,10 +26,10 @@ namespace BBSK_PsychologistsTesting.Tests
             _dataCleaning = new DataCleaning();
             _psychoMapper = new PsychoMapper();
         }       
-        string psychoToken;
         [SetUp]
         public void SetUp()
         {
+            _dataCleaning.Clean();
 
             //PsychologistRequestModel psychologistModel = new PsychologistRequestModel()
             //{
@@ -56,11 +58,7 @@ namespace BBSK_PsychologistsTesting.Tests
             //};
             //psychoToken = _clientSteps.AuthtorizeClientSystem(authPsychoModel);
         }
-        [OneTimeTearDown]
-        public void OneTimeTearDown()
-        {
-            _dataCleaning.Clean();
-        }
+        
         [TearDown]
         public void TearDown()
         {

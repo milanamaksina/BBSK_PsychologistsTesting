@@ -19,7 +19,7 @@ namespace BBSK_PsychologistsTesting.Models.Response
         public int PsychologistId { get; set; }
 
         [JsonPropertyName("cost")]
-        public int Cost { get; set; }
+        public double Cost { get; set; }
 
         [JsonPropertyName("duration")]
         public int Duration { get; set; }

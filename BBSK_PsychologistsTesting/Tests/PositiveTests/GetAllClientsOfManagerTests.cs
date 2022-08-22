@@ -13,14 +13,22 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
 {
     public class GetAllClientsOfManagerTests
     {
-        private DataCleaning _dataCleaning = new DataCleaning();
-        private ClientSteps _clientSteps = new ClientSteps();
-        private ClientMapper _clientMapper = new ClientMapper();
-        string token;
+        private DataCleaning _dataCleaning;
+        private ClientSteps _clientSteps;
+        private ClientMapper _clientMapper;
+        private string token;
+
+        private GetAllClientsOfManagerTests()
+        {
+            _dataCleaning = new DataCleaning();
+            _clientSteps = new ClientSteps();
+            _clientMapper = new ClientMapper();
+        }
         [SetUp]
         public void SetUp()
         {
             _dataCleaning.Clean();
+
             AuthRequestModel authManager = new AuthRequestModel()
             {
                 Email = "manager@p.ru",

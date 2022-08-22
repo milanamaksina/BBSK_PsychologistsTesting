@@ -6,7 +6,6 @@ using BBSK_PsychologistsTesting.Steps;
 using BBSK_PsychologistsTesting.Support.Mappers;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using static BBSK_PsychologistsTesting.Tests.TestSources.UpdatePsychologistTestSources;
 
 namespace BBSK_PsychologistsTesting.Tests
@@ -18,6 +17,9 @@ namespace BBSK_PsychologistsTesting.Tests
         private DataCleaning _dataCleaning; 
         private ClientRequestModel clientModel; 
         private PsychoMapper _psychoMapper; 
+        private int psychologistId;
+        private int actualId;
+        private string token;
 
         public UpdateAllRolesTests()
         {
@@ -28,10 +30,6 @@ namespace BBSK_PsychologistsTesting.Tests
             _psychoMapper = new PsychoMapper();
         }
 
-        int psychologistId;
-        int actualId;
-        string token;
-        string psychoToken;
 
         [SetUp]
         public void SetUp()
@@ -96,7 +94,7 @@ namespace BBSK_PsychologistsTesting.Tests
         }
 
         [Test]
-        public void DataСhanged_WhenClientLogged_ShouldThrowCode422()
+        public void DataСhanged_WhenClientLogged_ShouldThrowCode204()
         {
             ClientUpdateRequestModel clientUpdateModel = new ClientUpdateRequestModel()
             {

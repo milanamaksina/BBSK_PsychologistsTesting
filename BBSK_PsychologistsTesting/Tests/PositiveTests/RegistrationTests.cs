@@ -12,20 +12,17 @@ namespace BBSK_PsychologistsTesting.Tests
 {
     public class RegistrationTests
     {
+        private string token;
+        private int psychologistId;
         private ClientSteps _clientSteps;
         private PsychologistSteps _psychoSteps;
-        private AuthClient _authManager;
         private DataCleaning _dataCleaning;
         public RegistrationTests()
         {
             _clientSteps = new ClientSteps();
             _psychoSteps = new PsychologistSteps();
-            _authManager = new AuthClient();
             _dataCleaning = new DataCleaning();
         }
-        string token;
-        int actualId;
-        int psychologistId;
         [TearDown]
         public void TearDown()
         {
@@ -119,7 +116,7 @@ namespace BBSK_PsychologistsTesting.Tests
                 PhoneNumber = "8888044617",
                 BirthDate = new DateTime(1991, 06, 01)
             };
-            actualId = _clientSteps.RegistrateClient(clientModel);
+            int actualId = _clientSteps.RegistrateClient(clientModel);
             AuthRequestModel authModel = new AuthRequestModel()
             {
                 Email = "vo@ooaaok.ru",
@@ -132,8 +129,8 @@ namespace BBSK_PsychologistsTesting.Tests
         {
             AuthRequestModel authManagerModel = new AuthRequestModel()
             {
-                Email = "king@p.ru",
-                Password = "Manager666",
+                Email = "manager@p.ru",
+                Password = "Manager777",
             };
              token = _clientSteps.AuthtorizeClientSystem(authManagerModel);
         }

@@ -14,22 +14,21 @@ namespace BBSK_PsychologistsTesting.Tests
 {
     public class SearchRequestsCreaterTest
     {
+        private string token;
+        private int searchRequestsId;
         private DataCleaning _dataCleaning;
         private ClientSteps _clientSteps; 
         private SearchRequestsSteps _searchRequestsSteps; 
         private SearchRequestsMapper _searchRequestsMapper; 
-        private ClientMapper _clientMapper;
+
         public SearchRequestsCreaterTest()
         {
             _dataCleaning = new DataCleaning();
             _clientSteps = new ClientSteps();
             _searchRequestsSteps = new SearchRequestsSteps();
             _searchRequestsMapper = new SearchRequestsMapper();
-            _clientMapper = new ClientMapper();
         }
-        string token;
-        int searchRequestsId;
-        int actualId;    
+        
         [SetUp]
         public void SetUp()
         {            
@@ -43,7 +42,7 @@ namespace BBSK_PsychologistsTesting.Tests
                 PhoneNumber = "88121691837",
                 BirthDate = new DateTime(1970, 01, 01)
             };
-            actualId = _clientSteps.RegistrateClient(clientModel);
+            int actualId = _clientSteps.RegistrateClient(clientModel);
             AuthRequestModel authModel = new AuthRequestModel()
             {
                 Email = "vaan@pщ",
