@@ -25,8 +25,10 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
         private int actualIdOne;
         private int actualIdTwo;
         private string token;
-        List<ClientRequestModel> _clients;
+        List<SearchRequestsRequestsModel> _search;
         List<int> _clientsId;
+        private List<int> _searchId;
+        private int searchId;
         ClientRequestModel clientModelOne;
         ClientRequestModel clientModelTwo;
         public GetAllClientsTests()
@@ -63,7 +65,7 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
             };
             actualIdTwo = _clientSteps.RegistrateClient(clientModelTwo);
             _clientsId = new List<int> { actualIdOne, actualIdTwo };
-            _clients = new List<ClientRequestModel> { clientModelOne, clientModelTwo };
+            //_clients = new List<ClientRequestModel> { clientModelOne, clientModelTwo };
             AuthRequestModel authModelOne = new AuthRequestModel()
             {
                 Email = "vaan@pщ",
@@ -89,18 +91,20 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
             _dataCleaning.Clean();
         }
         [TestCaseSource(typeof(SearchRequests_WhenSearchRequestsIsCorrect_TestSource))]
-        public void GetAllClientHaveSeachRequetsOfManager_SearchRequestsIsCorrect_ShouldGetAllClients(SearchRequestsRequestsModel searchRequestsRequestsModel)
+        public void GetAllClientHaveSeachRequetsOfManager_SearchRequestsIsCorrect_ShouldGetAllClients(List<SearchRequestsRequestsModel> searchRequestsRequestsModel)
         {
-            _searchRequestsSteps.CreateClientSearchRequests(tokenClientOne, searchRequestsRequestsModel);
-            _searchRequestsSteps.CreateClientSearchRequests(tokenClientTwo, searchRequestsRequestsModel);
-            List<ClientResponseModel> clientResponseModel = new List<ClientResponseModel>();
-                       
-                for (int i=0; i<_clients.Count; i++)
-                {
-                    var data = DateTime.Now.Date;
-                    clientResponseModel.Add(_clientMapper.MappClientRequestModelToClientResponsModel(data, _clients[i], _clientsId[i]));
-                }          
-            _searchRequestsSteps.GetAllClientModeration(token, clientResponseModel);
+
+            foreach (var clientSearch in searchRequestsRequestsModel)
+            {
+                searchId = _searchRequestsSteps.CreateClientSearchRequests(tokenClientOne, clientSearch);
+                _searchId.Add(searchId);
+            }
+            List<SearchRequestsResponseModel> searchRequestsResponseModel = new List<SearchRequestsResponseModel>();
+            for (int i = 0; i < searchRequestsResponseModel.Count; i++)
+            {
+                searchRequestsResponseModel.Add(_searchRequestsMapper.MappSearchRequestsRequestsModelToSearchRequestsResponseModel(searchRequestsRequestsModel[i], _searchId[i]));
+            }
+           _searchRequestsSteps.GetAllSearchRequestModeration(token, searchRequestsResponseModel);
         }       
     }
 }

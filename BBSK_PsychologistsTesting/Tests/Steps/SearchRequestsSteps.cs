@@ -27,12 +27,12 @@ namespace BBSK_PsychologistsTesting.Tests.Steps
             return (int)actualId;
         }
 
-        public List <ClientResponseModel> GetAllClientModeration (string token, List<ClientResponseModel> expected)
+        public List <SearchRequestsResponseModel> GetAllSearchRequestModeration(string token, List<SearchRequestsResponseModel> expected)
         {
             HttpStatusCode expectedCode = HttpStatusCode.OK;
             HttpContent httpContent = _searchRequestsClient.GetAllSearchRequests(token, expectedCode);
             string content = httpContent.ReadAsStringAsync().Result;
-            List<ClientResponseModel> actual = JsonSerializer.Deserialize<List<ClientResponseModel>>(content);
+            List<SearchRequestsResponseModel> actual = JsonSerializer.Deserialize<List<SearchRequestsResponseModel>>(content);
             CollectionAssert.AreEqual(expected, actual);
             return actual;
         }
