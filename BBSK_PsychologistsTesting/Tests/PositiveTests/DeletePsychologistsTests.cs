@@ -11,7 +11,6 @@ namespace BBSK_PsychologistsTesting.Tests
         private PsychologistsPsychologist _psychologistsPsychologist = new PsychologistsPsychologist();
         private ClientSteps _clientSteps = new ClientSteps();
         private PsychologistSteps _psychoSteps = new PsychologistSteps();
-
         public void PsychologistDelete_WhenPsychologistModelIsCorrect_ShouldDeletePsychologist()
         {
             //Регистрация - баг 2.7 
@@ -35,14 +34,12 @@ namespace BBSK_PsychologistsTesting.Tests
                 Price = 1000
             };
             int psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);
-
             AuthRequestModel authModel = new AuthRequestModel()
             {
                 Email = "valera@mail.ru",
                 Password = "Azino777",
             };
             string token = _clientSteps.AuthtorizeClientSystem(authModel);
-
             _psychoSteps.DeletePsychologistById(psychologistId, token);
 
         }

@@ -25,5 +25,17 @@ namespace BBSK_PsychologistsTesting.Models.Request
 
         [JsonPropertyName("registrationDate")]
         public DateTime RegistrationDate { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is ClientGetIdResponseModel model &&
+                   Id == model.Id &&
+                   Name == model.Name &&
+                   LastName == model.LastName &&
+                   Email == model.Email &&
+                   PhoneNumber == model.PhoneNumber &&
+                   BirthDate.Date == model.BirthDate.Date &&
+                   RegistrationDate.Date == model.RegistrationDate.Date;
+        }
     }
 }

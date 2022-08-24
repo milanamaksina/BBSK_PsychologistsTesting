@@ -15,11 +15,8 @@ namespace BBSK_PsychologistsTesting.SearchRequests
         public HttpContent CreateSearchRequests(string token, SearchRequestsRequestsModel searchRequestsRequestsModel, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(searchRequestsRequestsModel);
-
             HttpClient client = new HttpClient();
-
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Post,
@@ -29,47 +26,36 @@ namespace BBSK_PsychologistsTesting.SearchRequests
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
             Assert.AreEqual(expectedCode, actualCode);
-
             return response.Content;
         }
 
         public HttpContent GetAllSearchRequests(string token,HttpStatusCode expectedCode)
         {    
             HttpClient client = new HttpClient();
-
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Get,
                 RequestUri = new System.Uri($"{Urls.SearchRequests}"),
             };
-
             HttpResponseMessage httpResponsec = client.Send(message);
             HttpStatusCode actualCode = httpResponsec.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return httpResponsec.Content;
         }
 
         public HttpContent GetSearchRequestsById(int id, string token, HttpStatusCode expectedCode)
         {           
             HttpClient client = new HttpClient();
-
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Get,
                 RequestUri = new System.Uri($"{Urls.SearchRequests}/{id}"),               
             };
-
             HttpResponseMessage httpResponsec = client.Send(message);
             HttpStatusCode actualCode = httpResponsec.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return httpResponsec.Content;
         }
 
@@ -96,11 +82,8 @@ namespace BBSK_PsychologistsTesting.SearchRequests
         public HttpContent PutSearchRequestsById(int id, string token,SearchRequestsRequestsModel  searchRequestsRequestsModel, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(searchRequestsRequestsModel);
-
             HttpClient client = new HttpClient();
-
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Put,
@@ -109,9 +92,7 @@ namespace BBSK_PsychologistsTesting.SearchRequests
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return response.Content;
         }
     }

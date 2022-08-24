@@ -12,14 +12,8 @@ namespace BBSK_PsychologistsTesting.Models.Response
         [JsonPropertyName("Id")]
         public int Id { get; set; }
 
-        [JsonPropertyName("clientId")]
-        public int ClientId { get; set; }
-
         [JsonPropertyName("psychologistId")]
         public int PsychologistId { get; set; }
-
-        [JsonPropertyName("cost")]
-        public double Cost { get; set; }
 
         [JsonPropertyName("duration")]
         public int Duration { get; set; }

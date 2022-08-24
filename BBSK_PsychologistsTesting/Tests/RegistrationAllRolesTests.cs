@@ -64,7 +64,7 @@ namespace BBSK_PsychologistsTesting.Tests
                 CheckStatus = psychologistModel.CheckStatus,
                 TherapyMethods = psychologistModel.TherapyMethods,
                 Problems = psychologistModel.Problems,
-                Price = psychologistModel.Price,
+                //Price = psychologistModel.Price,
 
             };
 

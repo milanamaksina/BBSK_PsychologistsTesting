@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -15,7 +12,6 @@ namespace BBSK_PsychologistsTesting.Clients
         public HttpContent AutorializeClient(AuthRequestModel model, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
-
             HttpClient client = new HttpClient();
             HttpRequestMessage message = new HttpRequestMessage()
             {
@@ -25,11 +21,8 @@ namespace BBSK_PsychologistsTesting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return response.Content;
-
         }
 
     }

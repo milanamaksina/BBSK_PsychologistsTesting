@@ -14,10 +14,9 @@ namespace BBSK_PsychologistsTesting.Psychologist
 {
     public class PsychologistsPsychologist
     {
-        public HttpResponseMessage RegisterPsychologist(PsychologistRequestModel model)
+        public HttpContent RegisterPsychologist(PsychologistRequestModel model, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
-
             HttpClient psychologist = new HttpClient();
             HttpRequestMessage message = new HttpRequestMessage()
             {
@@ -25,8 +24,10 @@ namespace BBSK_PsychologistsTesting.Psychologist
                 RequestUri = new System.Uri(Urls.Psychologists),
                 Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
-
-            return psychologist.Send(message);
+            HttpResponseMessage response = psychologist.Send(message);
+            HttpStatusCode actualCode = response.StatusCode;
+            Assert.AreEqual(expectedCode, actualCode);
+            return response.Content;
         }
 
         public HttpContent GetPsychologistById(int id, string token, HttpStatusCode expectedCode)
@@ -34,9 +35,7 @@ namespace BBSK_PsychologistsTesting.Psychologist
             PsychologistRequestModel model = new PsychologistRequestModel();
             string json = JsonSerializer.Serialize(model);
             HttpClient client = new HttpClient();
-
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Get,
@@ -45,16 +44,13 @@ namespace BBSK_PsychologistsTesting.Psychologist
             };
             HttpResponseMessage httpResponse = client.Send(message);
             HttpStatusCode actualCode = httpResponse.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return httpResponse.Content;
         }
 
         public HttpResponseMessage UpdatePsychologistById(PsychologistRequestModel model, int id, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
-
             HttpClient psychologist = new HttpClient();
             psychologist.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage message = new HttpRequestMessage()
@@ -65,9 +61,7 @@ namespace BBSK_PsychologistsTesting.Psychologist
             };
             HttpResponseMessage response = psychologist.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return psychologist.Send(message);
         }
 
@@ -76,7 +70,6 @@ namespace BBSK_PsychologistsTesting.Psychologist
             PsychologistRequestModel model = new PsychologistRequestModel();
             string json = JsonSerializer.Serialize(model);
             HttpClient client = new HttpClient();
-
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage message = new HttpRequestMessage()
             {
@@ -87,7 +80,6 @@ namespace BBSK_PsychologistsTesting.Psychologist
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
             Assert.AreEqual(expectedCode, actualCode);
-
             return response.Content;
         }
 
@@ -100,12 +92,9 @@ namespace BBSK_PsychologistsTesting.Psychologist
                 Method = HttpMethod.Delete,
                 RequestUri = new System.Uri($"{Urls.Psychologists}/{id}"),
             };
-
             HttpResponseMessage httpResponse = psycho.Send(message);
             HttpStatusCode actualCode = httpResponse.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return psycho.Send(message);
         }
 
@@ -115,7 +104,6 @@ namespace BBSK_PsychologistsTesting.Psychologist
             PsychologistPriceRequestModel model = new PsychologistPriceRequestModel();
             string json = JsonSerializer.Serialize(model);
             HttpClient client = new HttpClient();
-
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage message = new HttpRequestMessage()
             {
@@ -126,7 +114,6 @@ namespace BBSK_PsychologistsTesting.Psychologist
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
             Assert.AreEqual(expectedCode, actualCode);
-
             return response.Content;
         }
 

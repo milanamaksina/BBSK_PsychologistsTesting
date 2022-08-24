@@ -17,7 +17,6 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
         private ClientSteps _clientSteps;
         private ClientMapper _clientMapper;
         private string token;
-
         private GetAllClientsOfManagerTests()
         {
             _dataCleaning = new DataCleaning();

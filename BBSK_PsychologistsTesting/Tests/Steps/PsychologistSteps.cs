@@ -21,17 +21,11 @@ namespace BBSK_PsychologistsTesting.Steps
         public int RegisterPsychologist(PsychologistRequestModel psychologistModel)
         {
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
-
-            HttpResponseMessage response = _psychologistsPsychologist.RegisterPsychologist(psychologistModel);
-            HttpStatusCode actualRegistrationCode = response.StatusCode;
-            int? actualId = Convert.ToInt32(response.Content.ReadAsStringAsync().Result);
-
-            Assert.AreEqual(expectedRegistrationCode, actualRegistrationCode);
+            HttpContent content = _psychologistsPsychologist.RegisterPsychologist(psychologistModel, expectedRegistrationCode);
+            int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);
-
             return (int)actualId;
-
         }
         
 
@@ -94,15 +88,15 @@ namespace BBSK_PsychologistsTesting.Steps
 
         }
 
-        public void RegisterPsychologist_WhenPsychoModelIsWrong_ShouldThrowException(PsychologistRequestModel psychologistModel)
-        {
-            HttpStatusCode expectedRegistrationCode = HttpStatusCode.UnprocessableEntity;
+        //public void RegisterPsychologist_WhenPsychoModelIsWrong_ShouldThrowException(PsychologistRequestModel psychologistModel)
+        //{
+        //    HttpStatusCode expectedRegistrationCode = HttpStatusCode.UnprocessableEntity;
 
-            HttpResponseMessage response = _psychologistsPsychologist.RegisterPsychologist(psychologistModel);
-            HttpStatusCode actualRegistrationCode = response.StatusCode;
-            int? actualId = Convert.ToInt32(response.Content.ReadAsStringAsync().Result);
+        //    HttpResponseMessage response = _psychologistsPsychologist.RegisterPsychologist(psychologistModel, expectedRegistrationCode);
+        //    HttpStatusCode actualRegistrationCode = response.StatusCode;
+        //    int? actualId = Convert.ToInt32(response.Content.ReadAsStringAsync().Result);
 
-        }
+        //}
 
     }
 }

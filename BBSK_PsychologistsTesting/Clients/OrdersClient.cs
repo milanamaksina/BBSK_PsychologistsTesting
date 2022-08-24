@@ -11,39 +11,26 @@ namespace BBSK_PsychologistsTesting.Orders
 {
     public class OrdersClient
     {
-        public HttpContent GetAllOrders(int id, string token, HttpStatusCode expectedCode)
+        public HttpContent GetAllOrders(string token, HttpStatusCode expectedCode)
         {
-            // model = new ()
-            //{
-            //    Id = id
-            //};
-            //string json = JsonSerializer.Serialize(model);
-
             HttpClient client = new HttpClient();
-
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
             HttpRequestMessage message = new HttpRequestMessage()
             {
-            Method = HttpMethod.Get,
-            RequestUri = new Uri(Urls.Orders),
-            //Content = new StringContent(json, Encoding.UTF8, "application/json")
+              Method = HttpMethod.Get,
+              RequestUri = new Uri(Urls.Orders),           
             };
           HttpResponseMessage response = client.Send(message);
-
           HttpStatusCode actualCode = response.StatusCode;
-
           Assert.AreEqual(expectedCode, actualCode);
-
-            return response.Content;
+          return response.Content;
         }
 
         public HttpContent AddOrder(string token, ClientOrdersRequestModel clientOrdersRequestModel, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(clientOrdersRequestModel);
             HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);      
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Post,
@@ -61,38 +48,29 @@ namespace BBSK_PsychologistsTesting.Orders
             ClientOrdersRequestModel model = new ClientOrdersRequestModel();
             string json = JsonSerializer.Serialize(model);
             HttpClient client = new HttpClient();
-
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Get,
                 RequestUri = new System.Uri($"{Urls.Orders}/{id}"),
             };
-
             HttpResponseMessage httpResponsec = client.Send(message);
             HttpStatusCode actualCode = httpResponsec.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return httpResponsec.Content;
         }
 
         public void DeleteOrdersById(int id, string token, HttpStatusCode expectedCode)
         {
             HttpClient client = new HttpClient();
-
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Delete,
                 RequestUri = new System.Uri($"{Urls.Orders}/{id}"),
             };
-
             HttpResponseMessage httpResponsec = client.Send(message);
             HttpStatusCode actualCode = httpResponsec.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
         }
 

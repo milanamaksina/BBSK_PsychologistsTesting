@@ -6,6 +6,7 @@ using BBSK_PsychologistsTesting.Steps;
 using BBSK_PsychologistsTesting.Support.Mappers;
 using NUnit.Framework;
 using System;
+using static BBSK_PsychologistsTesting.Tests.TestSources.PositiveTestSources.UpdateClientTestSourses;
 using static BBSK_PsychologistsTesting.Tests.TestSources.UpdatePsychologistTestSources;
 
 namespace BBSK_PsychologistsTesting.Tests
@@ -16,7 +17,8 @@ namespace BBSK_PsychologistsTesting.Tests
         private PsychologistSteps _psychoSteps; 
         private DataCleaning _dataCleaning; 
         private ClientRequestModel clientModel; 
-        private PsychoMapper _psychoMapper; 
+        private PsychoMapper _psychoMapper;
+        private ClientMapper _clientMapper;
         private int psychologistId;
         private int actualId;
         private string token;
@@ -27,10 +29,8 @@ namespace BBSK_PsychologistsTesting.Tests
             _psychoSteps = new PsychologistSteps();
             _dataCleaning = new DataCleaning();
             _psychoMapper = new PsychoMapper();
-            _psychoMapper = new PsychoMapper();
+            _clientMapper = new ClientMapper();
         }
-
-
         [SetUp]
         public void SetUp()
         {
@@ -93,27 +93,13 @@ namespace BBSK_PsychologistsTesting.Tests
             _psychoSteps.GetPsychologistById(psychologistId, token, expectedPsychologist);
         }
 
-        [Test]
-        public void DataСhanged_WhenClientLogged_ShouldThrowCode204()
-        {
-            ClientUpdateRequestModel clientUpdateModel = new ClientUpdateRequestModel()
-            {
-                Name = "Чудо",
-                LastName = "БольшоеЮдооо",
-                BirthDate = new DateTime(1991, 06, 01)
-            };
-            _clientSteps.UpdateClient(actualId, clientUpdateModel, token);
-            ClientGetIdResponseModel expectedClient = new ClientGetIdResponseModel()
-            {
-                Id = actualId,
-                Name = clientUpdateModel.Name,
-                LastName = clientUpdateModel.LastName,
-                PhoneNumber = clientModel.PhoneNumber,
-                Email = clientModel.Email,
-                BirthDate = clientUpdateModel.BirthDate,
-                RegistrationDate = DateTime.Now.Date,
-            };
-            //_clientSteps.GetClientById(actualId, token, expectedClient);
+        [TestCaseSource(typeof(PersonalDataUpdateClients_WhenClientIsCorrect_TestSource))]
+        public void DataСhanged_WhenClientLogged_ShouldThrowCode204(ClientRequestModel ClientRegistrationModel, ClientRequestModel newClientUpdateModel)
+        {         
+            _clientSteps.UpdateClient(actualId, newClientUpdateModel,token);
+            var data=DateTime.Now.Date;
+            ClientResponseModel expectedClientResponseModel=_clientMapper.MappClientRequestModelToClientResponsModel(data,newClientUpdateModel,actualId);
+            _clientSteps.GetClientById(actualId, token, expectedClientResponseModel);
         }
     }
 }

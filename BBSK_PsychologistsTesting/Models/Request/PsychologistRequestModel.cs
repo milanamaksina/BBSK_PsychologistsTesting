@@ -1,57 +1,58 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace BBSK_PsychologistsTesting.Models.Request
 {
     public class PsychologistRequestModel
     {
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
 
-        [JsonProperty("lastName")]
+        [JsonPropertyName("lastName")]
         public string LastName { get; set; }
 
-        [JsonProperty("patronymic")]
+        [JsonPropertyName("patronymic")]
         public string Patronymic { get; set; }
 
-        [JsonProperty("gender")]
+        [JsonPropertyName("gender")]
         public int Gender { get; set; }
 
-        [JsonProperty("birthDate")]
+        [JsonPropertyName("birthDate")]
         public DateTime BirthDate { get; set; }
 
-        [JsonProperty("phone")]
+        [JsonPropertyName("phone")]
         public string Phone { get; set; }
 
-        [JsonProperty("password")]
+        [JsonPropertyName("password")]
         public string Password { get; set; }
 
-        [JsonProperty("email")]
+        [JsonPropertyName("email")]
         public string Email { get; set; }
 
-        [JsonProperty("workExperience")]
+        [JsonPropertyName("workExperience")]
         public int? WorkExperience { get; set; }
 
-        [JsonProperty("pasportData")]
+        [JsonPropertyName("pasportData")]
         public string PasportData { get; set; }
 
-        [JsonProperty("education")]
+        [JsonPropertyName("educations")]
         public List<string> Education { get; set; }
 
-        [JsonProperty("checkStatus")]
+        [JsonPropertyName("checkStatus")]
         public int CheckStatus { get; set; }
 
-        [JsonProperty("therapyMethods")]
+        [JsonPropertyName("therapyMethods")]
         public List<string> TherapyMethods { get; set; }
 
-        [JsonProperty("problems")]
+        [JsonPropertyName("problems")]
         public List<string> Problems { get; set; }
 
-        [JsonProperty("price")]
+        [JsonPropertyName("price")]
         public decimal Price { get; set; }
 
-        [JsonProperty("isDeleted")]
-        public bool IsDeleted { get; set; }
+    //    [JsonProperty("isDeleted")]
+    //    public bool IsDeleted { get; set; }
     }
 }

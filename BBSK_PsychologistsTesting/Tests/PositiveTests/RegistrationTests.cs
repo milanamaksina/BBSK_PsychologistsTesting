@@ -7,6 +7,7 @@ using BBSK_PsychologistsTesting.Models.Response;
 using BBSK_PsychologistsTesting.Steps;
 using BBSK_PsychologistsTesting.Clients;
 using BBSK_PsychologistsTesting.Options;
+using System.ComponentModel.DataAnnotations;
 
 namespace BBSK_PsychologistsTesting.Tests
 {
@@ -23,39 +24,37 @@ namespace BBSK_PsychologistsTesting.Tests
             _psychoSteps = new PsychologistSteps();
             _dataCleaning = new DataCleaning();
         }
-        [TearDown]
-        public void TearDown()
-        {
-            _dataCleaning.Clean();
-        }
+        
         [Test]
         public void PsychologistCreation_WhenPsychologistModelIsCorrect_ShouldCreatePsychologist()
-        {          
+        {
+            _dataCleaning.Clean();
+            
             PsychologistRequestModel psychologistModel = new PsychologistRequestModel()
             {
                 Name = "Валерий",
                 LastName = "Александрович",
                 Patronymic = "Нежный",
                 Gender = 1,
-                BirthDate = new DateTime(2022, 05, 01),
+                BirthDate = new DateTime(1990, 05, 01, 10, 00, 25) ,
                 Phone = "89992314543",
                 Password = "Azino777",
-                Email = "valera@mail.ru",
+                Email = "valerauu@mail.ru",
                 WorkExperience = 5,
                 PasportData = "4015 2453443 ГУ МВД ПО СПБ",
-                Education = new List<string> { "Мгу" },
+                Education = new List<string>(){ "Мгу" },
                 CheckStatus = 1,
-                TherapyMethods = new List<string> { "когнитивная терапия" },
-                Problems = new List<string> { "тревога" },
+                TherapyMethods = new List<string>() { "когнитивная терапия" },
+                Problems = new List<string>() { "тревога" },
                 Price = 1000
             };
             psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);           
             AuthRequestModel authModel = new AuthRequestModel()
             {
-                Email = "valera@mail.ru",
+                Email = "valerauu@mail.ru",
                 Password = "Azino777",
             };
-            token = _clientSteps.AuthtorizeClientSystem(authModel);          
+            token = _clientSteps.AuthtorizeClientSystem(authModel);
             PsychologistResponseModel expectedPsychologist = new PsychologistResponseModel()
             {
                 Id = psychologistId,
@@ -78,7 +77,11 @@ namespace BBSK_PsychologistsTesting.Tests
             };
             _psychoSteps.GetPsychologistById(psychologistId, token, expectedPsychologist);
         }
-
+        [TearDown]
+        public void TearDown()
+        {
+            _dataCleaning.Clean();
+        }
         [Test]
         public void PsychologistCreation_WhenPasswordIsLessThan8Symbols_ShouldThrowCode422()
         {
@@ -91,7 +94,7 @@ namespace BBSK_PsychologistsTesting.Tests
                 BirthDate = new DateTime(2022, 05, 01),
                 Phone = "89992314543",
                 Password = "123",
-                Email = "valera@mail.ru",
+                Email = "valerapp@mail.ru",
                 WorkExperience = 5,
                 PasportData = "4015 2453443 ГУ МВД ПО СПБ",
                 Education = new List<string> { "Мгу" },

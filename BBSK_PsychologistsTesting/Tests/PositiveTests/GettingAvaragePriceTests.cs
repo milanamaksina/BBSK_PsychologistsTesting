@@ -3,13 +3,9 @@ using BBSK_PsychologistsTesting.Models.Response;
 using BBSK_PsychologistsTesting.Options;
 using BBSK_PsychologistsTesting.Psychologist;
 using BBSK_PsychologistsTesting.Steps;
-using BBSK_PsychologistsTesting.Support.Mappers;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static BBSK_PsychologistsTesting.Tests.TestSources.DeletePsychologistByIdTestSources;
 
 namespace BBSK_PsychologistsTesting.Tests
@@ -19,16 +15,11 @@ namespace BBSK_PsychologistsTesting.Tests
         private ClientSteps _clientSteps = new ClientSteps();
         private PsychologistSteps _psychoSteps = new PsychologistSteps();
         private DataCleaning _dataCleaning = new DataCleaning();
-
-        private int psychologistId;
-        private int actualId;
         private string token;
         private string psychoToken;
-
         [SetUp]
         public void SetUp()
         {
-
             PsychologistRequestModel psychologistModel = new PsychologistRequestModel()
             {
                 Name = "Валерий",
@@ -47,15 +38,13 @@ namespace BBSK_PsychologistsTesting.Tests
                 Problems = new List<string> { "тревога" },
                 Price = 1000
             };
-            psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);
-
+            int psychologistId = _psychoSteps.RegisterPsychologist(psychologistModel);
             AuthRequestModel authPsychoModel = new AuthRequestModel()
             {
                 Email = "valeriy@mail.ru",
                 Password = "Azino777",
             };
             psychoToken = _clientSteps.AuthtorizeClientSystem(authPsychoModel);
-
             ClientRequestModel clientModel = new ClientRequestModel()
             {
                 Name = "Ляшка",
@@ -64,18 +53,14 @@ namespace BBSK_PsychologistsTesting.Tests
                 Email = "жела@ooaaoks.ru",
                 PhoneNumber = "8888044617",
                 BirthDate = new DateTime(1991, 06, 01)
-            };// я создал модельку
-
-            actualId = _clientSteps.RegistrateClient(clientModel);
-
+            };
+            int actualId = _clientSteps.RegistrateClient(clientModel);
             AuthRequestModel authModel = new AuthRequestModel()
             {
                 Email = "жела@ooaaoks.ru",
                 Password = "12345678",
-            };// я создал модельку 
-
+            };
             token = _clientSteps.AuthtorizeClientSystem(authModel);
-
         }
         [OneTimeTearDown]
         public void OneTimeTearDown()
@@ -88,7 +73,6 @@ namespace BBSK_PsychologistsTesting.Tests
         {
             _dataCleaning.Clean();
         }
-
         [TestCaseSource(typeof(PsychologistDelete_WhenPsychologistModelIsDeleted_TestSource))]
         public void GetAvaragePriceTest_WhenPriceModelIsCorrect_ShouldReturnPsychologistsAvaragePrice(List<PsychologistResponseModel> expectedPsychologists)
         {
@@ -98,22 +82,16 @@ namespace BBSK_PsychologistsTesting.Tests
                 Password = "Azino777",
             };
             token = _clientSteps.AuthtorizeClientSystem(authClientModel);
-
             decimal avaragePrice = 0;
             int count = 0;
-
             List<PsychologistResponseModel> allPsychologists = _psychoSteps.GetAllPsychologists(token, expectedPsychologists);
-
             foreach (PsychologistResponseModel model in allPsychologists)
             {
                 avaragePrice += model.Price;
                 count++;
             }
-
             decimal total = avaragePrice / count;
-
             _psychoSteps.GetAvaragePricePsychologists(psychoToken, total);
-
         }
     }
 }

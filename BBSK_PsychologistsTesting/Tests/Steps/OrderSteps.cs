@@ -3,6 +3,7 @@ using BBSK_PsychologistsTesting.Models.Response;
 using BBSK_PsychologistsTesting.Orders;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
@@ -37,6 +38,16 @@ namespace BBSK_PsychologistsTesting.Tests.Steps
         {
             HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
             _ordersOrders.DeleteOrdersById(id, token,expectedDeleteCode);
+        }
+
+        public List<ClientOrderGetAllResponseModel> GetAllOrdersModeration(string token, List<ClientOrderGetAllResponseModel> expected)
+        {
+            HttpStatusCode expectedCode = HttpStatusCode.OK;
+            HttpContent httpContent = _ordersOrders.GetAllOrders(token, expectedCode);
+            string content = httpContent.ReadAsStringAsync().Result;
+            List<ClientOrderGetAllResponseModel> actual = JsonSerializer.Deserialize<List<ClientOrderGetAllResponseModel>>(content);
+            CollectionAssert.AreEqual(expected, actual);
+            return actual;
         }
     }
 }

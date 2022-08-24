@@ -14,8 +14,7 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
             {
                 yield return new ClientOrdersRequestModel()
                 {                
-                    PsychologistId=55,
-                    Cost=1000,
+                    PsychologistId=55,                  
                     Duration=1,
                     Message="не убил бы и хорошо",
                     SessionDate= new DateTime(2022, 08, 31),

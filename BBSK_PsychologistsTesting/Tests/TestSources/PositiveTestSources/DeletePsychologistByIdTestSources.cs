@@ -32,7 +32,7 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
                     TherapyMethods = new List<string> { "когнитивная терапия" },
                     Problems = new List<string> { "тревога" },
                     Price = 1000,
-                    IsDeleted = false
+                    //IsDeleted = false
                 };
 
                 yield return new List<PsychologistResponseModel>()
@@ -52,7 +52,7 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
                     TherapyMethods = new List<string> { "когнитивная терапия" },
                     Problems = new List<string> { "тревога" },
                     Price = 1000,
-                    IsDeleted = false
+                    //IsDeleted = false
                     },
 
                     new PsychologistResponseModel() { Name = "Геннадий",
@@ -70,7 +70,7 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
                     TherapyMethods = new List<string> { "когнитивная терапия" },
                     Problems = new List<string> { "тревога" },
                     Price = 1000,
-                    IsDeleted = false
+                    //IsDeleted = false
                     },
 
                     new PsychologistResponseModel() { Name = "Анна",
@@ -88,7 +88,7 @@ namespace BBSK_PsychologistsTesting.Tests.TestSources
                     TherapyMethods = new List<string> { "когнитивная терапия" },
                     Problems = new List<string> { "тревога" },
                     Price = 1000,
-                    IsDeleted = true
+                    //IsDeleted = true
                     }
                 };
             }

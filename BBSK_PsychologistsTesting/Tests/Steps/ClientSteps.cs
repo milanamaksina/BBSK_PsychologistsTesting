@@ -47,17 +47,17 @@ namespace BBSK_PsychologistsTesting.Steps
             return actual;
         }
 
-        public ClientGetIdResponseModel GetClientById(int id, string token, ClientGetIdResponseModel expectedClient)
+        public ClientResponseModel GetClientById(int id, string token, ClientResponseModel expectedClient)
         {
             HttpStatusCode expectedCode = HttpStatusCode.OK;
             HttpContent httpContent = _clientsClient.GetClientById(id, token, expectedCode);
             string content = httpContent.ReadAsStringAsync().Result;
-            ClientGetIdResponseModel actualClient = JsonSerializer.Deserialize<ClientGetIdResponseModel>(content);
+            ClientResponseModel actualClient = JsonSerializer.Deserialize<ClientResponseModel>(content);
             Assert.AreEqual(expectedClient, actualClient);
             return actualClient;
         }
 
-        public void UpdateClient(int id, ClientUpdateRequestModel newClientUpdateModel, string token)
+        public void UpdateClient(int id, ClientRequestModel newClientUpdateModel, string token)
         {            
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
             _clientsClient.UpdateClientById(id, newClientUpdateModel, token, expectedUpdateCode);

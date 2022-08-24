@@ -7,17 +7,14 @@ namespace BBSK_PsychologistsTesting.Models.Request
     {
         
 
-        [JsonPropertyName("clientId")]
-        public int ClientId { get; set; }
-
         [JsonPropertyName("psychologistId")]
         public int PsychologistId { get; set; }
 
-        [JsonPropertyName("cost")]
-        public double Cost { get; set; }
-
         [JsonPropertyName("duration")]
         public int Duration { get; set; }
+
+        [JsonPropertyName("cost")]
+        public double Cost { get; set; }
 
         [JsonPropertyName("message")]
         public string Message { get; set; }
@@ -36,5 +33,6 @@ namespace BBSK_PsychologistsTesting.Models.Request
 
         [JsonPropertyName("orderPaymentStatus")]
         public int OrderPaymentStatus { get; set; }
+
     }
 }
